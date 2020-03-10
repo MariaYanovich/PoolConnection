@@ -94,16 +94,4 @@ public enum ConnectionPool {
         }
     }
 
-
-    public Statement createStatement() {
-        ProxyConnection connection;
-        Statement statement = null;
-        try {
-            connection = freeConnections.take();
-            statement = connection.createStatement();
-        } catch (SQLException | InterruptedException e) {
-            LOGGER.error(e);
-        }
-        return statement;
-    }
 }
