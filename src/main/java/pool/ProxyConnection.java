@@ -1,14 +1,19 @@
 package pool;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
 public class ProxyConnection implements Connection {
+    private static final Logger LOGGER = LogManager.getLogger(ProxyConnection.class.getName());
+
     private Connection connection;
 
-    public ProxyConnection(Connection connection) {
+    ProxyConnection(Connection connection) {
         this.connection = connection;
     }
 
@@ -57,11 +62,11 @@ public class ProxyConnection implements Connection {
         ConnectionPool.INSTANCE.releaseConnection(this);
     }
 
-    public void reallyClose() {
+    void reallyClose() {
         try {
             connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 

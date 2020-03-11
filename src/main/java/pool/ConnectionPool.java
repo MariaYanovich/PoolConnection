@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayDeque;
 import java.util.Objects;
 import java.util.Properties;
@@ -35,9 +34,10 @@ public enum ConnectionPool {
     ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>(DEFAULT_POOL_SIZE);
         usedConnections = new ArrayDeque<>();
+        initConnectionPool();
     }
 
-    public void initConnectionPool() {
+    private void initConnectionPool() {
         if (!isPoolInitiated.get()) {
             Properties properties = new Properties();
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(DATABASE_PROPERTIES_FILENAME);
@@ -62,7 +62,7 @@ public enum ConnectionPool {
         ProxyConnection connection = null;
         try {
             connection = freeConnections.take();
-            usedConnections.offer(connection);
+            usedConnections.add(connection);
         } catch (InterruptedException e) {
             LOGGER.error(e);
             Thread.currentThread().interrupt();
@@ -70,11 +70,10 @@ public enum ConnectionPool {
         return connection;
     }
 
-    public void releaseConnection(ProxyConnection connection) throws SQLException {
+    public void releaseConnection(ProxyConnection connection) {
         if (connection != null) {
-            connection.setAutoCommit(true);
             usedConnections.remove(connection);
-            boolean tmp = freeConnections.offer(connection);
+            boolean tmp = freeConnections.add(connection);
             if (!tmp) {
                 LOGGER.info("Can't add connection");
             }
@@ -92,6 +91,16 @@ public enum ConnectionPool {
                 }
             }
         }
+        deregisterDrivers();
     }
 
+    private void deregisterDrivers() {
+        DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
+            try {
+                DriverManager.deregisterDriver(driver);
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+        });
+    }
 }
