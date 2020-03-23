@@ -21,10 +21,7 @@
         <servlet-name>Controller</servlet-name>
         <url-pattern>/controller</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/resources/*</url-pattern>
-    </servlet-mapping>
+
 </web-app>
         <!--<!DOCTYPE web-app PUBLIC
          "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"

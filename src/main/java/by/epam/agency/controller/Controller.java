@@ -2,7 +2,6 @@ package by.epam.agency.controller;
 
 import by.epam.agency.command.Command;
 import by.epam.agency.enums.JSPParameterType;
-import by.epam.agency.enums.PageType;
 import by.epam.agency.exception.ConnectionPoolException;
 import by.epam.agency.factory.CommandFactory;
 import by.epam.agency.pool.ConnectionPool;
@@ -31,10 +30,6 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Command command = CommandFactory.getInstance().doCommand(request.getParameter(JSPParameterType.COMMAND.getValue()));
         String nextPage = command.execute(request, response);
-        if (nextPage.equals(PageType.HOME_PAGE.getValue())) {
-            response.sendRedirect(request.getContextPath() + "/");
-        } else {
-            request.getRequestDispatcher(nextPage).forward(request, response);
-        }
+        request.getRequestDispatcher(nextPage).forward(request, response);
     }
 }
