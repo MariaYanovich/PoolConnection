@@ -12,6 +12,15 @@
 </head>
 <body>
 <h1> Hello, Admin</h1>
-<a href="/logout">Logout</a>
+
+<form method="post" name="sign_out" action="${pageContext.request.contextPath}/">
+    <input type="hidden" name="to_page"
+           value="HOME_PAGE"/>
+    <input type="hidden" name="from_page"
+           value="${pageType}"/>
+    <button type="submit" class="login_btn" name="command"
+            value="redirect">Sign out
+    </button>
+</form>
 </body>
 </html>

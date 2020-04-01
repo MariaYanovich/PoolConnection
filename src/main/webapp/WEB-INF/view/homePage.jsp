@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,37 +23,46 @@
           href="${pageContext.request.contextPath}/resources/css/mainPage.css">
 </head>
 <body>
-<form action="controller" method="post">
-    <section class="hero">
-        <header>
-            <div class="wrapper">
-                <a href="#" class="hamburger"></a>
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/">Home</a>
-                        </li>
-                        <li><a href="#">Hot tours</a></li>
-                        <li><a href="#">Search</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                    <button type="submit"
-                            class="login_btn"
-                            name="command" value="LOG_IN">Log in
+<section class="hero">
+    <header>
+        <div class="wrapper">
+            <a href="#" class="hamburger"></a>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/">Home</a>
+                    </li>
+                    <li><a href="#">Hot tours</a></li>
+                    <li><a href="#">Search</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                <form method="post" name="sign_in">
+                    <input type="hidden" name="to_page"
+                           value="SIGN_IN_PAGE"/>
+                    <input type="hidden" name="from_page"
+                            value="${pageType}"/>
+                    <button type="submit" class="login_btn" name="command"
+                            value="redirect">Sign in
                     </button>
-                    <button type="submit"
-                            class="login_btn"
-                            name="command" value="SIGN_IN">Sign in
+                </form>
+                <form method="post" name="sign_up">
+                    <input type="hidden" name="to_page"
+                           value="SIGN_UP_PAGE"/>
+                    <input type="hidden" name="from_page"
+                            value="${pageType}"/>
+                    <button type="submit" class="login_btn" name="command"
+                            value="redirect">Sign up
                     </button>
-                </nav>
-            </div>
-        </header><!--  end header section  -->
-        <section class="caption">
-            <h2 class="caption">Find Your Dream Tour</h2>
-        </section>
-    </section><!--  end hero section  -->
-</form>
+                </form>
+            </nav>
+        </div>
+    </header><!--  end header section  -->
+    <section class="caption">
+        <h2 class="caption">Find Your Dream Tour</h2>
+    </section>
+</section>
+<!--  end hero section  -->
 <section class="listings">
     <div class="wrapper">
         <ul class="properties_list">
@@ -64,7 +75,8 @@
                 <span class="price">$2500</span>
                 <div class="property_details">
                     <h1>
-                        <a href="#">Fuisque dictum tortor at purus libero</a>
+                        <a href="#">Fuisque dictum tortor at purus
+                            libero</a>
                     </h1>
                     <h2>2 kitchens, 2 bed, 2 bath... <span
                             class="property_size">(288ftsq)</span></h2>
@@ -79,7 +91,8 @@
                 <span class="price">$1000</span>
                 <div class="property_details">
                     <h1>
-                        <a href="#">Fuisque dictum tortor at purus libero</a>
+                        <a href="#">Fuisque dictum tortor at purus
+                            libero</a>
                     </h1>
                     <h2>2 kitchens, 2 bed, 2 bath... <span
                             class="property_size">(288ftsq)</span></h2>
@@ -94,7 +107,8 @@
                 <span class="price">$500</span>
                 <div class="property_details">
                     <h1>
-                        <a href="#">Fuisque dictum tortor at purus libero</a>
+                        <a href="#">Fuisque dictum tortor at purus
+                            libero</a>
                     </h1>
                     <h2>2 kitchens, 2 bed, 2 bath... <span
                             class="property_size">(288ftsq)</span></h2>
@@ -109,7 +123,8 @@
                 <span class="price">$2500</span>
                 <div class="property_details">
                     <h1>
-                        <a href="#">Fuisque dictum tortor at purus libero</a>
+                        <a href="#">Fuisque dictum tortor at purus
+                            libero</a>
                     </h1>
                     <h2>2 kitchens, 2 bed, 2 bath... <span
                             class="property_size">(288ftsq)</span></h2>
@@ -124,7 +139,8 @@
                 <span class="price">$1000</span>
                 <div class="property_details">
                     <h1>
-                        <a href="#">Fuisque dictum tortor at purus libero</a>
+                        <a href="#">Fuisque dictum tortor at purus
+                            libero</a>
                     </h1>
                     <h2>2 kitchens, 2 bed, 2 bath... <span
                             class="property_size">(288ftsq)</span></h2>
@@ -139,7 +155,8 @@
                 <span class="price">$500</span>
                 <div class="property_details">
                     <h1>
-                        <a href="#">Fuisque dictum tortor at purus libero</a>
+                        <a href="#">Fuisque dictum tortor at purus
+                            libero</a>
                     </h1>
                     <h2>2 kitchens, 2 bed, 2 bath... <span
                             class="property_size">(288ftsq)</span></h2>
@@ -154,7 +171,8 @@
                 <span class="price">$2500</span>
                 <div class="property_details">
                     <h1>
-                        <a href="#">Fuisque dictum tortor at purus libero</a>
+                        <a href="#">Fuisque dictum tortor at purus
+                            libero</a>
                     </h1>
                     <h2>2 kitchens, 2 bed, 2 bath... <span
                             class="property_size">(288ftsq)</span></h2>
@@ -169,7 +187,8 @@
                 <span class="price">$1000</span>
                 <div class="property_details">
                     <h1>
-                        <a href="#">Fuisque dictum tortor at purus libero</a>
+                        <a href="#">Fuisque dictum tortor at purus
+                            libero</a>
                     </h1>
                     <h2>2 kitchens, 2 bed, 2 bath... <span
                             class="property_size">(288ftsq)</span></h2>
@@ -184,7 +203,8 @@
                 <span class="price">$500</span>
                 <div class="property_details">
                     <h1>
-                        <a href="#">Fuisque dictum tortor at purus libero</a>
+                        <a href="#">Fuisque dictum tortor at purus
+                            libero</a>
                     </h1>
                     <h2>2 kitchens, 2 bed, 2 bath... <span
                             class="property_size">(288ftsq)</span></h2>

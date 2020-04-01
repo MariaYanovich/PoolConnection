@@ -1,9 +1,7 @@
 package by.epam.agency.factory;
 
 import by.epam.agency.command.Command;
-import by.epam.agency.command.impl.ErrorCommand;
-import by.epam.agency.command.impl.LogInCommand;
-import by.epam.agency.command.impl.SignInCommand;
+import by.epam.agency.command.impl.*;
 import by.epam.agency.enums.CommandType;
 
 public class CommandFactory {
@@ -17,12 +15,22 @@ public class CommandFactory {
     }
 
     public Command doCommand(String typeParser) {
+        Command command = new HomeCommand();
+        if (typeParser == null || typeParser.isEmpty()) {
+            return command;
+        }
         CommandType type = CommandType.valueOf(typeParser.toUpperCase());
         switch (type) {
-            case LOG_IN:
-                return new LogInCommand();
             case SIGN_IN:
                 return new SignInCommand();
+            case SIGN_UP:
+                return new SignUpCommand();
+            case REDIRECT:
+                return new RedirectCommand();
+            case SIGN_OUT:
+                return new SignOutCommand();
+            case HOME:
+                return new HomeCommand();
             default:
                 return new ErrorCommand();
         }

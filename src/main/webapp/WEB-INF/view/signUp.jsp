@@ -2,15 +2,14 @@
   Created by IntelliJ IDEA.
   User: yanov
   Date: 3/23/2020
-  Time: 12:46 PM
+  Time: 2:49 PM
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Sign In</title>
+    <title>Sign Up</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -33,14 +32,16 @@
 
 <div class="limiter">
     <div class="container-login100"
-         style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg');">
+         style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg')">
         <div class="wrap-login100">
             <form class="login100-form validate-form">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
-                    </span>
+					</span>
 
-                <span class="login100-form-title p-b-34 p-t-27">Sign in</span>
+                <span class="login100-form-title p-b-34 p-t-27">
+						Sign up
+                </span>
 
                 <div class="wrap-input100"
                      data-validate="Enter login">
@@ -58,15 +59,47 @@
                           data-placeholder="&#xf191;"></span>
                 </div>
 
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" type="submit" name="command" value="sign_in">OK</button>
+                <div class="wrap-input100"
+                     data-validate="Enter name">
+                    <input class="input100" type="text" name="name"
+                           required placeholder="Name">
+                    <span class="focus-input100"
+                          data-placeholder="&#xf207;"></span>
                 </div>
 
-                <div class="text-center p-t-30">
+
+                <div class="wrap-input100 "
+                     data-validate="Enter surname">
+                    <input class="input100" type="text" name="surname"
+                           required placeholder="Surname">
+                    <span class="focus-input100"
+                          data-placeholder="&#xf207;"></span>
+                </div>
+
+                <div class="wrap-input100"
+                     data-validate="Enter cash">
+                    <input class="input100" type="text" name="cash"
+                           required placeholder="Cash">
+                    <span class="focus-input100"
+                          data-placeholder="&#xf207;"></span>
+                </div>
+
+                <div class="wrap-input100"
+                     data-validate="Enter phone">
+                    <input class="input100" type="text" name="phone"
+                           placeholder="Phone">
+                    <span class="focus-input100"
+                          data-placeholder="&#xf207;"></span>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit" name="command" value="sign_up">OK</button>
+                </div>
+
+                <div class="text-center p-t-20">
                     <a class="txt1" href="${pageContext.request.contextPath}/">
                         Back to home </a>
                 </div>
-
             </form>
         </div>
     </div>
@@ -76,5 +109,3 @@
 
 </body>
 </html>
-
-

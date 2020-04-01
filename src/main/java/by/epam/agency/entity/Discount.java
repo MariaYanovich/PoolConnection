@@ -1,8 +1,9 @@
 package by.epam.agency.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Discount {
+public class Discount implements Serializable {
 
     private int id;
     private float discountSize;

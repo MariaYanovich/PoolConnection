@@ -1,6 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: yanov
+  Date: 4/1/2020
+  Time: 4:10 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%--
+  Created by IntelliJ IDEA.
+  User: yanov
   Date: 3/23/2020
   Time: 12:46 PM
   To change this template use File | Settings | File Templates.
@@ -10,7 +17,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>LogIn</title>
+    <title>Sign In</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -35,31 +42,33 @@
     <div class="container-login100"
          style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg');">
         <div class="wrap-login100">
+            <p align="center">There is no such user, try to sign in again :)</p>
             <form class="login100-form validate-form">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
                     </span>
 
-                <span class="login100-form-title p-b-34 p-t-27">Log in</span>
-
+                <span class="login100-form-title p-b-34 p-t-27">Sign in</span>
                 <div class="wrap-input100"
-                     data-validate="Enter username">
-                    <input class="input100" type="text" name="username"
-                           required placeholder="Username">
+                     data-validate="Enter login">
+                    <input class="input100" type="text" name="login"
+                           required placeholder="Login">
                     <span class="focus-input100"
                           data-placeholder="&#xf207;"></span>
                 </div>
 
                 <div class="wrap-input100"
                      data-validate="Enter password">
-                    <input class="input100" type="password" name="pass"
+                    <input class="input100" type="password" name="password"
                            required placeholder="Password">
                     <span class="focus-input100"
                           data-placeholder="&#xf191;"></span>
                 </div>
 
                 <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" type="submit">OK</button>
+                    <button class="login100-form-btn" type="submit"
+                            name="command" value="sign_in">OK
+                    </button>
                 </div>
 
                 <div class="text-center p-t-30">
@@ -76,5 +85,6 @@
 
 </body>
 </html>
+
 
 

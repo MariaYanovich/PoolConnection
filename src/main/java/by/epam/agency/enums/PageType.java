@@ -2,18 +2,19 @@ package by.epam.agency.enums;
 
 public enum PageType {
     HOME_PAGE("/WEB-INF/view/homePage.jsp"),
-    LOGIN_PAGE("/WEB-INF/view/logIn.jsp"),
     SIGN_IN_PAGE("/WEB-INF/view/signIn.jsp"),
-    ERROR_PAGE("/view/error.jsp"),
-    RESULT_TABLE_PAGE("/view/table.jsp");
-
+    SIGN_UP_PAGE("/WEB-INF/view/signUp.jsp"),
+    ERROR_PAGE("/WEB-INF/view/error.jsp"),
+    CLIENT_PAGE("/WEB-INF/view/clientMenu.jsp"),
+    ADMIN_PAGE("/WEB-INF/view/adminMenu.jsp"),
+    REPEAT_SIGN_IN_PAGE("/WEB-INF/view/repeatSignIn.jsp");
     private String value;
 
     PageType(String value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public String getAddress() {
         return value;
     }
 }

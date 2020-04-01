@@ -1,24 +1,25 @@
 package by.epam.agency.entity;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
     private int id;
-    private String username;
+    private String login;
     private char[] password;
     private String name;
     private String surname;
     private Discount discount;
     private float cash;
     private String phone;
-    private String role;
+    private Role role;
 
-    public User(int id, String username, char[] password, String name,
+    public User(int id, String login, char[] password, String name,
                 String surname, Discount discount, float cash, String phone,
-                String role) {
+                Role role) {
         this.id = id;
-        this.username = username;
+        this.login = login;
         this.password = password;
         this.name = name;
         this.surname = surname;
@@ -26,6 +27,16 @@ public class User {
         this.cash = cash;
         this.phone = phone;
         this.role = role;
+    }
+
+    public User(String login, char[] password, String name,
+                String surname, float cash, String phone) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.cash = cash;
+        this.phone = phone;
     }
 
     public User() {
@@ -40,12 +51,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public char[] getPassword() {
@@ -96,11 +107,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -108,11 +119,11 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", login='" + login + '\'' +
                 ", password=" + Arrays.toString(password) +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", discount=" + discount +
+                ", discount=" + discount.getId() +
                 ", cash=" + cash +
                 ", phone='" + phone + '\'' +
                 ", role='" + role + '\'' +
@@ -126,7 +137,7 @@ public class User {
         User user = (User) o;
         return getId() == user.getId() &&
                 Float.compare(user.getCash(), getCash()) == 0 &&
-                getUsername().equals(user.getUsername()) &&
+                getLogin().equals(user.getLogin()) &&
                 Arrays.equals(getPassword(), user.getPassword()) &&
                 getName().equals(user.getName()) &&
                 getSurname().equals(user.getSurname()) &&
@@ -137,7 +148,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getId(), getUsername(), getName(), getSurname(), getDiscount(), getCash(), getPhone(), getRole());
+        int result = Objects.hash(getId(), getLogin(), getName(), getSurname(), getDiscount(), getCash(), getPhone(), getRole());
         result = 31 * result + Arrays.hashCode(getPassword());
         return result;
     }

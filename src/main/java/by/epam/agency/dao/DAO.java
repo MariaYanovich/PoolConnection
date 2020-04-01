@@ -1,15 +1,19 @@
 package by.epam.agency.dao;
 
+import by.epam.agency.exception.DAOException;
+
 import java.util.List;
 
 public interface DAO<T> {
-    void insert(T entity);
+    void create(T item) throws DAOException;
 
-    T getById(int id);
+    void delete(T item) throws DAOException;
 
-    void update(T entity);
+    void delete(int id) throws DAOException;
 
-    void delete(T entity);
+    T getById(int id) throws DAOException;
 
-    List<T> getAll();
+    List<T> getAll() throws DAOException;
+
+    void update(T item) throws DAOException;
 }

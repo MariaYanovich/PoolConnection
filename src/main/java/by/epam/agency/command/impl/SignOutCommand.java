@@ -6,9 +6,10 @@ import by.epam.agency.enums.PageType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ErrorCommand implements Command {
+public class SignOutCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return PageType.ERROR_PAGE.getAddress();
+        request.getSession().invalidate();
+        return PageType.HOME_PAGE.getAddress();
     }
 }
