@@ -10,5 +10,4 @@ public interface UserService {
 
     boolean delete() throws ServiceException;
 
-    User getByLoginPassword(String login, String password) throws ServiceException;
 }

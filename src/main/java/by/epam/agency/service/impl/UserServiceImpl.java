@@ -66,10 +66,6 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override
-    public User getByLoginPassword(String login, String password) throws ServiceException {
-        return null;
-    }
 
     private Validator validateSignInParameters(String login, String password) {
         Validator loginValidator = new LoginValidator(login);
