@@ -1,8 +1,8 @@
 package by.epam.agency.factory;
 
 import by.epam.agency.command.Command;
+import by.epam.agency.command.constants.CommandType;
 import by.epam.agency.command.impl.*;
-import by.epam.agency.enums.CommandType;
 
 public class CommandFactory {
 

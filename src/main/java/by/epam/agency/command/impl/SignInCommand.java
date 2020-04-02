@@ -1,10 +1,10 @@
 package by.epam.agency.command.impl;
 
 import by.epam.agency.command.Command;
-import by.epam.agency.constants.JSPParameterType;
+import by.epam.agency.command.constants.JSPParameterType;
+import by.epam.agency.command.constants.PageType;
 import by.epam.agency.entity.User;
 import by.epam.agency.entity.UserRole;
-import by.epam.agency.enums.PageType;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
 import by.epam.agency.service.UserService;

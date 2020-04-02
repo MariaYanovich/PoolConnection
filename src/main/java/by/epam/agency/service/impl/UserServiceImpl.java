@@ -8,7 +8,7 @@ import by.epam.agency.exception.ValidatorException;
 import by.epam.agency.factory.DAOFactory;
 import by.epam.agency.service.UserService;
 import by.epam.agency.validator.Validator;
-import by.epam.agency.validator.type.*;
+import by.epam.agency.validator.user.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,10 +27,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User signIn(String login, String password) throws ServiceException {
-        Validator validator = validateSignInParameters(login, password);
+        Validator validator = createSignInParametersValidator(login, password);
         try {
             validator.validate();
-            User user = userDAO.getUserByLoginAndPassword(login, password);
+            User user = userDAO.findUserByLoginAndPassword(login, password);
             if (user != null) {
                 return user;
             } else {
@@ -45,7 +45,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User signUp(String login, String password, String name, String surname, String cash, String phone) throws ServiceException {
-        Validator validator = validateSignUpParameters(login, password, name, surname, Float.parseFloat(cash), phone);
+        Validator validator = createSignUpParametersValidator
+                (login, password, name, surname, Float.parseFloat(cash), phone);
         try {
             validator.validate();
             if (checkLogin(login)) {
@@ -67,14 +68,14 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    private Validator validateSignInParameters(String login, String password) {
+    private Validator createSignInParametersValidator(String login, String password) {
         Validator loginValidator = new LoginValidator(login);
         Validator passwordValidator = new PasswordValidator(password);
         loginValidator.setNext(passwordValidator);
         return loginValidator;
     }
 
-    private Validator validateSignUpParameters(String login, String password, String name, String surname, float cash, String phone) {
+    private Validator createSignUpParametersValidator(String login, String password, String name, String surname, float cash, String phone) {
         Validator loginValidator = new LoginValidator(login);
         Validator passwordValidator = new PasswordValidator(password);
         Validator nameValidator = new ProperNameValidator(name);
@@ -90,7 +91,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean checkLogin(String userLogin) throws DAOException {
-        String login = userDAO.getLogin(userLogin);
+        String login = userDAO.findLogin(userLogin);
         return login == null;
     }
 

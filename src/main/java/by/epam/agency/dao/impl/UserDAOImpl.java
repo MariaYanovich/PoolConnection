@@ -1,13 +1,12 @@
 package by.epam.agency.dao.impl;
 
 
-import by.epam.agency.constants.SQLStatement;
-import by.epam.agency.dao.UserRoleDAO;
 import by.epam.agency.dao.UserDAO;
+import by.epam.agency.dao.constants.SQLColumn;
+import by.epam.agency.dao.constants.SQLStatement;
 import by.epam.agency.entity.Discount;
 import by.epam.agency.entity.User;
 import by.epam.agency.entity.UserRole;
-import by.epam.agency.enums.SQLColumn;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
 import by.epam.agency.pool.ProxyConnection;
@@ -25,7 +24,7 @@ public class UserDAOImpl implements UserDAO {
     private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class.getName());
 
     private static final int USER_ID_INDEX = 1;
-
+    private static final int USER_ROLE_ID_QUERY_INDEX = 1;
     private static final int USER_LOGIN_INDEX = 1;
     private static final int USER_PASSWORD_INDEX = 2;
 
@@ -45,15 +44,14 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getById(int id) throws DAOException {
-        UserRoleDAO userRoleDAO = UserRoleDAOImpl.getInstance();
+    public User findById(int id) throws DAOException {
         User user = new User();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_BY_ID)) {
             statement.setInt(USER_ID_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    createUserForReturn(user, resultSet, userRoleDAO);
+                    createUserForReturn(user, resultSet);
                 }
             }
         } catch (SQLException e) {
@@ -64,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public String getLogin(String userLogin) throws DAOException {
+    public String findLogin(String userLogin) throws DAOException {
         String login = null;
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.CHECK_LOGIN)) {
@@ -83,8 +81,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserByLoginAndPassword(String login, String password) throws DAOException {
-        UserRoleDAO userRoleDAO = UserRoleDAOImpl.getInstance();
+    public User findUserByLoginAndPassword(String login, String password) throws DAOException {
         User user = new User();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_BY_LOGIN_AND_PASSWORD)) {
@@ -92,7 +89,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(USER_PASSWORD_INDEX, password);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    createUserForReturn(user, resultSet, userRoleDAO);
+                    createUserForReturn(user, resultSet);
                 }
             }
         } catch (SQLException e) {
@@ -132,14 +129,13 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getAll() throws DAOException {
-        UserRoleDAO userRoleDAO = UserRoleDAOImpl.getInstance();
         List<User> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_USERS)) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     User user = new User();
-                    createUserForReturn(user, resultSet, userRoleDAO);
+                    createUserForReturn(user, resultSet);
                     listToReturn.add(user);
                 }
             }
@@ -155,7 +151,7 @@ public class UserDAOImpl implements UserDAO {
         throw new DAOException();
     }
 
-    private void createUserForReturn(User user, ResultSet resultSet, UserRoleDAO userRoleDAO) throws SQLException, DAOException {
+    private void createUserForReturn(User user, ResultSet resultSet) throws SQLException, DAOException {
         user.setId(resultSet.getInt(SQLColumn.USER_ID.toString()));
         user.setLogin(resultSet.getString(SQLColumn.USER_LOGIN.toString()));
         user.setPassword(resultSet.getString(SQLColumn.USER_PASSWORD.toString()).toCharArray());
@@ -166,8 +162,25 @@ public class UserDAOImpl implements UserDAO {
         user.setDiscount(discount);
         user.setCash(resultSet.getFloat(SQLColumn.USER_CASH.toString()));
         user.setPhone(resultSet.getString(SQLColumn.USER_PHONE.toString()));
-        UserRole userRole = userRoleDAO.getById(resultSet.getInt(SQLColumn.USER_ROLE_ID.toString()));
+        UserRole userRole = getUserRoleById(resultSet.getInt(SQLColumn.USER_ROLE_ID.toString()));
         user.setUserRole(userRole);
+    }
+
+    public UserRole getUserRoleById(int id) throws DAOException {
+        UserRole userRole = UserRole.GUEST;
+        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_ROLE_BY_ID)) {
+            statement.setInt(USER_ROLE_ID_QUERY_INDEX, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    userRole = UserRole.valueOf(resultSet.getString(SQLColumn.USER_ROLE.toString()).toUpperCase());
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException();
+        }
+        return userRole;
     }
 
     private static final class UserDAOImplHolder {

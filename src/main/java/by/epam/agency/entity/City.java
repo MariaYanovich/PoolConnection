@@ -1,8 +1,9 @@
 package by.epam.agency.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class City {
+public class City implements Serializable {
     private int cityId;
     private String city;
 

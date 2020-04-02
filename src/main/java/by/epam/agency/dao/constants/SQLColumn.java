@@ -1,4 +1,4 @@
-package by.epam.agency.enums;
+package by.epam.agency.dao.constants;
 
 public enum SQLColumn {
     USER_ID,

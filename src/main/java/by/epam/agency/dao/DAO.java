@@ -11,7 +11,7 @@ public interface DAO<T> {
 
     void delete(int id) throws DAOException;
 
-    T getById(int id) throws DAOException;
+    T findById(int id) throws DAOException;
 
     List<T> getAll() throws DAOException;
 

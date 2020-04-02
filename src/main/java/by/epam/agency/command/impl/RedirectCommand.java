@@ -2,8 +2,8 @@ package by.epam.agency.command.impl;
 
 
 import by.epam.agency.command.Command;
-import by.epam.agency.constants.JSPParameterType;
-import by.epam.agency.enums.PageType;
+import by.epam.agency.command.constants.JSPParameterType;
+import by.epam.agency.command.constants.PageType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

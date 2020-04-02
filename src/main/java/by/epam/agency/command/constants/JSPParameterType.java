@@ -1,4 +1,4 @@
-package by.epam.agency.constants;
+package by.epam.agency.command.constants;
 
 public class JSPParameterType {
 
@@ -18,5 +18,8 @@ public class JSPParameterType {
     public static final String TO_PAGE_REQUEST = "to_page";
     public static final String FROM_PAGE = "page_from";
     public static final String TO_PAGE = "page_to";
+
+    private JSPParameterType() {
+    }
 
 }

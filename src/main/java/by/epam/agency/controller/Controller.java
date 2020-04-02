@@ -1,7 +1,7 @@
 package by.epam.agency.controller;
 
 import by.epam.agency.command.Command;
-import by.epam.agency.constants.JSPParameterType;
+import by.epam.agency.command.constants.JSPParameterType;
 import by.epam.agency.exception.ConnectionPoolException;
 import by.epam.agency.factory.CommandFactory;
 import by.epam.agency.pool.ConnectionPool;

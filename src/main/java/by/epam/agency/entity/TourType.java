@@ -1,8 +1,9 @@
 package by.epam.agency.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class TourType {
+public class TourType implements Serializable {
     private int tourTypeId;
     private String type;
 

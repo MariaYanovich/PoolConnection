@@ -1,4 +1,4 @@
-package by.epam.agency.enums;
+package by.epam.agency.command.constants;
 
 public enum PageType {
     HOME_PAGE("/WEB-INF/view/homePage.jsp"),

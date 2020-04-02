@@ -1,9 +1,10 @@
 package by.epam.agency.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Tour {
+public class Tour implements Serializable {
     private int tourId;
     private String name;
     private float cost;
