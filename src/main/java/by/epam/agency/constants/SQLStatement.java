@@ -19,7 +19,7 @@ public class SQLStatement {
             "FROM travel_agency_db.user\n" +
             "WHERE user_id=?";
 
-    public static final String GET_ROLE_BY_ID = "SELECT user_role_id, user_role" +
+    public static final String GET_USER_ROLE_BY_ID = "SELECT user_role_id, user_role" +
             " FROM travel_agency_db.user_role where user_role_id=?";
 
     public static final String GET_ALL_USERS = "SELECT * FROM travel_agency_db.user";

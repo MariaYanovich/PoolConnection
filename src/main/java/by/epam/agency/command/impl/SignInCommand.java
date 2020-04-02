@@ -3,6 +3,7 @@ package by.epam.agency.command.impl;
 import by.epam.agency.command.Command;
 import by.epam.agency.constants.JSPParameterType;
 import by.epam.agency.entity.User;
+import by.epam.agency.entity.UserRole;
 import by.epam.agency.enums.PageType;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
@@ -26,9 +27,9 @@ public class SignInCommand implements Command {
             if (user != null) {
                 request.setAttribute(JSPParameterType.USER, user);
                 setSessionAttributes(session, user);
-                if (user.getRole().toString().equals("CLIENT")) {
+                if (user.getUserRole().equals(UserRole.CLIENT)) {
                     page = PageType.CLIENT_PAGE.getAddress();
-                } else if (user.getRole().toString().equals("ADMIN")) {
+                } else if (user.getUserRole().equals(UserRole.ADMIN)) {
                     page = PageType.ADMIN_PAGE.getAddress();
                 }
             }
@@ -46,6 +47,6 @@ public class SignInCommand implements Command {
         session.setAttribute(JSPParameterType.DISCOUNT, user.getDiscount());
         session.setAttribute(JSPParameterType.CASH, user.getCash());
         session.setAttribute(JSPParameterType.PHONE, user.getPhone());
-        session.setAttribute(JSPParameterType.ROLE, user.getRole());
+        session.setAttribute(JSPParameterType.ROLE, user.getUserRole());
     }
 }

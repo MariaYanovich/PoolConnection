@@ -1,8 +1,8 @@
 package by.epam.agency.factory;
 
-import by.epam.agency.dao.RoleDAO;
+import by.epam.agency.dao.UserRoleDAO;
 import by.epam.agency.dao.UserDAO;
-import by.epam.agency.dao.impl.RoleDAOImpl;
+import by.epam.agency.dao.impl.UserRoleDAOImpl;
 import by.epam.agency.dao.impl.UserDAOImpl;
 
 public class DAOFactory {
@@ -18,8 +18,8 @@ public class DAOFactory {
         return UserDAOImpl.getInstance();
     }
 
-    public RoleDAO getRoleDAO() {
-        return RoleDAOImpl.getInstance();
+    public UserRoleDAO getRoleDAO() {
+        return UserRoleDAOImpl.getInstance();
     }
 
     private static final class DAOFactoryHolder {

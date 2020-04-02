@@ -20,7 +20,12 @@ public class RedirectCommand implements Command {
         String pageTo = request.getParameter(JSPParameterType.TO_PAGE_REQUEST);
         String pageFrom = request.getParameter(JSPParameterType.FROM_PAGE_REQUEST);
         setAttribute(request, pageTo, pageFrom);
-        PageType page = takePage(pageTo);
+        PageType page;
+        if (pageTo == null || pageTo.isEmpty()) {
+            page = PageType.HOME_PAGE;
+        } else {
+            page = PageType.valueOf(pageTo.toUpperCase());
+        }
         return page.getAddress();
     }
 
@@ -31,9 +36,5 @@ public class RedirectCommand implements Command {
             session.setAttribute(JSPParameterType.FROM_PAGE, PageType.valueOf(pageFrom));
             LOGGER.debug(PageType.valueOf(pageFrom));
         }
-    }
-
-    private PageType takePage(String pageTo) {
-        return (pageTo == null || pageTo.isEmpty()) ? PageType.HOME_PAGE : PageType.valueOf(pageTo.toUpperCase());
     }
 }

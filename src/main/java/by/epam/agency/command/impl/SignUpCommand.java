@@ -19,13 +19,16 @@ public class SignUpCommand implements Command {
         HttpSession session = request.getSession();
         try {
             User user = signUp(request);
-            session.setAttribute(JSPParameterType.ROLE, user.getRole());
+            session.setAttribute(JSPParameterType.ROLE, user.getUserRole());
             session.setAttribute(JSPParameterType.USER, user);
             page = (String) session.getAttribute(JSPParameterType.FROM_PAGE);
         } catch (ServiceException e) {
             page = PageType.SIGN_UP_PAGE.getAddress();
         }
-        return page != null ? page : PageType.CLIENT_PAGE.getAddress();
+        if (page == null || page.isEmpty()) {
+            return PageType.CLIENT_PAGE.getAddress();
+        }
+        return page;
     }
 
     private User signUp(HttpServletRequest request) throws ServiceException {

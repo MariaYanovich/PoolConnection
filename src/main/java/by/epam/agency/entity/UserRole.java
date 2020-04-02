@@ -1,11 +1,11 @@
 package by.epam.agency.entity;
 
-public enum Role {
+public enum UserRole {
 
     ADMIN(2), CLIENT(1), GUEST(0);
     private int id;
 
-    private Role(int id) {
+    UserRole(int id) {
         this.id = id;
     }
 
