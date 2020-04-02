@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
             }
         } catch (ValidatorException | DAOException e) {
             LOGGER.error(e);
-            throw new ServiceException();
+            throw new ServiceException(e);
         }
     }
 
@@ -58,13 +58,13 @@ public class UserServiceImpl implements UserService {
             }
         } catch (ValidatorException | DAOException e) {
             LOGGER.error(e);
-            throw new ServiceException();
+            throw new ServiceException(e);
         }
     }
 
     @Override
     public boolean delete() throws ServiceException {
-        return false;
+        throw new ServiceException(new UnsupportedOperationException());
     }
 
 

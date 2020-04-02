@@ -15,20 +15,6 @@ public class User implements Serializable {
     private String phone;
     private UserRole userRole;
 
-    public User(int id, String login, char[] password, String name,
-                String surname, Discount discount, float cash, String phone,
-                UserRole userRole) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-        this.discount = discount;
-        this.cash = cash;
-        this.phone = phone;
-        this.userRole = userRole;
-    }
-
     public User(String login, char[] password, String name,
                 String surname, float cash, String phone) {
         this.login = login;
@@ -37,6 +23,15 @@ public class User implements Serializable {
         this.surname = surname;
         this.cash = cash;
         this.phone = phone;
+    }
+
+    public User(int id, String login, char[] password, String name,
+                String surname, Discount discount, float cash, String phone,
+                UserRole userRole) {
+        this(login, password, name, surname, cash, phone);
+        this.id = id;
+        this.discount = discount;
+        this.userRole = userRole;
     }
 
     public User() {

@@ -56,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DAOException();
+            throw new DAOException(e);
         }
         return user;
     }
@@ -74,7 +74,7 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DAOException();
+            throw new DAOException(e);
         }
 
         return login;
@@ -94,7 +94,7 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DAOException();
+            throw new DAOException(e);
         }
         return user;
     }
@@ -112,19 +112,19 @@ public class UserDAOImpl implements UserDAO {
             statement.execute();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DAOException();
+            throw new DAOException(e);
         }
     }
 
 
     @Override
     public void delete(User item) throws DAOException {
-        throw new DAOException();
+        throw new DAOException(new UnsupportedOperationException());
     }
 
     @Override
     public void delete(int id) throws DAOException {
-        throw new DAOException();
+        throw new DAOException(new UnsupportedOperationException());
     }
 
     @Override
@@ -141,14 +141,14 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DAOException();
+            throw new DAOException(e);
         }
         return listToReturn;
     }
 
     @Override
     public void update(User item) throws DAOException {
-        throw new DAOException();
+        throw new DAOException(new UnsupportedOperationException());
     }
 
     private void createUserForReturn(User user, ResultSet resultSet) throws SQLException, DAOException {
@@ -178,7 +178,7 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DAOException();
+            throw new DAOException(e);
         }
         return userRole;
     }
