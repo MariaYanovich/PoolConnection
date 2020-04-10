@@ -1,6 +1,6 @@
 package by.epam.agency.command.constants;
 
-public class JSPParameterType {
+public class JspParameterType {
 
     public static final String COMMAND = "command";
     public static final String ERROR = "error";
@@ -16,8 +16,9 @@ public class JSPParameterType {
     public static final String ROLE = "role";
     public static final String ADDRESS = "address";
     public static final String PAGE = "page";
+    public static final String USERS = "users";
 
-    private JSPParameterType() {
+    private JspParameterType() {
     }
 
 }

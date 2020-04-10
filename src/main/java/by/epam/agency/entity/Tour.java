@@ -174,6 +174,6 @@ public class Tour implements Serializable {
                 ", discount=" + discount +
                 ", transport=" + transport +
                 ", description='" + description + '\'' +
-                '}';
+                "}\n";
     }
 }

@@ -62,6 +62,10 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getPasswordStr() {
+        return String.valueOf(password);
+    }
+
     public String getName() {
         return name;
     }
@@ -110,6 +114,7 @@ public class User implements Serializable {
         this.role = role;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -122,7 +127,7 @@ public class User implements Serializable {
                 ", cash=" + cash +
                 ", phone='" + phone + '\'' +
                 ", role='" + role + '\'' +
-                '}';
+                "}\n";
     }
 
     @Override

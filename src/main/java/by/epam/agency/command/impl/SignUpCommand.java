@@ -1,7 +1,7 @@
 package by.epam.agency.command.impl;
 
 import by.epam.agency.command.Command;
-import by.epam.agency.command.constants.JSPParameterType;
+import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
 import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
@@ -17,15 +17,13 @@ public class SignUpCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
         try {
             User user = signUp(request);
-            session.setAttribute(JSPParameterType.ROLE, Role.CLIENT);
-            session.setAttribute(JSPParameterType.USER, user);
-            request.getSession().setAttribute(JSPParameterType.PAGE, PageType.HOME_PAGE.getAddress());
+            session.setAttribute(JspParameterType.ROLE, Role.CLIENT);
+            session.setAttribute(JspParameterType.LOGIN, user.getLogin());
             page = PageType.HOME_PAGE.getAddress();
         } catch (ServiceException e) {
-            request.getSession().setAttribute(JSPParameterType.PAGE, PageType.SIGN_UP_PAGE.getAddress());
             page = PageType.SIGN_UP_PAGE.getAddress();
         }
 
@@ -34,12 +32,12 @@ public class SignUpCommand implements Command {
 
     private User signUp(HttpServletRequest request) throws ServiceException {
         UserService userService = ServiceFactory.getInstance().getUserService();
-        String login = request.getParameter(JSPParameterType.LOGIN);
-        String password = request.getParameter(JSPParameterType.PASSWORD);
-        String name = request.getParameter(JSPParameterType.NAME);
-        String surname = request.getParameter(JSPParameterType.SURNAME);
-        String cash = request.getParameter(JSPParameterType.CASH);
-        String phone = request.getParameter(JSPParameterType.PHONE);
+        String login = request.getParameter(JspParameterType.LOGIN);
+        String password = request.getParameter(JspParameterType.PASSWORD);
+        String name = request.getParameter(JspParameterType.NAME);
+        String surname = request.getParameter(JspParameterType.SURNAME);
+        String cash = request.getParameter(JspParameterType.CASH);
+        String phone = request.getParameter(JspParameterType.PHONE);
         return userService.signUp(login, password, name, surname, cash, phone);
     }
 }

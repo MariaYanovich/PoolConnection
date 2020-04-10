@@ -2,8 +2,8 @@ package by.epam.agency.dao.impl;
 
 
 import by.epam.agency.dao.UserDAO;
-import by.epam.agency.dao.constants.SQLColumn;
 import by.epam.agency.dao.constants.SQLStatement;
+import by.epam.agency.dao.constants.SqlColumn;
 import by.epam.agency.entity.Discount;
 import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
@@ -24,16 +24,15 @@ public class UserDAOImpl implements UserDAO {
     private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class.getName());
 
     private static final int USER_ID_INDEX = 1;
-    private static final int USER_ROLE_ID_QUERY_INDEX = 1;
     private static final int USER_LOGIN_INDEX = 1;
     private static final int USER_PASSWORD_INDEX = 2;
-
     private static final int CREATE_USER_LOGIN_INDEX = 1;
     private static final int CREATE_USER_PASSWORD_INDEX = 2;
     private static final int CREATE_USER_NAME_INDEX = 3;
     private static final int CREATE_USER_SURNAME_INDEX = 4;
     private static final int CREATE_USER_CASH_INDEX = 5;
     private static final int CREATE_USER_PHONE_INDEX = 6;
+
 
     private UserDAOImpl() {
 
@@ -51,7 +50,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setInt(USER_ID_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    createUserForReturn(user, resultSet);
+                    createUserToFindById(user, resultSet);
                 }
             }
         } catch (SQLException e) {
@@ -61,6 +60,7 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
+
     @Override
     public String findLogin(String userLogin) throws DAOException {
         String login = null;
@@ -69,7 +69,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(USER_LOGIN_INDEX, userLogin);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    login = resultSet.getString(SQLColumn.USER_LOGIN.toString());
+                    login = resultSet.getString(SqlColumn.USER_LOGIN.toString());
                 }
             }
         } catch (SQLException e) {
@@ -89,7 +89,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(USER_PASSWORD_INDEX, password);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    createUserForReturn(user, resultSet);
+                    createUserToFindByLoginAndPassword(user, resultSet);
                 }
             }
             if (user.getPassword() == null || user.getLogin() == null) {
@@ -138,7 +138,7 @@ public class UserDAOImpl implements UserDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     User user = new User();
-                    createUserForReturn(user, resultSet);
+                    createUserToFindByLoginAndPassword(user, resultSet);
                     listToReturn.add(user);
                 }
             }
@@ -154,37 +154,67 @@ public class UserDAOImpl implements UserDAO {
         throw new DAOException(new UnsupportedOperationException());
     }
 
-    private void createUserForReturn(User user, ResultSet resultSet) throws SQLException, DAOException {
-        user.setId(resultSet.getInt(SQLColumn.USER_ID.toString()));
-        user.setLogin(resultSet.getString(SQLColumn.USER_LOGIN.toString()));
-        user.setPassword(resultSet.getString(SQLColumn.USER_PASSWORD.toString()).toCharArray());
-        user.setName(resultSet.getString(SQLColumn.USER_NAME.toString()));
-        user.setSurname(resultSet.getString(SQLColumn.USER_SURNAME.toString()));
-        Discount discount = new Discount();
-        discount.setId(resultSet.getInt(SQLColumn.USER_DISCOUNT_ID.toString()));
-        user.setDiscount(discount);
-        user.setCash(resultSet.getFloat(SQLColumn.USER_CASH.toString()));
-        user.setPhone(resultSet.getString(SQLColumn.USER_PHONE.toString()));
-        Role role = getUserRoleById(resultSet.getInt(SQLColumn.USER_ROLE_ID.toString()));
-        user.setRole(role);
+    @Override
+    public User blockUser(int id) {
+        User user = new User();
+        try {
+            user = findById(id);
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.BLOCK_USER)) {
+                statement.setInt(USER_ID_INDEX, id);
+                statement.executeUpdate();
+            }
+
+        } catch (DAOException | SQLException e) {
+            LOGGER.error(e);
+        }
+        return user;
     }
 
-    public Role getUserRoleById(int id) throws DAOException {
-        Role role = Role.GUEST;
-        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_ROLE_BY_ID)) {
-            statement.setInt(USER_ROLE_ID_QUERY_INDEX, id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    role = Role.valueOf(resultSet.getString(SQLColumn.USER_ROLE.toString()).toUpperCase());
-                }
+    @Override
+    public User unblockUser(int id) {
+        User user = new User();
+        try {
+            user = findById(id);
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UNBLOCK_USER)) {
+                statement.setInt(USER_ID_INDEX, id);
+                statement.executeUpdate();
             }
-        } catch (SQLException e) {
+        } catch (DAOException | SQLException e) {
             LOGGER.error(e);
-            throw new DAOException(e);
         }
-        return role;
+        return user;
     }
+
+    private void commonUserCreate(User user, ResultSet resultSet) throws SQLException {
+        user.setId(resultSet.getInt(SqlColumn.USER_ID.toString()));
+        user.setLogin(resultSet.getString(SqlColumn.USER_LOGIN.toString()));
+        user.setPassword(resultSet.getString(SqlColumn.USER_PASSWORD.toString()).toCharArray());
+        user.setName(resultSet.getString(SqlColumn.USER_NAME.toString()));
+        user.setSurname(resultSet.getString(SqlColumn.USER_SURNAME.toString()));
+    }
+
+    private void createUserToFindById(User user, ResultSet resultSet) throws SQLException {
+        commonUserCreate(user, resultSet);
+        Discount discount = new Discount();
+        discount.setId(resultSet.getInt(SqlColumn.USER_DISCOUNT_ID.toString()));
+        user.setDiscount(discount);
+        user.setCash(resultSet.getFloat(SqlColumn.USER_CASH.toString()));
+        user.setPhone(resultSet.getString(SqlColumn.USER_PHONE.toString()));
+        user.setRole(Role.getRoleById(resultSet.getInt(SqlColumn.USER_ROLE_ID.toString())));
+    }
+
+    private void createUserToFindByLoginAndPassword(User user, ResultSet resultSet) throws SQLException {
+        commonUserCreate(user, resultSet);
+        Discount discount = new Discount();
+        discount.setDiscountSize(resultSet.getFloat(SqlColumn.USER_DISCOUNT_SIZE.toString()));
+        user.setDiscount(discount);
+        user.setCash(resultSet.getFloat(SqlColumn.USER_CASH.toString()));
+        user.setPhone(resultSet.getString(SqlColumn.USER_PHONE.toString()));
+        user.setRole(Role.valueOf(resultSet.getString(SqlColumn.USER_ROLE.toString()).toUpperCase()));
+    }
+
 
     private static final class UserDAOImplHolder {
         private static final UserDAOImpl INSTANCE = new UserDAOImpl();

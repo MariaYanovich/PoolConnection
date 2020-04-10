@@ -7,4 +7,8 @@ public interface UserDAO extends DAO<User> {
     String findLogin(String login) throws DAOException;
 
     User findUserByLoginAndPassword(String login, String password) throws DAOException;
+
+    User blockUser(int id);
+
+    User unblockUser(int id);
 }

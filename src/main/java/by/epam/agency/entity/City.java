@@ -40,7 +40,7 @@ public class City implements Serializable {
 
     @Override
     public String toString() {
-        return "City{" +
+        return "{" +
                 "cityId=" + cityId +
                 ", city='" + city + '\'' +
                 '}';

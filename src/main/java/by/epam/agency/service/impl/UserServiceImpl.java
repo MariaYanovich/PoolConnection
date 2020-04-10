@@ -67,6 +67,16 @@ public class UserServiceImpl implements UserService {
         throw new ServiceException(new UnsupportedOperationException());
     }
 
+    @Override
+    public User blockUser(int id) {
+        return userDAO.blockUser(id);
+    }
+
+    @Override
+    public User unblockUser(int id) {
+        return userDAO.unblockUser(id);
+    }
+
 
     private Validator createSignInParametersValidator(String login, String password) {
         Validator loginValidator = new LoginValidator(login);

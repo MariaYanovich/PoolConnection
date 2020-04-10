@@ -10,4 +10,9 @@ public interface UserService {
 
     boolean delete() throws ServiceException;
 
+    User blockUser(int id) throws ServiceException;
+
+    User unblockUser(int id) throws ServiceException;
+
+
 }

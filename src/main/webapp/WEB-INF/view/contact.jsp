@@ -29,128 +29,57 @@
 
 <div class="super_container">
 
-
-    <header>
-        <div class="wrapper">
-            <a href="#" class="hamburger"></a>
-            <nav>
-                <c:if test="${role !='ADMIN'&& role!='CLIENT'}">
-
-                    <form method="post" name="sign_in">
-                        <button type="submit" class="login_btn" name="command"
-                                value="redirect">
-                            Sign in
-                        </button>
-                        <input type="hidden" name="address"
-                               value="SIGN_IN_PAGE"/>
-                    </form>
-
-                    <form method="post" name="sign_up">
-                        <button type="submit" class="login_btn" name="command"
-                                value="redirect">
-                            Sign up
-                        </button>
-                        <input type="hidden" name="address"
-                               value="SIGN_UP_PAGE"/>
-                    </form>
-                </c:if>
-                <c:if test="${role =='ADMIN'|| role=='CLIENT'}">
-
-                    <form name="sign_out" method="post">
-                        <button type="submit" class="login_btn" name="command"
-                                value="sign_out">Sign out
-                        </button>
-                    </form>
-                </c:if>
-
-
-
-                <form method="post" name="contact">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">Contact
-                    </button>
-                    <input type="hidden" name="address" value="CONTACT_PAGE"/>
-                </form>
-
-                <form method="post" name="about">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">About
-                    </button>
-                    <input type="hidden" name="address" value="ABOUT_PAGE"/>
-                </form>
-
-                <form method="post" name="search">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">Search
-                    </button>
-                    <input type="hidden" name="address" value="SEARCH_PAGE"/>
-                </form>
-
-                <form method="post" name="hotTours">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">Hot tours
-                    </button>
-                    <input type="hidden" name="address" value="HOME_PAGE"/>
-                </form>
-
-                <form method="post" name="home">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">Home
-                    </button>
-                    <input type="hidden" name="address" value="HOME_PAGE"/>
-                </form>
-            </nav>
-        </div>
-    </header>
+	<c:import url="/WEB-INF/view/header.jsp" />
 
     <!-- Home -->
 
     <div class="home">
-        <div class="background_image"
-             style="background-image:url(${root}/resources/img/contact.jpg)"></div>
-    </div>
 
+			<!-- Contact -->
 
-    <!-- Contact -->
+			<div class="contact">
+				<div class="container">
+					<div class="row">
 
-    <div class="contact">
-        <div class="container">
-            <div class="row">
-
-                <!-- Get in touch -->
-                <div class="col-lg-6">
-                    <div class="contact_content">
-                        <div class="contact_title">Get in touch with us.</div>
-                        <div class="contact_text">
-                            <p>Pellentesque sit amet elementum ccumsan sit amet
-                                mattis eget, tristique at leo. Vivamus
-                                massa.Tempor massa et laoreet. Pellentesque sit
-                                amet elementum ccumsan sit amet mattis eget,
-                                tristique at leo. Vivamus massa.</p>
-                        </div>
-                        <div class="contact_list">
-                            <ul>
-                                <li>
-                                    <div>address:</div>
-                                    <div>1481 Creekside Lane Avila Beach, CA
-                                        931
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>phone:</div>
-                                    <div>+53 345 7953 32453</div>
-                                </li>
-                                <li>
-                                    <div>email:</div>
-                                    <div>yourmail@gmail.com</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+						<!-- Get in touch -->
+						<div class="col-lg-6">
+							<div class="contact_content">
+								<div class="contact_title">Get in touch with us.</div>
+								<div class="contact_text">
+									<p>Pellentesque sit amet elementum ccumsan sit amet
+										mattis eget, tristique at leo. Vivamus
+										massa.Tempor massa et laoreet. Pellentesque sit
+										amet elementum ccumsan sit amet mattis eget,
+										tristique at leo. Vivamus massa.</p>
+								</div>
+								<div class="contact_list">
+									<ul>
+										<li>
+											<div>address:</div>
+											<div>1481 Creekside Lane Avila Beach, CA
+												931
+											</div>
+										</li>
+										<li>
+											<div>phone:</div>
+											<div>+53 345 7953 32453</div>
+										</li>
+										<li>
+											<div>email:</div>
+											<div>yourmail@gmail.com</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
     </div>
+
+
+
 
 <div class="pre-footer">
     <!-- Footer -->
@@ -223,7 +152,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </div>
 	<footer>
 		<div class="copyrights wrapper">
