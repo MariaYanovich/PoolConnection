@@ -39,8 +39,21 @@ public class Controller extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Command command = CommandFactory.getInstance().doCommand(request.getParameter(JSPParameterType.COMMAND));
+        Command command = CommandFactory.getInstance().getCommand(request.getParameter(JSPParameterType.COMMAND));
         String nextPage = command.execute(request, response);
+        request.getSession().setAttribute(JSPParameterType.PAGE, nextPage);
         request.getRequestDispatcher(nextPage).forward(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
+        try {
+            ConnectionPool.INSTANCE.destroyPool();
+        } catch (InterruptedException e) {
+            LOGGER.error(e);
+        }
+        super.destroy();
+        LOGGER.debug("Servlet is destroied");
     }
 }

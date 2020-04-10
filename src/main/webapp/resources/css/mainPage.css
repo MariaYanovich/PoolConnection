@@ -1,13 +1,8 @@
 /*
-
     Template Author : pixelhint.com
     Author Email    : contact@pixelhint.com
     Template Name   : La Casa
-
-
     *****************************************
-
-
     - Fonts
     - General CSS
     - Header
@@ -16,8 +11,6 @@
     - Listings
     - Footer
     - Responsive CSS
-
-
 */
 
 
@@ -41,6 +34,9 @@ time, mark, audio, video {
     vertical-align: baseline;
     background: transparent;
 }
+
+
+
 
 body {
     line-height: 1;
@@ -265,7 +261,7 @@ header nav ul li {
     margin-left: 50px;
 }
 
-header nav ul li a,
+header nav .just_btn,
 header nav .login_btn {
     text-decoration: none;
     color: #fff;
@@ -293,6 +289,23 @@ header nav .login_btn:hover {
     color: #1c3655;
 }
 
+header nav .just_btn {
+    float: right;
+    margin: 30px 0 0 0;
+    padding: 10px 30px 11px 30px;
+    border: transparent;
+    background: transparent;
+
+    transition: background .1s linear;
+    -webkit-transition: background .1s linear;
+    -moz-transition: background .1s linear;
+    -o-transition: background .1s linear;
+}
+
+header nav .just_btn:hover {
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+    transition: all 0.4s ease 0s;
+}
 
 /*  Hero Section  */
 
@@ -463,7 +476,7 @@ header nav .login_btn:hover {
 
 /*  footer  */
 footer {
-    background: peachpuff;
+    background: lightgrey;
 }
 
 footer .copyrights {
@@ -474,7 +487,7 @@ footer .copyrights {
     font-family: "lato-regular", Helvetica, Arial, sans-serif;
     font-size: 14px;
     letter-spacing: .5px;
-    border-top: 1px solid peachpuff;
+    border-top: 1px solid lightgrey;
 }
 
 footer .copyrights a.ph_link {
@@ -541,6 +554,17 @@ footer .copyrights a.ph_link {
         background: #f2f3f3;
     }
 
+    header nav .just_btn {
+        float: none;
+        display: inline-block;
+        width: 100%;
+        border: 0;
+        margin: 0;
+        padding: 20px 0;
+        text-align: center;
+        background: #f2f3f3;
+    }
+
     header nav ul {
         display: block;
         width: 100%;
@@ -579,6 +603,14 @@ footer .copyrights a.ph_link {
         background: #eaebeb;
     }
 
+    header nav .just_btn {
+        color: #1c3655;
+    }
+
+    header nav .just_btn:hover {
+        background: #eaebeb;
+    }
+
     header nav ul li:last-child {
         border: 0;
     }
@@ -607,9 +639,7 @@ footer .copyrights a.ph_link {
         font-size: 16px;
     }
 
-    .search #search {
-        width: 83%;
-    }
+
 
     .listings ul.properties_list li {
         width: 100%;

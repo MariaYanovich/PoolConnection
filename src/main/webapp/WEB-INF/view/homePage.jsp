@@ -7,20 +7,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Travel agency</title>
     <meta charset="utf-8">
-    <meta name="author" content="pixelhint.com">
-    <meta name="description"
-          content="La casa free real state fully responsive html5/css3 home page website template"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
-
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/css/mainPage.css">
+          href="${root}/resources/css/mainPage.css">
+
 </head>
 <body>
 <section class="hero">
@@ -28,32 +26,70 @@
         <div class="wrapper">
             <a href="#" class="hamburger"></a>
             <nav>
-                <ul>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/">Home</a>
-                    </li>
-                    <li><a href="#">Hot tours</a></li>
-                    <li><a href="#">Search</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-                <form method="post" name="sign_in">
-                    <input type="hidden" name="to_page"
-                           value="SIGN_IN_PAGE"/>
-                    <input type="hidden" name="from_page"
-                            value="${pageType}"/>
-                    <button type="submit" class="login_btn" name="command"
-                            value="redirect">Sign in
+                <c:if test="${role !='ADMIN'&& role!='CLIENT'}">
+
+                    <form method="post" name="sign_in">
+                        <button type="submit" class="login_btn" name="command"
+                                value="redirect">
+                            Sign in
+                        </button>
+                        <input type="hidden" name="address"
+                               value="SIGN_IN_PAGE"/>
+                    </form>
+
+                    <form method="post" name="sign_up">
+                        <button type="submit" class="login_btn" name="command"
+                                value="redirect">
+                            Sign up
+                        </button>
+                        <input type="hidden" name="address"
+                               value="SIGN_UP_PAGE"/>
+                    </form>
+                </c:if>
+                <c:if test="${role =='ADMIN'|| role=='CLIENT'}">
+
+                    <form name="sign_out" method="post">
+                        <button type="submit" class="login_btn" name="command"
+                                value="sign_out">Sign out
+                        </button>
+                    </form>
+                </c:if>
+
+
+
+                <form method="post" name="contact">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">Contact
                     </button>
+                    <input type="hidden" name="address" value="CONTACT_PAGE"/>
                 </form>
-                <form method="post" name="sign_up">
-                    <input type="hidden" name="to_page"
-                           value="SIGN_UP_PAGE"/>
-                    <input type="hidden" name="from_page"
-                            value="${pageType}"/>
-                    <button type="submit" class="login_btn" name="command"
-                            value="redirect">Sign up
+
+                <form method="post" name="about">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">About
                     </button>
+                    <input type="hidden" name="address" value="ABOUT_PAGE"/>
+                </form>
+
+                <form method="post" name="search">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">Search
+                    </button>
+                    <input type="hidden" name="address" value="SEARCH_PAGE"/>
+                </form>
+
+                <form method="post" name="hotTours">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">Hot tours
+                    </button>
+                    <input type="hidden" name="address" value="HOME_PAGE"/>
+                </form>
+
+                <form method="post" name="home">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">Home
+                    </button>
+                    <input type="hidden" name="address" value="HOME_PAGE"/>
                 </form>
             </nav>
         </div>
@@ -61,161 +97,17 @@
     <section class="caption">
         <h2 class="caption">Find Your Dream Tour</h2>
     </section>
+
+    <c:if test="${role =='ADMIN'}">
+        <h2>Hello, admin</h2>
+    </c:if>
+    <c:if test="${role =='CLIENT'}">
+        <h2>Hello, client</h2>
+    </c:if>
+
 </section>
 <!--  end hero section  -->
-<section class="listings">
-    <div class="wrapper">
-        <ul class="properties_list">
-            <li>
-                <a href="#">
-                    <img src="${pageContext.request.contextPath}/resources/img/property_1.jpg"
-                         alt="" title=""
-                         class="property_img"/>
-                </a>
-                <span class="price">$2500</span>
-                <div class="property_details">
-                    <h1>
-                        <a href="#">Fuisque dictum tortor at purus
-                            libero</a>
-                    </h1>
-                    <h2>2 kitchens, 2 bed, 2 bath... <span
-                            class="property_size">(288ftsq)</span></h2>
-                </div>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="${pageContext.request.contextPath}/resources/img/property_2.jpg"
-                         alt="" title=""
-                         class="property_img"/>
-                </a>
-                <span class="price">$1000</span>
-                <div class="property_details">
-                    <h1>
-                        <a href="#">Fuisque dictum tortor at purus
-                            libero</a>
-                    </h1>
-                    <h2>2 kitchens, 2 bed, 2 bath... <span
-                            class="property_size">(288ftsq)</span></h2>
-                </div>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="${pageContext.request.contextPath}/resources/img/property_3.jpg"
-                         alt="" title=""
-                         class="property_img"/>
-                </a>
-                <span class="price">$500</span>
-                <div class="property_details">
-                    <h1>
-                        <a href="#">Fuisque dictum tortor at purus
-                            libero</a>
-                    </h1>
-                    <h2>2 kitchens, 2 bed, 2 bath... <span
-                            class="property_size">(288ftsq)</span></h2>
-                </div>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="${pageContext.request.contextPath}/resources/img/property_1.jpg"
-                         alt="" title=""
-                         class="property_img"/>
-                </a>
-                <span class="price">$2500</span>
-                <div class="property_details">
-                    <h1>
-                        <a href="#">Fuisque dictum tortor at purus
-                            libero</a>
-                    </h1>
-                    <h2>2 kitchens, 2 bed, 2 bath... <span
-                            class="property_size">(288ftsq)</span></h2>
-                </div>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="${pageContext.request.contextPath}/resources/img/property_2.jpg"
-                         alt="" title=""
-                         class="property_img"/>
-                </a>
-                <span class="price">$1000</span>
-                <div class="property_details">
-                    <h1>
-                        <a href="#">Fuisque dictum tortor at purus
-                            libero</a>
-                    </h1>
-                    <h2>2 kitchens, 2 bed, 2 bath... <span
-                            class="property_size">(288ftsq)</span></h2>
-                </div>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="${pageContext.request.contextPath}/resources/img/property_3.jpg"
-                         alt="" title=""
-                         class="property_img"/>
-                </a>
-                <span class="price">$500</span>
-                <div class="property_details">
-                    <h1>
-                        <a href="#">Fuisque dictum tortor at purus
-                            libero</a>
-                    </h1>
-                    <h2>2 kitchens, 2 bed, 2 bath... <span
-                            class="property_size">(288ftsq)</span></h2>
-                </div>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="${pageContext.request.contextPath}/resources/img/property_1.jpg"
-                         alt="" title=""
-                         class="property_img"/>
-                </a>
-                <span class="price">$2500</span>
-                <div class="property_details">
-                    <h1>
-                        <a href="#">Fuisque dictum tortor at purus
-                            libero</a>
-                    </h1>
-                    <h2>2 kitchens, 2 bed, 2 bath... <span
-                            class="property_size">(288ftsq)</span></h2>
-                </div>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="${pageContext.request.contextPath}/resources/img/property_2.jpg"
-                         alt="" title=""
-                         class="property_img"/>
-                </a>
-                <span class="price">$1000</span>
-                <div class="property_details">
-                    <h1>
-                        <a href="#">Fuisque dictum tortor at purus
-                            libero</a>
-                    </h1>
-                    <h2>2 kitchens, 2 bed, 2 bath... <span
-                            class="property_size">(288ftsq)</span></h2>
-                </div>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="${pageContext.request.contextPath}/resources/img/property_3.jpg"
-                         alt="" title=""
-                         class="property_img"/>
-                </a>
-                <span class="price">$500</span>
-                <div class="property_details">
-                    <h1>
-                        <a href="#">Fuisque dictum tortor at purus
-                            libero</a>
-                    </h1>
-                    <h2>2 kitchens, 2 bed, 2 bath... <span
-                            class="property_size">(288ftsq)</span></h2>
-                </div>
-            </li>
-        </ul>
-        <div class="more_listing">
-            <a href="#" class="more_listing_btn">View More Listings</a>
-        </div>
-    </div>
-</section>    <!--  end listing section  -->
+
 
 <footer>
     <div class="copyrights wrapper">

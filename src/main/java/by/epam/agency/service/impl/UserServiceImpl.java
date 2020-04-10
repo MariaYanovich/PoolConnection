@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
                 (login, password, name, surname, Float.parseFloat(cash), phone);
         try {
             validator.validate();
-            if (checkLogin(login)) {
+            if (checkLoginExistence(login)) {
                 User user = new User(login, password.toCharArray(), name, surname, Float.parseFloat(cash), phone);
                 userDAO.create(user);
                 return user;
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
         return loginValidator;
     }
 
-    private boolean checkLogin(String userLogin) throws DAOException {
+    private boolean checkLoginExistence(String userLogin) throws DAOException {
         String login = userDAO.findLogin(userLogin);
         return login == null;
     }

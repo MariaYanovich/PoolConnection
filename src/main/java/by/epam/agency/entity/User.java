@@ -13,7 +13,7 @@ public class User implements Serializable {
     private Discount discount;
     private float cash;
     private String phone;
-    private UserRole userRole;
+    private Role role;
 
     public User(String login, char[] password, String name,
                 String surname, float cash, String phone) {
@@ -27,11 +27,11 @@ public class User implements Serializable {
 
     public User(int id, String login, char[] password, String name,
                 String surname, Discount discount, float cash, String phone,
-                UserRole userRole) {
+                Role role) {
         this(login, password, name, surname, cash, phone);
         this.id = id;
         this.discount = discount;
-        this.userRole = userRole;
+        this.role = role;
     }
 
     public User() {
@@ -102,12 +102,12 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public Role getRole() {
+        return role;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -121,7 +121,7 @@ public class User implements Serializable {
                 ", discount=" + discount.getId() +
                 ", cash=" + cash +
                 ", phone='" + phone + '\'' +
-                ", role='" + userRole + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 
@@ -138,12 +138,12 @@ public class User implements Serializable {
                 getSurname().equals(user.getSurname()) &&
                 Objects.equals(getDiscount(), user.getDiscount()) &&
                 Objects.equals(getPhone(), user.getPhone()) &&
-                getUserRole().equals(user.getUserRole());
+                getRole().equals(user.getRole());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getId(), getLogin(), getName(), getSurname(), getDiscount(), getCash(), getPhone(), getUserRole());
+        int result = Objects.hash(getId(), getLogin(), getName(), getSurname(), getDiscount(), getCash(), getPhone(), getRole());
         result = 31 * result + Arrays.hashCode(getPassword());
         return result;
     }

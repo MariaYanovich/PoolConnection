@@ -5,9 +5,11 @@ public enum PageType {
     SIGN_IN_PAGE("/WEB-INF/view/signIn.jsp"),
     SIGN_UP_PAGE("/WEB-INF/view/signUp.jsp"),
     ERROR_PAGE("/WEB-INF/view/error.jsp"),
-    CLIENT_PAGE("/WEB-INF/view/clientMenu.jsp"),
-    ADMIN_PAGE("/WEB-INF/view/adminMenu.jsp"),
-    REPEAT_SIGN_IN_PAGE("/WEB-INF/view/repeatSignIn.jsp");
+    REPEAT_SIGN_IN_PAGE("/WEB-INF/view/repeatSignIn.jsp"),
+    ABOUT_PAGE("/WEB-INF/view/about.jsp"),
+    SEARCH_PAGE("/WEB-INF/view/search.jsp"),
+    CONTACT_PAGE("/WEB-INF/view/contact.jsp"),
+    EMPTY_PAGE("");
     private String value;
 
     PageType(String value) {

@@ -14,10 +14,8 @@ public class JSPParameterType {
     public static final String CASH = "cash";
     public static final String PHONE = "phone";
     public static final String ROLE = "role";
-    public static final String FROM_PAGE_REQUEST = "from_page";
-    public static final String TO_PAGE_REQUEST = "to_page";
-    public static final String FROM_PAGE = "page_from";
-    public static final String TO_PAGE = "page_to";
+    public static final String ADDRESS = "address";
+    public static final String PAGE = "page";
 
     private JSPParameterType() {
     }

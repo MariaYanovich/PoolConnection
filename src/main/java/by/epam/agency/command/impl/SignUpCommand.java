@@ -3,6 +3,7 @@ package by.epam.agency.command.impl;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JSPParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
@@ -19,15 +20,15 @@ public class SignUpCommand implements Command {
         HttpSession session = request.getSession();
         try {
             User user = signUp(request);
-            session.setAttribute(JSPParameterType.ROLE, user.getUserRole());
+            session.setAttribute(JSPParameterType.ROLE, Role.CLIENT);
             session.setAttribute(JSPParameterType.USER, user);
-            page = (String) session.getAttribute(JSPParameterType.FROM_PAGE);
+            request.getSession().setAttribute(JSPParameterType.PAGE, PageType.HOME_PAGE.getAddress());
+            page = PageType.HOME_PAGE.getAddress();
         } catch (ServiceException e) {
+            request.getSession().setAttribute(JSPParameterType.PAGE, PageType.SIGN_UP_PAGE.getAddress());
             page = PageType.SIGN_UP_PAGE.getAddress();
         }
-        if (page == null || page.isEmpty()) {
-            return PageType.CLIENT_PAGE.getAddress();
-        }
+
         return page;
     }
 

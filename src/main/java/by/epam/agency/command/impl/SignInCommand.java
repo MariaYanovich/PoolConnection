@@ -3,8 +3,8 @@ package by.epam.agency.command.impl;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JSPParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
-import by.epam.agency.entity.UserRole;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
 import by.epam.agency.service.UserService;
@@ -27,14 +27,15 @@ public class SignInCommand implements Command {
             if (user != null) {
                 request.setAttribute(JSPParameterType.USER, user);
                 setSessionAttributes(session, user);
-                if (user.getUserRole().equals(UserRole.CLIENT)) {
-                    page = PageType.CLIENT_PAGE.getAddress();
-                } else if (user.getUserRole().equals(UserRole.ADMIN)) {
-                    page = PageType.ADMIN_PAGE.getAddress();
+                if (user.getRole().equals(Role.CLIENT) ||
+                        user.getRole().equals(Role.ADMIN)) {
+                    request.getSession().setAttribute(JSPParameterType.PAGE, PageType.HOME_PAGE.getAddress());
+                    page = PageType.HOME_PAGE.getAddress();
                 }
             }
         } catch (ServiceException e) {
             session.setAttribute(JSPParameterType.ERROR, "User not found. Create your account, please.");
+            request.getSession().setAttribute(JSPParameterType.PAGE, PageType.REPEAT_SIGN_IN_PAGE.getAddress());
             page = PageType.REPEAT_SIGN_IN_PAGE.getAddress();
         }
         return page;
@@ -47,6 +48,6 @@ public class SignInCommand implements Command {
         session.setAttribute(JSPParameterType.DISCOUNT, user.getDiscount());
         session.setAttribute(JSPParameterType.CASH, user.getCash());
         session.setAttribute(JSPParameterType.PHONE, user.getPhone());
-        session.setAttribute(JSPParameterType.ROLE, user.getUserRole());
+        session.setAttribute(JSPParameterType.ROLE, user.getRole());
     }
 }

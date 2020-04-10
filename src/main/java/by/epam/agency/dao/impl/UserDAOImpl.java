@@ -5,8 +5,8 @@ import by.epam.agency.dao.UserDAO;
 import by.epam.agency.dao.constants.SQLColumn;
 import by.epam.agency.dao.constants.SQLStatement;
 import by.epam.agency.entity.Discount;
+import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
-import by.epam.agency.entity.UserRole;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
 import by.epam.agency.pool.ProxyConnection;
@@ -88,9 +88,12 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(USER_LOGIN_INDEX, login);
             statement.setString(USER_PASSWORD_INDEX, password);
             try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
+                if (resultSet.next()) {
                     createUserForReturn(user, resultSet);
                 }
+            }
+            if (user.getPassword() == null || user.getLogin() == null) {
+                throw new DAOException();
             }
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -162,25 +165,25 @@ public class UserDAOImpl implements UserDAO {
         user.setDiscount(discount);
         user.setCash(resultSet.getFloat(SQLColumn.USER_CASH.toString()));
         user.setPhone(resultSet.getString(SQLColumn.USER_PHONE.toString()));
-        UserRole userRole = getUserRoleById(resultSet.getInt(SQLColumn.USER_ROLE_ID.toString()));
-        user.setUserRole(userRole);
+        Role role = getUserRoleById(resultSet.getInt(SQLColumn.USER_ROLE_ID.toString()));
+        user.setRole(role);
     }
 
-    public UserRole getUserRoleById(int id) throws DAOException {
-        UserRole userRole = UserRole.GUEST;
+    public Role getUserRoleById(int id) throws DAOException {
+        Role role = Role.GUEST;
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_ROLE_BY_ID)) {
             statement.setInt(USER_ROLE_ID_QUERY_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    userRole = UserRole.valueOf(resultSet.getString(SQLColumn.USER_ROLE.toString()).toUpperCase());
+                    role = Role.valueOf(resultSet.getString(SQLColumn.USER_ROLE.toString()).toUpperCase());
                 }
             }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DAOException(e);
         }
-        return userRole;
+        return role;
     }
 
     private static final class UserDAOImplHolder {

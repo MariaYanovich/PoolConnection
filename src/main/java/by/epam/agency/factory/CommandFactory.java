@@ -14,12 +14,11 @@ public class CommandFactory {
         return CommandHolder.COMMAND_HOLDER_INSTANCE;
     }
 
-    public Command doCommand(String typeParser) {
-        Command command = new HomeCommand();
-        if (typeParser == null || typeParser.isEmpty()) {
-            return command;
+    public Command getCommand(String typeCommand) {
+        if (typeCommand == null) {
+            return new HomeCommand();
         }
-        CommandType type = CommandType.valueOf(typeParser.toUpperCase());
+        CommandType type = CommandType.valueOf(typeCommand.toUpperCase());
         switch (type) {
             case SIGN_IN:
                 return new SignInCommand();
