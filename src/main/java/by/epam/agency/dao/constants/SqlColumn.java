@@ -26,11 +26,10 @@ public enum SqlColumn {
     DESCRIPTION,
     CITY,
     CITY_ID,
-    DISCOUNT_ID,
-    DISCOUNT_SIZE,
     TOUR_TYPE,
     TRANSPORT,
-    TRANSPORT_ID;
+    TRANSPORT_ID,
+    TOUR_IS_HOT;
 
     @Override
     public String toString() {

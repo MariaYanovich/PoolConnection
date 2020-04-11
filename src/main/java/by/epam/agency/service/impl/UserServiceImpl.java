@@ -1,6 +1,7 @@
 package by.epam.agency.service.impl;
 
 import by.epam.agency.dao.UserDAO;
+import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.exception.ServiceException;
@@ -35,6 +36,24 @@ public class UserServiceImpl implements UserService {
                 return user;
             } else {
                 LOGGER.error("No such user");
+                throw new ServiceException();
+            }
+        } catch (ValidatorException | DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public User createAdmin(String login, String password, String name, String surname, String phone) throws ServiceException {
+        Validator validator = createSignUpAdminParametersValidator(login, password, name, surname, phone);
+        try {
+            validator.validate();
+            if (checkLoginExistence(login)) {
+                User user = new User(login, password.toCharArray(), name, surname, phone, Role.ADMIN);
+                userDAO.createAdmin(user);
+                return user;
+            } else {
                 throw new ServiceException();
             }
         } catch (ValidatorException | DAOException e) {
@@ -97,6 +116,19 @@ public class UserServiceImpl implements UserService {
         nameValidator.setNext(surnameValidator);
         surnameValidator.setNext(cashValidator);
         cashValidator.setNext(phoneValidator);
+        return loginValidator;
+    }
+
+    private Validator createSignUpAdminParametersValidator(String login, String password, String name, String surname, String phone) {
+        Validator loginValidator = new LoginValidator(login);
+        Validator passwordValidator = new PasswordValidator(password);
+        Validator nameValidator = new ProperNameValidator(name);
+        Validator surnameValidator = new ProperNameValidator(surname);
+        Validator phoneValidator = new PhoneValidator(phone);
+        loginValidator.setNext(passwordValidator);
+        passwordValidator.setNext(nameValidator);
+        nameValidator.setNext(surnameValidator);
+        surnameValidator.setNext(phoneValidator);
         return loginValidator;
     }
 

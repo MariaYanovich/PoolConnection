@@ -12,7 +12,7 @@ public class CashValidator extends Validator {
 
     @Override
     public void validate() throws ValidatorException {
-        if (cash == 0) {
+        if (cash < 0) {
             throw new ValidatorException();
         }
         if (hasNext()) {

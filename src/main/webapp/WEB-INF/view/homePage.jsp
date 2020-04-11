@@ -24,17 +24,19 @@
 <section class="hero">
 
     <c:import url="/WEB-INF/view/header.jsp" />
-
-    <section class="caption">
-        <h2 class="caption">Find Your Dream Tour</h2>
-    </section>
-
     <c:if test="${sessionScope.role =='ADMIN'}">
-        <h2>Hello, admin</h2>
+        <h1 align="center">Hello, ${sessionScope.name}!</h1>
     </c:if>
     <c:if test="${sessionScope.role =='CLIENT'}">
-        <h2>Hello, client</h2>
+        <h2 align="center">Hello, ${sessionScope.name}!</h2>
     </c:if>
+    <section class="caption">
+
+        <h2 class="caption">Find Your Dream Tour</h2>
+
+    </section>
+
+
 
 </section>
 <!--  end hero section  -->

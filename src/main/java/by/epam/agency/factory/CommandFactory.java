@@ -36,6 +36,8 @@ public class CommandFactory {
                 return new UnblockUserCommand();
             case GET_USERS_LIST:
                 return new GetUsersListCommand();
+            case CREATE_ADMIN:
+                return new CreateAdminCommand();
             default:
                 return new ErrorCommand();
         }

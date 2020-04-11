@@ -23,15 +23,18 @@ public class User implements Serializable {
         this.surname = surname;
         this.cash = cash;
         this.phone = phone;
+        this.discount=new Discount();
     }
 
-    public User(int id, String login, char[] password, String name,
-                String surname, Discount discount, float cash, String phone,
-                Role role) {
-        this(login, password, name, surname, cash, phone);
-        this.id = id;
-        this.discount = discount;
+    public User(String login, char[] password, String name,
+                String surname, String phone, Role role) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
         this.role = role;
+        this.discount=new Discount();
     }
 
     public User() {

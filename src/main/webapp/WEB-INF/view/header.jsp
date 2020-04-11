@@ -17,7 +17,8 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
     <link rel="stylesheet" type="text/css"
-          href="${root}/resources/css/mainPage.css"></head>
+          href="${root}/resources/css/mainPage.css">
+</head>
 <header>
     <div class="wrapper">
         <a href="#" class="hamburger"></a>
@@ -69,12 +70,23 @@
                 </form>
             </c:if>
 
-            <form method="post" name="about">
-                <button type="submit" class="just_btn" name="command"
-                        value="redirect">About
-                </button>
-                <input type="hidden" name="address" value="ABOUT_PAGE"/>
-            </form>
+            <c:if test="${sessionScope.role !='ADMIN'}">
+                <form method="post" name="about">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">About
+                    </button>
+                    <input type="hidden" name="address" value="ABOUT_PAGE"/>
+                </form>
+            </c:if>
+
+            <c:if test="${sessionScope.role =='ADMIN'}">
+                <form method="post" name="about">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">Create admin
+                    </button>
+                    <input type="hidden" name="address" value="CREATE_ADMIN_PAGE"/>
+                </form>
+            </c:if>
 
             <form method="post" name="search">
                 <button type="submit" class="just_btn" name="command"

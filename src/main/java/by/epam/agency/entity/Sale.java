@@ -9,18 +9,16 @@ public class Sale implements Serializable {
     private Tour tour;
     private int number;
     private float price;
-    private float priceWithDiscount;
 
     public Sale() {
     }
 
-    public Sale(int saleId, User user, Tour tour, int number, float price, float priceWithDiscount) {
+    public Sale(int saleId, User user, Tour tour, int number, float price) {
         this.saleId = saleId;
         this.user = user;
         this.tour = tour;
         this.number = number;
         this.price = price;
-        this.priceWithDiscount = priceWithDiscount;
     }
 
     public int getSaleId() {
@@ -63,13 +61,6 @@ public class Sale implements Serializable {
         this.price = price;
     }
 
-    public float getPriceWithDiscount() {
-        return priceWithDiscount;
-    }
-
-    public void setPriceWithDiscount(float priceWithDiscount) {
-        this.priceWithDiscount = priceWithDiscount;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -79,14 +70,13 @@ public class Sale implements Serializable {
         return getSaleId() == sale.getSaleId() &&
                 getNumber() == sale.getNumber() &&
                 Float.compare(sale.getPrice(), getPrice()) == 0 &&
-                Float.compare(sale.getPriceWithDiscount(), getPriceWithDiscount()) == 0 &&
                 Objects.equals(getUser(), sale.getUser()) &&
                 Objects.equals(getTour(), sale.getTour());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSaleId(), getUser(), getTour(), getNumber(), getPrice(), getPriceWithDiscount());
+        return Objects.hash(getSaleId(), getUser(), getTour(), getNumber(), getPrice());
     }
 
     @Override
@@ -97,7 +87,6 @@ public class Sale implements Serializable {
                 ", tour=" + tour +
                 ", number=" + number +
                 ", price=" + price +
-                ", priceWithDiscount=" + priceWithDiscount +
                 '}';
     }
 }

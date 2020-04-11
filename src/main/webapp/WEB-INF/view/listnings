@@ -151,3 +151,16 @@
         </div>
     </div>
 </section>    <!--  end listing section  -->
+
+
+
+            <c:if test="${user.role =='BLOCKED'}">
+                            <button class="bot1" type="submit" id="user${user.id}"
+                                    name="command" value="unblock_user">unblock
+                            </button>
+                        </c:if>
+                        <c:if test="${user.role =='CLIENT'}">
+                            <button class="bot1" type="submit" id="user${user.id}"
+                                    name="command" value="block_user">block
+                            </button>
+                        </c:if>

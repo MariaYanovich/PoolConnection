@@ -33,6 +33,12 @@ public class UserDAOImpl implements UserDAO {
     private static final int CREATE_USER_CASH_INDEX = 5;
     private static final int CREATE_USER_PHONE_INDEX = 6;
 
+    private static final int CREATE_ADMIN_LOGIN_INDEX = 1;
+    private static final int CREATE_ADMIN_PASSWORD_INDEX = 2;
+    private static final int CREATE_ADMIN_NAME_INDEX = 3;
+    private static final int CREATE_ADMIN_SURNAME_INDEX = 4;
+    private static final int CREATE_ADMIN_PHONE_INDEX = 5;
+    private static final int CREATE_ADMIN_ROLE_INDEX = 6;
 
     private UserDAOImpl() {
 
@@ -118,6 +124,24 @@ public class UserDAOImpl implements UserDAO {
             throw new DAOException(e);
         }
     }
+
+    @Override
+    public void createAdmin(User user) throws DAOException {
+        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.CREATE_ADMIN)) {
+            statement.setString(CREATE_ADMIN_LOGIN_INDEX, user.getLogin());
+            statement.setString(CREATE_ADMIN_PASSWORD_INDEX, String.valueOf(user.getPassword()));
+            statement.setString(CREATE_ADMIN_NAME_INDEX, user.getName());
+            statement.setString(CREATE_ADMIN_SURNAME_INDEX, user.getSurname());
+            statement.setString(CREATE_ADMIN_PHONE_INDEX, user.getPhone());
+            statement.setInt(CREATE_ADMIN_ROLE_INDEX, user.getRole().getId());
+            statement.execute();
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
+
 
 
     @Override

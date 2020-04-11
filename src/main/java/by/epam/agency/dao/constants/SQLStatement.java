@@ -7,6 +7,11 @@ public class SQLStatement {
     public static final String CREATE_USER = "INSERT INTO `travel_agency_db`.`user`" +
             "(`user_login`,`user_password`,`user_name`,`user_surname`," +
             "`user_cash`,`user_phone`) VALUES (?,?,?,?,?,?)";
+
+    public static final String CREATE_ADMIN = "INSERT INTO `travel_agency_db`.`user`" +
+            "(`user_login`,`user_password`,`user_name`,`user_surname`," +
+            "`user_phone`, `user_role_id`) VALUES (?,?,?,?,?,?)";
+
     public static final String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT user_id, user_login, user_password, user_name, user_surname,\n" +
             "user_discount.user_discount_size, user_cash, user_phone, user_role.user_role\n" +
             "FROM travel_agency_db.user join travel_agency_db.user_discount \n" +
@@ -33,14 +38,14 @@ public class SQLStatement {
     public static final String GET_ALL_TOURS = "SELECT tour.tour_id, tour.tour_name, " +
             "    tour.tour_cost, tour.tour_departure_date,tour.tour_days,\n" +
             "    tour.tour_places,tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
-            "    tour_discount.discount_size,transport.transport, tour.description\n" +
+            "    tour.tour_is_hot,transport.transport, tour.description\n" +
             "FROM travel_agency_db.tour\n" +
             "JOIN travel_agency_db.tour_type \n" +
             "ON travel_agency_db.tour.tour_type_id = tour_type.tour_type_id\n" +
-            "JOIN travel_agency_db.tour_discount \n" +
-            "ON travel_agency_db.tour.tour_discount_id = tour_discount.discount_id\n" +
             "JOIN travel_agency_db.transport \n" +
-            "ON travel_agency_db.tour.tour_transport_id = transport.transport_id";
+            "ON travel_agency_db.tour.tour_transport_id = transport.transport_id "
+            +"ORDER by tour.tour_id";
+
     public static final String GET_CITY_BY_ID = "SELECT city_id, city FROM travel_agency_db.city where city_id=?";
 
     public static final String BLOCK_USER = "UPDATE `travel_agency_db`.`user` SET `user_role_id` = '3' WHERE (`user_id` = ?)";

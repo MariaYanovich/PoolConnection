@@ -14,7 +14,7 @@ public class Tour implements Serializable {
     private TourType tourType;
     private City city;
     private City departureCity;
-    private Discount discount;
+    private boolean isHot;
     private Transport transport;
     private String description;
 
@@ -23,7 +23,7 @@ public class Tour implements Serializable {
 
     public Tour(int tourId, String name, float cost, Date departureDate,
                 int days, int places, TourType tourType, City city,
-                City departureCity, Discount discount, Transport transport,
+                City departureCity, boolean isHot, Transport transport,
                 String description) {
         this.tourId = tourId;
         this.name = name;
@@ -34,7 +34,7 @@ public class Tour implements Serializable {
         this.tourType = tourType;
         this.city = city;
         this.departureCity = departureCity;
-        this.discount = discount;
+        this.isHot = isHot;
         this.transport = transport;
         this.description = description;
     }
@@ -111,12 +111,13 @@ public class Tour implements Serializable {
         this.departureCity = departureCity;
     }
 
-    public Discount getDiscount() {
-        return discount;
+
+    public boolean isHot() {
+        return isHot;
     }
 
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
+    public void setHot(boolean hot) {
+        isHot = hot;
     }
 
     public Transport getTransport() {
@@ -135,6 +136,7 @@ public class Tour implements Serializable {
         this.description = description;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -144,19 +146,19 @@ public class Tour implements Serializable {
                 Float.compare(tour.getCost(), getCost()) == 0 &&
                 getDays() == tour.getDays() &&
                 getPlaces() == tour.getPlaces() &&
+                isHot() == tour.isHot() &&
                 Objects.equals(getName(), tour.getName()) &&
                 Objects.equals(getDepartureDate(), tour.getDepartureDate()) &&
                 Objects.equals(getTourType(), tour.getTourType()) &&
                 Objects.equals(getCity(), tour.getCity()) &&
                 Objects.equals(getDepartureCity(), tour.getDepartureCity()) &&
-                Objects.equals(getDiscount(), tour.getDiscount()) &&
                 Objects.equals(getTransport(), tour.getTransport()) &&
                 Objects.equals(getDescription(), tour.getDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTourId(), getName(), getCost(), getDepartureDate(), getDays(), getPlaces(), getTourType(), getCity(), getDepartureCity(), getDiscount(), getTransport(), getDescription());
+        return Objects.hash(getTourId(), getName(), getCost(), getDepartureDate(), getDays(), getPlaces(), getTourType(), getCity(), getDepartureCity(), isHot(), getTransport(), getDescription());
     }
 
     @Override
@@ -171,7 +173,7 @@ public class Tour implements Serializable {
                 ", tourType=" + tourType +
                 ", city=" + city +
                 ", departureCity=" + departureCity +
-                ", discount=" + discount +
+                ", isHot=" + isHot +
                 ", transport=" + transport +
                 ", description='" + description + '\'' +
                 "}\n";

@@ -86,9 +86,7 @@ public class TourDAOImpl implements TourDAO {
         tour.setTourType(tourType);
         tour.setCity(getCityById(resultSet.getInt(SqlColumn.TOUR_CITY_ID.toString())));
         tour.setDepartureCity(getCityById(resultSet.getInt(SqlColumn.TOUR_DEPARTURE_CITY_ID.toString())));
-        Discount discount = new Discount();
-        discount.setDiscountSize(resultSet.getFloat(SqlColumn.DISCOUNT_SIZE.toString()));
-        tour.setDiscount(discount);
+        tour.setHot(resultSet.getBoolean(SqlColumn.TOUR_IS_HOT.toString()));
         Transport transport = new Transport();
         transport.setType(resultSet.getString(SqlColumn.TRANSPORT.toString()));
         tour.setTransport(transport);
