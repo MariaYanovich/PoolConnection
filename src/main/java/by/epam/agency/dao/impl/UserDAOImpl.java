@@ -40,6 +40,17 @@ public class UserDAOImpl implements UserDAO {
     private static final int CREATE_ADMIN_PHONE_INDEX = 5;
     private static final int CREATE_ADMIN_ROLE_INDEX = 6;
 
+    private static final int UPDATE_ADMIN_NAME_INDEX = 1;
+    private static final int UPDATE_ADMIN_SURNAME_INDEX = 2;
+    private static final int UPDATE_ADMIN_PHONE_INDEX = 3;
+    private static final int UPDATE_ADMIN_ID_INDEX = 4;
+
+    private static final int UPDATE_CLIENT_NAME_INDEX = 1;
+    private static final int UPDATE_CLIENT_SURNAME_INDEX = 2;
+    private static final int UPDATE_CLIENT_PHONE_INDEX = 3;
+    private static final int UPDATE_CLIENT_CASH_INDEX = 4;
+    private static final int UPDATE_CLIENT_ID_INDEX = 5;
+
     private UserDAOImpl() {
 
     }
@@ -142,7 +153,6 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-
     @Override
     public void delete(User item) throws DAOException {
         throw new DAOException(new UnsupportedOperationException());
@@ -181,18 +191,43 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void update(User item) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+    public void update(User user) throws DAOException {
+        try {
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_CLIENT_INFO)) {
+                statement.setString(UPDATE_CLIENT_NAME_INDEX, user.getName());
+                statement.setString(UPDATE_CLIENT_SURNAME_INDEX, user.getSurname());
+                statement.setString(UPDATE_CLIENT_PHONE_INDEX, user.getPhone());
+                statement.setFloat(UPDATE_CLIENT_CASH_INDEX, user.getCash());
+                statement.setInt(UPDATE_CLIENT_ID_INDEX, user.getId());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
     }
 
     @Override
-    public void updateAdmin(User item) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+    public void updateAdmin(User user) throws DAOException {
+        try {
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_ADMIN_INFO)) {
+                statement.setString(UPDATE_ADMIN_NAME_INDEX, user.getName());
+                statement.setString(UPDATE_ADMIN_SURNAME_INDEX, user.getSurname());
+                statement.setString(UPDATE_ADMIN_PHONE_INDEX, user.getPhone());
+                statement.setInt(UPDATE_ADMIN_ID_INDEX, user.getId());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
     }
 
 
     @Override
-    public void blockClient(int id) {
+    public void blockClient(int id) throws DAOException {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.BLOCK_USER)) {
@@ -201,11 +236,12 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
+            throw new DAOException(e);
         }
     }
 
     @Override
-    public void unblockClient(int id) {
+    public void unblockClient(int id) throws DAOException {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.UNBLOCK_USER)) {
@@ -214,6 +250,7 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
+            throw new DAOException(e);
         }
     }
 

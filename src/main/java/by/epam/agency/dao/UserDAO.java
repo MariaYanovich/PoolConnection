@@ -11,11 +11,11 @@ public interface UserDAO extends DAO<User> {
 
     void createAdmin(User user) throws DAOException;
 
-    void updateAdmin(User item) throws DAOException;
+    void updateAdmin(User user) throws DAOException;
 
-    void blockClient(int id);
+    void blockClient(int id) throws DAOException;
 
-    void unblockClient(int id);
+    void unblockClient(int id) throws DAOException;
 
 
 }

@@ -64,13 +64,11 @@
                 <tr>
                     <td>UPDATE INFO</td>
                     <td>
-                        <form method="post">
-                            <button class="bot1" type="submit" name="command"
-                                    value="UPDATE_ADMIN">
-                                <input type="hidden" name="id"
-                                       value="${sessionScope.id}"/>
-                                Update
+                        <form method="post" name="about">
+                            <button type="submit" class="bot1" name="command"
+                                    value="redirect">Update
                             </button>
+                            <input type="hidden" name="address" value="UPDATE_USER_PAGE"/>
                         </form>
                     </td>
                 </tr>
@@ -120,13 +118,11 @@
                 <tr>
                     <td>UPDATE INFO</td>
                     <td>
-                        <form method="post">
-                            <button class="bot1" type="submit" name="command"
-                                    value="UPDATE_CLIENT">
-                                <input type="hidden" name="id"
-                                       value="${sessionScope.id}"/>
-                                Update
+                        <form method="post" name="about">
+                            <button type="submit" class="bot1" name="command"
+                                    value="redirect">Update
                             </button>
+                            <input type="hidden" name="address" value="UPDATE_USER_PAGE"/>
                         </form>
                     </td>
                 </tr>

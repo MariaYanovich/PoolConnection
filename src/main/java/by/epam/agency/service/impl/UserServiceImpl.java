@@ -93,13 +93,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void blockClient(int id) {
-        userDAO.blockClient(id);
+    public void blockClient(int id) throws ServiceException {
+        try {
+            userDAO.blockClient(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
     }
 
     @Override
-    public void unblockClient(int id) {
-        userDAO.unblockClient(id);
+    public void unblockClient(int id) throws ServiceException {
+        try {
+            userDAO.unblockClient(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
     }
 
 
@@ -108,6 +118,32 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.getAll();
         } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateAdmin(User user) throws ServiceException {
+        Validator validator = createUpdateAdminParametersValidator(user.getName(),
+                user.getSurname(), user.getPhone());
+        try {
+            validator.validate();
+            userDAO.updateAdmin(user);
+        } catch (DAOException | ValidatorException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateClient(User user) throws ServiceException {
+        Validator validator = createUpdateParametersValidator(user.getName(),
+                user.getSurname(), user.getCash(), user.getPhone());
+        try {
+            validator.validate();
+            userDAO.update(user);
+        } catch (DAOException | ValidatorException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
@@ -148,6 +184,27 @@ public class UserServiceImpl implements UserService {
         surnameValidator.setNext(phoneValidator);
         return loginValidator;
     }
+
+    private Validator createUpdateParametersValidator(String name, String surname, float cash, String phone) {
+        Validator nameValidator = new ProperNameValidator(name);
+        Validator surnameValidator = new ProperNameValidator(surname);
+        Validator cashValidator = new CashValidator(cash);
+        Validator phoneValidator = new PhoneValidator(phone);
+        nameValidator.setNext(surnameValidator);
+        surnameValidator.setNext(cashValidator);
+        cashValidator.setNext(phoneValidator);
+        return nameValidator;
+    }
+
+    private Validator createUpdateAdminParametersValidator(String name, String surname, String phone) {
+        Validator nameValidator = new ProperNameValidator(name);
+        Validator surnameValidator = new ProperNameValidator(surname);
+        Validator phoneValidator = new PhoneValidator(phone);
+        nameValidator.setNext(surnameValidator);
+        surnameValidator.setNext(phoneValidator);
+        return nameValidator;
+    }
+
 
     private boolean checkLoginExistence(String userLogin) throws DAOException {
         String login = userDAO.findLogin(userLogin);

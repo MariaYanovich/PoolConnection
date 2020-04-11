@@ -15,5 +15,5 @@ public interface DAO<T> {
 
     List<T> getAll() throws DAOException;
 
-    void update(T item) throws DAOException;
+    void update(T id) throws DAOException;
 }

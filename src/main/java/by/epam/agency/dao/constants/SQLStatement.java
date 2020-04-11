@@ -60,7 +60,11 @@ public class SQLStatement {
             " SET `user_role_id` = '1' WHERE (`user_id` = ?)";
 
     public static final String UPDATE_ADMIN_INFO = "UPDATE travel_agency_db.user\n" +
-            "SET user_password = ?, user_name = ?, user_surname = ?, user_phone = ?\n" +
+            "SET user_name = ?, user_surname = ?, user_phone = ?\n" +
+            "WHERE user_id = ?";
+
+    public static final String UPDATE_CLIENT_INFO = "UPDATE travel_agency_db.user\n" +
+            "SET user_name = ?, user_surname = ?, user_phone = ?, user_cash = ?\n" +
             "WHERE user_id = ?";
 
     public static final String DELETE_CLIENT = "DELETE FROM `travel_agency_db`.`user`\n" +

@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="wrap-input100"
-                     data-validate="Enter cash">
+                     data-validate="Enter available cash">
                     <input class="input100" type="text" name="cash"
                            required placeholder="Cash">
                     <span class="focus-input100"

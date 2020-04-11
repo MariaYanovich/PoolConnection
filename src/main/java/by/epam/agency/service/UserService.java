@@ -20,4 +20,7 @@ public interface UserService {
 
     List<User> getAllUsers() throws ServiceException;
 
+    void updateAdmin(User user) throws ServiceException;
+
+    void updateClient(User user) throws ServiceException;
 }
