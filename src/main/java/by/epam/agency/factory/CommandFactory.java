@@ -30,14 +30,20 @@ public class CommandFactory {
                 return new SignOutCommand();
             case HOME:
                 return new HomeCommand();
-            case BLOCK_USER:
-                return new BlockUserCommand();
-            case UNBLOCK_USER:
-                return new UnblockUserCommand();
+            case BLOCK_CLIENT:
+                return new BlockClientCommand();
+            case UNBLOCK_CLIENT:
+                return new UnblockClientCommand();
             case GET_USERS_LIST:
                 return new GetUsersListCommand();
             case CREATE_ADMIN:
                 return new CreateAdminCommand();
+            case UPDATE_ADMIN:
+                return new UpdateAdminCommand();
+            case UPDATE_CLIENT:
+                return new UpdateClientCommand();
+            case DELETE_CLIENT:
+                return new DeleteClientCommand();
             default:
                 return new ErrorCommand();
         }

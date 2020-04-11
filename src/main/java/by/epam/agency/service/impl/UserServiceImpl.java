@@ -13,6 +13,8 @@ import by.epam.agency.validator.user.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class.getName());
 
@@ -82,18 +84,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean delete() throws ServiceException {
-        throw new ServiceException(new UnsupportedOperationException());
+    public void deleteClient(int id) throws ServiceException {
+        try {
+            userDAO.delete(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+        }
     }
 
     @Override
-    public User blockUser(int id) {
-        return userDAO.blockUser(id);
+    public void blockClient(int id) {
+        userDAO.blockClient(id);
     }
 
     @Override
-    public User unblockUser(int id) {
-        return userDAO.unblockUser(id);
+    public void unblockClient(int id) {
+        userDAO.unblockClient(id);
+    }
+
+
+    @Override
+    public List<User> getAllUsers() throws ServiceException {
+        try {
+            return userDAO.getAll();
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
     }
 
 

@@ -10,7 +10,11 @@ public enum PageType {
     SEARCH_PAGE("/WEB-INF/view/search.jsp"),
     CONTACT_PAGE("/WEB-INF/view/contact.jsp"),
     USERS_LIST_PAGE("/WEB-INF/view/usersList.jsp"),
-    CREATE_ADMIN_PAGE("/WEB-INF/view/createAdmin.jsp");
+    CREATE_ADMIN_PAGE("/WEB-INF/view/createAdmin.jsp"),
+    UPDATE_USER_PAGE("/WEB-INF/view/updateUser.jsp"),
+    USER_INFO_PAGE("/WEB-INF/view/userInfo.jsp");
+
+
     private String value;
 
     PageType(String value) {

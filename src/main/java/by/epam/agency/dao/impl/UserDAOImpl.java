@@ -143,15 +143,22 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
-
     @Override
     public void delete(User item) throws DAOException {
         throw new DAOException(new UnsupportedOperationException());
     }
 
     @Override
-    public void delete(int id) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+    public void delete(int id) {
+        try {
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.DELETE_CLIENT)) {
+                statement.setInt(USER_ID_INDEX, id);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
     }
 
     @Override
@@ -179,36 +186,35 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User blockUser(int id) {
-        User user = new User();
+    public void updateAdmin(User item) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException());
+    }
+
+
+    @Override
+    public void blockClient(int id) {
         try {
-            user = findById(id);
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.BLOCK_USER)) {
                 statement.setInt(USER_ID_INDEX, id);
                 statement.executeUpdate();
             }
-
-        } catch (DAOException | SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error(e);
         }
-        return user;
     }
 
     @Override
-    public User unblockUser(int id) {
-        User user = new User();
+    public void unblockClient(int id) {
         try {
-            user = findById(id);
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.UNBLOCK_USER)) {
                 statement.setInt(USER_ID_INDEX, id);
                 statement.executeUpdate();
             }
-        } catch (DAOException | SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error(e);
         }
-        return user;
     }
 
     private void commonUserCreate(User user, ResultSet resultSet) throws SQLException {

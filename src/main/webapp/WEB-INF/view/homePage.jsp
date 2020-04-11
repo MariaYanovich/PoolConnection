@@ -30,22 +30,17 @@
     <c:if test="${sessionScope.role =='CLIENT'}">
         <h2 align="center">Hello, ${sessionScope.name}!</h2>
     </c:if>
+
     <section class="caption">
-
         <h2 class="caption">Find Your Dream Tour</h2>
-
     </section>
 
-
-
 </section>
-<!--  end hero section  -->
-
 
 <footer>
     <div class="copyrights wrapper">
         Copyright © 2020 All Rights Reserved.
     </div>
-</footer><!--  end footer  -->
+</footer>
 </body>
 </html>

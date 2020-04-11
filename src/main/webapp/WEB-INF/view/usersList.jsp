@@ -56,7 +56,7 @@
                         <form method="post">
                         <c:if test="${user.role =='BLOCKED'}">
                             <button class="bot1" type="submit" name="command"
-                                    value="unblock_user">
+                                    value="unblock_client">
                                 <input type="hidden" name="id"
                                        value="${user.id}"/>
                                 unblock
@@ -65,7 +65,7 @@
 
                         <c:if test="${user.role =='CLIENT'}">
                             <button class="bot1" type="submit" name="command"
-                                    value="block_user">
+                                    value="block_client">
                                 <input type="hidden" name="id"
                                        value="${user.id}"/>
                                 block

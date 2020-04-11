@@ -7,7 +7,6 @@ import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
-import by.epam.agency.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,11 +17,10 @@ public class SignInCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
-        UserService userService = ServiceFactory.getInstance().getUserService();
         String login = request.getParameter(JspParameterType.LOGIN);
         String password = request.getParameter(JspParameterType.PASSWORD);
         try {
-            User user = userService.signIn(login, password);
+            User user = ServiceFactory.getInstance().getUserService().signIn(login, password);
             if (user != null && !user.getRole().equals(Role.BLOCKED)) {
                 setSessionAttributes(session, user);
                 return PageType.HOME_PAGE.getAddress();

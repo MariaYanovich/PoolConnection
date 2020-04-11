@@ -7,22 +7,25 @@ import by.epam.agency.command.constants.PageType;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.CommandFactory;
 import by.epam.agency.factory.ServiceFactory;
-import by.epam.agency.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UnblockUserCommand implements Command {
+
+public class UnblockClientCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(UnblockClientCommand.class.getName());
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter(JspParameterType.ID);
-        UserService userService = ServiceFactory.getInstance().getUserService();
         try {
-            userService.unblockUser(Integer.parseInt(id));
+            ServiceFactory.getInstance().getUserService().unblockClient(Integer.parseInt(id));
             Command getUsersList = CommandFactory.getInstance().getCommand(CommandType.GET_USERS_LIST.toString());
             return getUsersList.execute(request, response);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
         return PageType.HOME_PAGE.getAddress();
     }

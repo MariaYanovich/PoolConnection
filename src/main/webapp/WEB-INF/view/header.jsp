@@ -53,6 +53,24 @@
             </c:if>
 
 
+            <c:if test="${sessionScope.role =='CLIENT'}">
+                <form method="post" name="about">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">User info
+                    </button>
+                    <input type="hidden" name="address" value="USER_INFO_PAGE"/>
+                </form>
+            </c:if>
+
+            <c:if test="${sessionScope.role =='ADMIN'}">
+                <form method="post" name="about">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">User info
+                    </button>
+                    <input type="hidden" name="address" value="USER_INFO_PAGE"/>
+                </form>
+            </c:if>
+
             <c:if test="${sessionScope.role !='ADMIN'}">
                 <form method="post" name="contact">
                     <button type="submit" class="just_btn" name="command"

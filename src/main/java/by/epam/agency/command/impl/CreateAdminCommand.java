@@ -5,7 +5,6 @@ import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
-import by.epam.agency.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,12 +23,11 @@ public class CreateAdminCommand implements Command {
     }
 
     private void createAdmin(HttpServletRequest request) throws ServiceException {
-        UserService userService = ServiceFactory.getInstance().getUserService();
         String login = request.getParameter(JspParameterType.LOGIN);
         String password = request.getParameter(JspParameterType.PASSWORD);
         String name = request.getParameter(JspParameterType.NAME);
         String surname = request.getParameter(JspParameterType.SURNAME);
         String phone = request.getParameter(JspParameterType.PHONE);
-        userService.createAdmin(login, password, name, surname, phone);
+        ServiceFactory.getInstance().getUserService().createAdmin(login, password, name, surname, phone);
     }
 }

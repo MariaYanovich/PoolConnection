@@ -14,21 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class SignUpCommand implements Command {
-    @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page;
-        HttpSession session = request.getSession(true);
-        try {
-            User user = signUp(request);
-            session.setAttribute(JspParameterType.ROLE, Role.CLIENT);
-            session.setAttribute(JspParameterType.LOGIN, user.getLogin());
-            page = PageType.HOME_PAGE.getAddress();
-        } catch (ServiceException e) {
-            page = PageType.SIGN_UP_PAGE.getAddress();
-        }
-        return page;
-    }
-
     public static User signUp(HttpServletRequest request) throws ServiceException {
         UserService userService = ServiceFactory.getInstance().getUserService();
         String login = request.getParameter(JspParameterType.LOGIN);
@@ -38,5 +23,19 @@ public class SignUpCommand implements Command {
         String cash = request.getParameter(JspParameterType.CASH);
         String phone = request.getParameter(JspParameterType.PHONE);
         return userService.signUp(login, password, name, surname, cash, phone);
+    }
+
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        String page;
+        HttpSession session = request.getSession(true);
+        try {
+            session.setAttribute(JspParameterType.ROLE, Role.CLIENT);
+            session.setAttribute(JspParameterType.LOGIN, signUp(request).getLogin());
+            page = PageType.HOME_PAGE.getAddress();
+        } catch (ServiceException e) {
+            page = PageType.SIGN_UP_PAGE.getAddress();
+        }
+        return page;
     }
 }

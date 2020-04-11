@@ -23,7 +23,7 @@ public class User implements Serializable {
         this.surname = surname;
         this.cash = cash;
         this.phone = phone;
-        this.discount=new Discount();
+        this.discount = new Discount();
     }
 
     public User(String login, char[] password, String name,
@@ -34,7 +34,7 @@ public class User implements Serializable {
         this.surname = surname;
         this.phone = phone;
         this.role = role;
-        this.discount=new Discount();
+        this.discount = new Discount();
     }
 
     public User() {
