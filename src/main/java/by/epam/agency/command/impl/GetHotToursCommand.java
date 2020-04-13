@@ -25,6 +25,6 @@ public class GetHotToursCommand implements Command {
             LOGGER.error(e);
         }
         request.setAttribute(JspParameterType.TOURS, listResults);
-        return PageType.TOURS_LIST_PAGE.getAddress();
+        return PageType.HOT_TOURS_PAGE.getAddress();
     }
 }

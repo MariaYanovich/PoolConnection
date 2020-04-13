@@ -30,12 +30,17 @@
     <link rel="stylesheet" href="${root}/resources/css/flaticon.css">
     <link rel="stylesheet" href="${root}/resources/css/icomoon.css">
     <link rel="stylesheet" href="${root}/resources/css/style.css">
-
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <header>
     <c:import url="/WEB-INF/view/header.jsp"/>
 </header>
+
+<div class="text">
+    <h1 align="center">Our offers</h1>
+</div>
 
 <section class="ftco-section">
     <div class="container">
@@ -53,7 +58,8 @@
                             <h4 class="price"><c:out
                                     value="${tour.cost}$"/></h4>
                             <span><c:out value="${tour.days}"/> days</span>
-                            <h3><c:out value="${tour.name} to ${tour.city.city}"/>
+                            <h3><c:out
+                                    value="${tour.name} to ${tour.city.city}"/>
                             </h3>
                             <div class="star d-flex clearfix">
                                 <div class="mr-auto float-left">
@@ -78,6 +84,18 @@
                                             value="from ${tour.departureCity.city}"/></span>
                                 </div>
                             </div>
+                            <div style="padding-top: 5px">
+                            <c:if test="${sessionScope.role !='ADMIN'}">
+                                <button class="btn btn-info" aria-label="Hot">
+                                    HOT
+                                </button>
+                                <button class="btn btn-danger">
+                                    <i class="fa fa-trash-o fa-lg"></i> Delete</button>
+
+                                <button class="btn btn-default btn-sm">
+                                    <i class="fa fa-cog"></i> Settings</button>
+                            </c:if>
+                        </div>
                         </div>
                         <a href="data:image/jpg;base64,${tour.imageString}"
                            class="icon image-popup d-flex justify-content-center align-items-center">
@@ -112,7 +130,6 @@
 <script src="${root}/resources/js/jquery-migrate-3.0.1.min.js"></script>
 <script src="${root}/resources/js/popper.min.js"></script>
 <script src="${root}/resources/js/bootstrap.min.js"></script>
-<script src="${root}./resources/js/jquery.easing.1.3.js"></script>
 <script src="${root}/resources/js/jquery.waypoints.min.js"></script>
 <script src="${root}/resources/js/jquery.stellar.min.js"></script>
 <script src="${root}/resources/js/owl.carousel.min.js"></script>

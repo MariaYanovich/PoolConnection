@@ -123,11 +123,13 @@
                 </button>
             </form>
 
-            <form method="post" name="hotTours">
-                <button type="submit" class="just_btn" name="command"
-                        value="GET_HOT_TOURS">Hot tours
-                </button>
-            </form>
+            <c:if test="${sessionScope.role !='ADMIN'}">
+                <form method="post" name="hotTours">
+                    <button type="submit" class="just_btn" name="command"
+                            value="GET_HOT_TOURS">Hot tours
+                    </button>
+                </form>
+            </c:if>
 
             <form method="post" name="home">
                 <button type="submit" class="just_btn" name="command"

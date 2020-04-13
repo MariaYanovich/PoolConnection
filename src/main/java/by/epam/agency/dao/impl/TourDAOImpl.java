@@ -37,20 +37,6 @@ public class TourDAOImpl implements TourDAO {
         return TourDAOImplHolder.INSTANCE;
     }
 
-    public static String getImage(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[4096];
-        int bytesRead = -1;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            outputStream.write(buffer, 0, bytesRead);
-        }
-        byte[] imageBytes = outputStream.toByteArray();
-        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-        inputStream.close();
-        outputStream.close();
-        return base64Image;
-    }
-
     @Override
     public void delete(Tour item) throws DAOException {
 
@@ -84,7 +70,6 @@ public class TourDAOImpl implements TourDAO {
                     Transport transport = new Transport();
                     transport.setTransportId(resultSet.getInt(SqlColumn.TRANSPORT_ID.toString()));
                     tour.setTransport(transport);
-                    tour.setDescription(resultSet.getString(SqlColumn.DESCRIPTION.toString()));
                     tour.setImage(resultSet.getBlob(SqlColumn.TOUR_IMAGE.toString()).getBinaryStream());
                 }
             }
@@ -138,7 +123,6 @@ public class TourDAOImpl implements TourDAO {
         Transport transport = new Transport();
         transport.setType(resultSet.getString(SqlColumn.TRANSPORT.toString()));
         tour.setTransport(transport);
-        tour.setDescription(resultSet.getString(SqlColumn.DESCRIPTION.toString()));
         tour.setImage(resultSet.getBlob(SqlColumn.TOUR_IMAGE.toString()).getBinaryStream());
         tour.setImageString(getImage(tour.getImage()));
     }
@@ -156,9 +140,8 @@ public class TourDAOImpl implements TourDAO {
             statement.setInt(7, tour.getCity().getCityId());
             statement.setInt(8, tour.getCity().getCityId());
             statement.setInt(9, tour.getTransport().getTransportId());
-            statement.setString(10, tour.getDescription());
-            statement.setBoolean(11, tour.isHot());
-            statement.setBlob(12, tour.getImage());
+            statement.setBoolean(10, tour.isHot());
+            statement.setBlob(11, tour.getImage());
             statement.execute();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -206,6 +189,20 @@ public class TourDAOImpl implements TourDAO {
             throw new DAOException(e);
         }
         return listToReturn;
+    }
+
+    private String getImage(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] imageBytes = outputStream.toByteArray();
+        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+        inputStream.close();
+        outputStream.close();
+        return base64Image;
     }
 
     private static final class TourDAOImplHolder {

@@ -37,18 +37,22 @@
     <link rel="stylesheet" href="${root}/resources/css/flaticon.css">
     <link rel="stylesheet" href="${root}/resources/css/icomoon.css">
     <link rel="stylesheet" href="${root}/resources/css/style.css">
-
 </head>
 <body>
 <header>
     <c:import url="/WEB-INF/view/header.jsp"/>
 </header>
-
+<div class="text">
+    <h1 align="center">Our hot offers</h1>
+</div>
 <section class="ftco-section">
+
     <div class="container">
+
         <div class="row">
             <jsp:useBean id="tours" class="java.util.ArrayList"
                          scope="request"/>
+
             <c:forEach items="${tours}" var="tour">
                 <div class="col-md-6 col-lg-4 ftco-animate">
                     <div class="project">
@@ -60,7 +64,8 @@
                             <h4 class="price"><c:out
                                     value="${tour.cost}$"/></h4>
                             <span><c:out value="${tour.days}"/> days</span>
-                            <h3><c:out value="${tour.name} in ${tour.city.city}"/>
+                            <h3><c:out
+                                    value="${tour.name} in ${tour.city.city}"/>
                             </h3>
                             <div class="star d-flex clearfix">
                                 <div class="mr-auto float-left">
@@ -118,7 +123,6 @@
 <script src="${root}/resources/js/jquery-migrate-3.0.1.min.js"></script>
 <script src="${root}/resources/js/popper.min.js"></script>
 <script src="${root}/resources/js/bootstrap.min.js"></script>
-<script src="${root}./resources/js/jquery.easing.1.3.js"></script>
 <script src="${root}/resources/js/jquery.waypoints.min.js"></script>
 <script src="${root}/resources/js/jquery.stellar.min.js"></script>
 <script src="${root}/resources/js/owl.carousel.min.js"></script>

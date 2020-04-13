@@ -23,7 +23,6 @@ public enum SqlColumn {
     TOUR_DEPARTURE_CITY_ID,
     TOUR_DISCOUNT_ID,
     TOUR_TRANSPORT_ID,
-    DESCRIPTION,
     CITY,
     CITY_ID,
     TOUR_TYPE,
