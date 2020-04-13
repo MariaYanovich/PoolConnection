@@ -85,6 +85,25 @@
                                 </div>
                             </div>
                             <div style="padding-top: 5px">
+                                <c:if test="${sessionScope.role =='CLIENT'}">
+                                    <%--                                        <form method="post">--%>
+                                    <%--                                                <button class="btn btn-info"--%>
+                                    <%--                                                        aria-label="Buy"--%>
+                                    <%--                                                        type="submit" name="command"--%>
+                                    <%--                                                        value="buy_tour">--%>
+                                    <%--                                                    <input type="hidden" name="tour_id"--%>
+                                    <%--                                                           value="${tour.tourId}"/>--%>
+                                    <%--                                                    do not hot--%>
+                                    <%--                                                </button>--%>
+                                    <%--                                        </form>--%>
+                                    <form method="post">
+                                        <button class="btn btn-info"
+                                                aria-label="Buy"
+                                                type="submit">
+                                            Buy
+                                        </button>
+                                    </form>
+                                </c:if>
                                 <c:if test="${sessionScope.role =='ADMIN'}">
                                     <form method="post">
                                         <c:if test="${tour.hot}">
@@ -92,7 +111,8 @@
                                                     aria-label="Hot"
                                                     type="submit" name="command"
                                                     value="un_hot_tour">
-                                                <input type="hidden" name="tour_id"
+                                                <input type="hidden"
+                                                       name="tour_id"
                                                        value="${tour.tourId}"/>
                                                 do not hot
                                             </button>
@@ -102,19 +122,23 @@
                                                     aria-label="UnHot"
                                                     type="submit" name="command"
                                                     value="set_hot_tour">
-                                                <input type="hidden" name="tour_id"
+                                                <input type="hidden"
+                                                       name="tour_id"
                                                        value="${tour.tourId}"/>
                                                 do hot
                                             </button>
                                         </c:if>
-                                    <button class="btn btn-danger">
-                                        <i class="fa fa-trash-o fa-lg"></i>
-                                        Delete
-                                    </button>
-
-                                    <button class="btn btn-default btn-sm">
-                                        <i class="fa fa-cog"></i> Settings
-                                    </button>
+                                        <button class="btn btn-danger"
+                                                type="submit" name="command"
+                                                value="delete_tour">
+                                            <input type="hidden" name="tour_id"
+                                                   value="${tour.tourId}"/>
+                                            <i class="fa fa-trash-o fa-lg"></i>
+                                            Delete
+                                        </button>
+                                        <button class="btn btn-default btn-sm">
+                                            <i class="fa fa-cog"></i> Settings
+                                        </button>
                                     </form>
                                 </c:if>
                             </div>

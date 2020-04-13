@@ -90,6 +90,27 @@
                                             value="from ${tour.departureCity.city}"/></span>
                                 </div>
                             </div>
+                            <div style="padding-top: 5px">
+                                <c:if test="${sessionScope.role =='CLIENT'}">
+                                    <%--                                        <form method="post">--%>
+                                    <%--                                                <button class="btn btn-info"--%>
+                                    <%--                                                        aria-label="Buy"--%>
+                                    <%--                                                        type="submit" name="command"--%>
+                                    <%--                                                        value="buy_tour">--%>
+                                    <%--                                                    <input type="hidden" name="tour_id"--%>
+                                    <%--                                                           value="${tour.tourId}"/>--%>
+                                    <%--                                                    do not hot--%>
+                                    <%--                                                </button>--%>
+                                    <%--                                        </form>--%>
+                                    <form method="post">
+                                        <button class="btn btn-info"
+                                                aria-label="Buy"
+                                                type="submit">
+                                            Buy
+                                        </button>
+                                    </form>
+                                </c:if>
+                            </div>
                         </div>
                         <a href="data:image/jpg;base64,${tour.imageString}"
                            class="icon image-popup d-flex justify-content-center align-items-center">

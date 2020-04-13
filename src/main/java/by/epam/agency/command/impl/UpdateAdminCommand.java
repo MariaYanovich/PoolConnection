@@ -26,7 +26,6 @@ public class UpdateAdminCommand implements Command {
         request.getSession().setAttribute(JspParameterType.PHONE, user.getPhone());
         request.getSession().setAttribute(JspParameterType.CASH, user.getCash());
         ServiceFactory.getInstance().getUserService().updateAdmin(user);
-
     }
 
     @Override

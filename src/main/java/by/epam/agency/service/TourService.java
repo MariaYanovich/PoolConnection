@@ -12,6 +12,8 @@ public interface TourService {
 
     void unHotTour(int id) throws ServiceException;
 
+    void deleteTour(int id) throws ServiceException;
+
     void setHotTour(int id) throws ServiceException;
 
 }

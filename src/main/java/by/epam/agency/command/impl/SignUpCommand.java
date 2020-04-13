@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class SignUpCommand implements Command {
+
     public static User signUp(HttpServletRequest request) throws ServiceException {
         String login = request.getParameter(JspParameterType.LOGIN);
         String password = request.getParameter(JspParameterType.PASSWORD);

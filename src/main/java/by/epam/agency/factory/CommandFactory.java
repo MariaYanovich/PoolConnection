@@ -52,6 +52,8 @@ public class CommandFactory {
                 return new UnHotTourCommand();
             case SET_HOT_TOUR:
                 return new SetHotTourCommand();
+            case DELETE_TOUR:
+                return new DeleteTourCommand();
             default:
                 return new ErrorCommand();
         }

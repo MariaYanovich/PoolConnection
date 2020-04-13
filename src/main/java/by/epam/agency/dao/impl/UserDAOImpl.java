@@ -93,7 +93,6 @@ public class UserDAOImpl implements UserDAO {
             LOGGER.error(e);
             throw new DAOException(e);
         }
-
         return login;
     }
 
@@ -123,12 +122,7 @@ public class UserDAOImpl implements UserDAO {
     public void createClient(User user) throws DAOException {
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.CREATE_USER)) {
-            statement.setString(CREATE_USER_LOGIN_INDEX, user.getLogin());
-            statement.setString(CREATE_USER_PASSWORD_INDEX, String.valueOf(user.getPassword()));
-            statement.setString(CREATE_USER_NAME_INDEX, user.getName());
-            statement.setString(CREATE_USER_SURNAME_INDEX, user.getSurname());
-            statement.setFloat(CREATE_USER_CASH_INDEX, user.getCash());
-            statement.setString(CREATE_USER_PHONE_INDEX, user.getPhone());
+            initializeCreateClientStatement(statement, user);
             statement.execute();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -140,12 +134,7 @@ public class UserDAOImpl implements UserDAO {
     public void createAdmin(User user) throws DAOException {
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.CREATE_ADMIN)) {
-            statement.setString(CREATE_ADMIN_LOGIN_INDEX, user.getLogin());
-            statement.setString(CREATE_ADMIN_PASSWORD_INDEX, String.valueOf(user.getPassword()));
-            statement.setString(CREATE_ADMIN_NAME_INDEX, user.getName());
-            statement.setString(CREATE_ADMIN_SURNAME_INDEX, user.getSurname());
-            statement.setString(CREATE_ADMIN_PHONE_INDEX, user.getPhone());
-            statement.setInt(CREATE_ADMIN_ROLE_INDEX, user.getRole().getId());
+            initializeCreateAdminStatement(statement, user);
             statement.execute();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -278,6 +267,24 @@ public class UserDAOImpl implements UserDAO {
         user.setCash(resultSet.getFloat(SqlColumn.USER_CASH.toString()));
         user.setPhone(resultSet.getString(SqlColumn.USER_PHONE.toString()));
         user.setRole(Role.valueOf(resultSet.getString(SqlColumn.USER_ROLE.toString()).toUpperCase()));
+    }
+
+    private void initializeCreateClientStatement(PreparedStatement statement, User user) throws SQLException {
+        statement.setString(CREATE_USER_LOGIN_INDEX, user.getLogin());
+        statement.setString(CREATE_USER_PASSWORD_INDEX, String.valueOf(user.getPassword()));
+        statement.setString(CREATE_USER_NAME_INDEX, user.getName());
+        statement.setString(CREATE_USER_SURNAME_INDEX, user.getSurname());
+        statement.setFloat(CREATE_USER_CASH_INDEX, user.getCash());
+        statement.setString(CREATE_USER_PHONE_INDEX, user.getPhone());
+    }
+
+    private void initializeCreateAdminStatement(PreparedStatement statement, User user) throws SQLException {
+        statement.setString(CREATE_ADMIN_LOGIN_INDEX, user.getLogin());
+        statement.setString(CREATE_ADMIN_PASSWORD_INDEX, String.valueOf(user.getPassword()));
+        statement.setString(CREATE_ADMIN_NAME_INDEX, user.getName());
+        statement.setString(CREATE_ADMIN_SURNAME_INDEX, user.getSurname());
+        statement.setString(CREATE_ADMIN_PHONE_INDEX, user.getPhone());
+        statement.setInt(CREATE_ADMIN_ROLE_INDEX, user.getRole().getId());
     }
 
     @Override

@@ -85,6 +85,9 @@ public class SQLStatement {
     public static final String UN_HOT_TOUR = "UPDATE `travel_agency_db`.`tour` " +
             "SET `tour_is_hot` = '0' WHERE (`tour_id` = ?)";
 
+    public static final String DELETE_TOUR = "DELETE FROM `travel_agency_db`.`tour`\n" +
+            "WHERE tour_id = ?";
+
     private SQLStatement() {
     }
 

@@ -55,6 +55,16 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
+    public void deleteTour(int id) throws ServiceException {
+        try {
+            tourDAO.delete(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public void setHotTour(int id) throws ServiceException {
         try {
             tourDAO.setHotTour(id);
