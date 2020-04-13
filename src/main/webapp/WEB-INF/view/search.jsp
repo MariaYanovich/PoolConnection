@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="ctg" uri="customTags" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Travello template project">
@@ -17,17 +18,18 @@
           href="${root}/resources/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-    <link rel="stylesheet" type="text/css" href="${root}/resources/css/news.css">
+    <link rel="stylesheet" type="text/css"
+          href="${root}/resources/css/news.css">
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/css/news_responsive.css">
-	<link rel="stylesheet" type="text/css"
-		  href="${root}/resources/css/mainPage.css">
+    <link rel="stylesheet" type="text/css"
+          href="${root}/resources/css/mainPage.css">
 </head>
 <body>
 
 <div class="super_container">
 
-    <c:import url="/WEB-INF/view/header.jsp" />
+    <c:import url="/WEB-INF/view/header.jsp"/>
 
     <!-- Home -->
 
@@ -76,15 +78,11 @@
         </div>
     </div>
 
-
-    <!-- Footer -->
-
-	<footer>
-		<div class="copyrights wrapper">
-			Copyright © 2020
-			All Rights Reserved.
-		</div>
-	</footer>
+    <footer>
+        <div class="copyrights wrapper">
+            <ctg:copyrightTag/>
+        </div>
+    </footer>
 </div>
 
 <script src="${root}/resources/js/jquery-3.2.1.min.js"></script>

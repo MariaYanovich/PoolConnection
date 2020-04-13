@@ -12,6 +12,7 @@
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="ctg" uri="customTags" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/css/mainPage.css">
@@ -97,7 +98,7 @@
 <div id="dropDownSelect1"></div>
 <footer>
     <div class="copyrights wrapper">
-        Copyright © 2020 All Rights Reserved.
+        <ctg:copyrightTag/>
     </div>
 </footer>
 </body>

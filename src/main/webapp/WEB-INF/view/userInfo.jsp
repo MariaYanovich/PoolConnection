@@ -12,6 +12,7 @@
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="ctg" uri="customTags" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/css/table.css">
@@ -68,7 +69,8 @@
                             <button type="submit" class="bot1" name="command"
                                     value="redirect">Update
                             </button>
-                            <input type="hidden" name="address" value="UPDATE_USER_PAGE"/>
+                            <input type="hidden" name="address"
+                                   value="UPDATE_USER_PAGE"/>
                         </form>
                     </td>
                 </tr>
@@ -101,7 +103,8 @@
                 </tr>
                 <tr>
                     <td>DISCOUNT</td>
-                    <td><c:out value="${sessionScope.discount.discountSize}"/></td>
+                    <td><c:out
+                            value="${sessionScope.discount.discountSize}"/></td>
                 </tr>
                 <tr>
                     <td>CASH</td>
@@ -122,7 +125,8 @@
                             <button type="submit" class="bot1" name="command"
                                     value="redirect">Update
                             </button>
-                            <input type="hidden" name="address" value="UPDATE_USER_PAGE"/>
+                            <input type="hidden" name="address"
+                                   value="UPDATE_USER_PAGE"/>
                         </form>
                     </td>
                 </tr>
@@ -146,7 +150,7 @@
 </body>
 <footer>
     <div class="copyrights wrapper">
-        Copyright © 2020 All Rights Reserved.
+        <ctg:copyrightTag/>
     </div>
 </footer>
 </html>

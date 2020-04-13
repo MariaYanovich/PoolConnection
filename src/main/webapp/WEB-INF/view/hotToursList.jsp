@@ -13,6 +13,7 @@
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="ctg" uri="customTags" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -125,7 +126,7 @@
 
 <footer>
     <div class="copyrights wrapper">
-        Copyright © 2020 All Rights Reserved.
+        <ctg:copyrightTag/>
     </div>
 </footer>
 

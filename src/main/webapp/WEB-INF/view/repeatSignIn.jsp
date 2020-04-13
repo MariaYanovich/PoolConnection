@@ -44,7 +44,7 @@
 
             <p align="center">There is no such user, try to sign in again :)</p>
 
-            <form class="login100-form validate-form"  method="post">
+            <form class="login100-form validate-form" method="post">
                 <span class="login100-form-logo"><i
                         class="zmdi zmdi-landscape"></i></span>
 

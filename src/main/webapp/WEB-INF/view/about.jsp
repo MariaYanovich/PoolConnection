@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="ctg" uri="customTags" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -183,11 +184,10 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
+
     <footer>
         <div class="copyrights wrapper">
-            Copyright © 2020
-            All Rights Reserved.
+            <ctg:copyrightTag/>
         </div>
     </footer>
 </div>

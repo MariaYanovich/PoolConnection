@@ -17,13 +17,14 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
-    <link rel="stylesheet" type="text/css" href="${root}/resources/css/mainPage.css">
-
+    <link rel="stylesheet" type="text/css"
+          href="${root}/resources/css/mainPage.css">
+    <%@ taglib prefix="ctg" uri="customTags" %>
 </head>
 <body>
 <section class="hero">
 
-    <c:import url="/WEB-INF/view/header.jsp" />
+    <c:import url="/WEB-INF/view/header.jsp"/>
     <c:if test="${sessionScope.role =='ADMIN'}">
         <h1 align="center">Hello, ${sessionScope.name}!</h1>
     </c:if>
@@ -39,7 +40,7 @@
 
 <footer>
     <div class="copyrights wrapper">
-        Copyright © 2020 All Rights Reserved.
+        <ctg:copyrightTag/>
     </div>
 </footer>
 </body>
