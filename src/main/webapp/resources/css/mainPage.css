@@ -153,7 +153,7 @@ input, select {
 
 /*  General CSS  */
 body {
-    background: #fff;
+    background: rgb(254, 247, 239);
 }
 
 .wrapper {
@@ -290,7 +290,7 @@ header nav .login_btn:hover {
 header nav .just_btn {
     float: right;
     margin: 30px 0 0 0;
-    padding: 10px 30px 11px 30px;
+    padding: 12px 22px 12px 22px;
     border: transparent;
     background: transparent;
 

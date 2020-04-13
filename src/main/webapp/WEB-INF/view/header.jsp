@@ -102,22 +102,31 @@
                     <button type="submit" class="just_btn" name="command"
                             value="redirect">Create admin
                     </button>
-                    <input type="hidden" name="address" value="CREATE_ADMIN_PAGE"/>
+                    <input type="hidden" name="address"
+                           value="CREATE_ADMIN_PAGE"/>
                 </form>
             </c:if>
 
-            <form method="post" name="search">
+            <c:if test="${sessionScope.role !='ADMIN'}">
+
+                <form method="post" name="search">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">Search
+                    </button>
+                    <input type="hidden" name="address" value="SEARCH_PAGE"/>
+                </form>
+            </c:if>
+
+            <form method="post" name="tours_list">
                 <button type="submit" class="just_btn" name="command"
-                        value="redirect">Search
+                        value="GET_TOURS_LIST">All tours
                 </button>
-                <input type="hidden" name="address" value="SEARCH_PAGE"/>
             </form>
 
             <form method="post" name="hotTours">
                 <button type="submit" class="just_btn" name="command"
-                        value="redirect">Hot tours
+                        value="GET_HOT_TOURS">Hot tours
                 </button>
-                <input type="hidden" name="address" value="HOME_PAGE"/>
             </form>
 
             <form method="post" name="home">

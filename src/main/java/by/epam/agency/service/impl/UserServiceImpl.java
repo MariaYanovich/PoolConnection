@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
             validator.validate();
             if (checkLoginExistence(login)) {
                 User user = new User(login, password.toCharArray(), name, surname, Float.parseFloat(cash), phone);
-                userDAO.create(user);
+                userDAO.createClient(user);
                 return user;
             } else {
                 throw new ServiceException();
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteClient(int id) throws ServiceException {
         try {
-            userDAO.delete(id);
+            userDAO.deleteClient(id);
         } catch (DAOException e) {
             LOGGER.error(e);
         }
@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
                 user.getSurname(), user.getCash(), user.getPhone());
         try {
             validator.validate();
-            userDAO.update(user);
+            userDAO.updateClient(user);
         } catch (DAOException | ValidatorException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

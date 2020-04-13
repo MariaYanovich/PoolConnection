@@ -44,6 +44,10 @@ public class CommandFactory {
                 return new UpdateClientCommand();
             case DELETE_CLIENT:
                 return new DeleteClientCommand();
+            case GET_TOURS_LIST:
+                return new GetToursListCommand();
+            case GET_HOT_TOURS:
+                return new GetHotToursCommand();
             default:
                 return new ErrorCommand();
         }

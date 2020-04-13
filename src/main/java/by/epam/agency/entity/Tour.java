@@ -1,7 +1,8 @@
 package by.epam.agency.entity;
 
+import java.io.InputStream;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class Tour implements Serializable {
@@ -17,15 +18,25 @@ public class Tour implements Serializable {
     private boolean isHot;
     private Transport transport;
     private String description;
+    private InputStream image;
+    private String imageString;
 
     public Tour() {
     }
 
-    public Tour(int tourId, String name, float cost, Date departureDate,
+    public Tour(String name, float cost, Date departureDate,
                 int days, int places, TourType tourType, City city,
                 City departureCity, boolean isHot, Transport transport,
-                String description) {
-        this.tourId = tourId;
+                String description, InputStream image, String imageString) {
+        this(name, cost, departureDate, days, places, tourType, city,
+                departureCity, isHot, transport, description, image);
+        this.imageString = imageString;
+    }
+
+    public Tour(String name, float cost, Date departureDate,
+                int days, int places, TourType tourType, City city,
+                City departureCity, boolean isHot, Transport transport,
+                String description, InputStream image) {
         this.name = name;
         this.cost = cost;
         this.departureDate = departureDate;
@@ -37,6 +48,7 @@ public class Tour implements Serializable {
         this.isHot = isHot;
         this.transport = transport;
         this.description = description;
+        this.image = image;
     }
 
     public int getTourId() {
@@ -137,6 +149,14 @@ public class Tour implements Serializable {
     }
 
 
+    public InputStream getImage() {
+        return image;
+    }
+
+    public void setImage(InputStream image) {
+        this.image = image;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -153,12 +173,21 @@ public class Tour implements Serializable {
                 Objects.equals(getCity(), tour.getCity()) &&
                 Objects.equals(getDepartureCity(), tour.getDepartureCity()) &&
                 Objects.equals(getTransport(), tour.getTransport()) &&
-                Objects.equals(getDescription(), tour.getDescription());
+                Objects.equals(getDescription(), tour.getDescription()) &&
+                Objects.equals(getImage(), tour.getImage());
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTourId(), getName(), getCost(), getDepartureDate(), getDays(), getPlaces(), getTourType(), getCity(), getDepartureCity(), isHot(), getTransport(), getDescription());
+        return Objects.hash(getTourId(), getName(), getCost(), getDepartureDate(), getDays(), getPlaces(), getTourType(), getCity(), getDepartureCity(), isHot(), getTransport(), getDescription(), getImage());
     }
 
     @Override
@@ -176,6 +205,7 @@ public class Tour implements Serializable {
                 ", isHot=" + isHot +
                 ", transport=" + transport +
                 ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
                 "}\n";
     }
 }

@@ -9,7 +9,13 @@ public interface UserDAO extends DAO<User> {
 
     User findUserByLoginAndPassword(String login, String password) throws DAOException;
 
+    void createClient(User user) throws DAOException;
+
     void createAdmin(User user) throws DAOException;
+
+    void deleteClient(int id) throws DAOException;
+
+    void updateClient(User user) throws DAOException;
 
     void updateAdmin(User user) throws DAOException;
 

@@ -12,7 +12,9 @@ public enum PageType {
     USERS_LIST_PAGE("/WEB-INF/view/usersList.jsp"),
     CREATE_ADMIN_PAGE("/WEB-INF/view/createAdmin.jsp"),
     UPDATE_USER_PAGE("/WEB-INF/view/updateUser.jsp"),
-    USER_INFO_PAGE("/WEB-INF/view/userInfo.jsp");
+    USER_INFO_PAGE("/WEB-INF/view/userInfo.jsp"),
+    TOURS_LIST_PAGE("/WEB-INF/view/toursList.jsp"),
+    HOT_TOURS_PAGE("/WEB-INF/view/hotToursList.jsp");
 
 
     private String value;

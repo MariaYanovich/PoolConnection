@@ -27,33 +27,33 @@
 
 <jsp:useBean id="users" class="java.util.ArrayList" scope="request"/>
 <div class="div-table">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>LOGIN</th>
-                <th>PASSWORD</th>
-                <th>NAME</th>
-                <th>SURNAME</th>
-                <th>DISCOUNT</th>
-                <th>CASH</th>
-                <th>PHONE</th>
-                <th>ROLE</th>
-                <th>BLOCK/UNBLOCK</th>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>LOGIN</th>
+            <th>PASSWORD</th>
+            <th>NAME</th>
+            <th>SURNAME</th>
+            <th>DISCOUNT</th>
+            <th>CASH</th>
+            <th>PHONE</th>
+            <th>ROLE</th>
+            <th>BLOCK/UNBLOCK</th>
 
-            </tr>
-            <c:forEach items="${users}" var="user">
-                <tr>
-                    <td><c:out value="${ user.id }"/></td>
-                    <td><c:out value="${ user.login }"/></td>
-                    <td><c:out value="${ user.passwordStr }"/></td>
-                    <td><c:out value="${ user.name }"/></td>
-                    <td><c:out value="${ user.surname }"/></td>
-                    <td><c:out value="${ user.discount.discountSize }"/></td>
-                    <td><c:out value="${ user.cash }"/></td>
-                    <td><c:out value="${ user.phone }"/></td>
-                    <td><c:out value="${ user.role }"/></td>
-                    <td>
-                        <form method="post">
+        </tr>
+        <c:forEach items="${users}" var="user">
+            <tr>
+                <td><c:out value="${user.id}"/></td>
+                <td><c:out value="${user.login}"/></td>
+                <td><c:out value="${user.passwordStr}"/></td>
+                <td><c:out value="${user.name}"/></td>
+                <td><c:out value="${user.surname}"/></td>
+                <td><c:out value="${user.discount.discountSize}"/></td>
+                <td><c:out value="${user.cash}"/></td>
+                <td><c:out value="${user.phone}"/></td>
+                <td><c:out value="${user.role}"/></td>
+                <td>
+                    <form method="post">
                         <c:if test="${user.role =='BLOCKED'}">
                             <button class="bot1" type="submit" name="command"
                                     value="unblock_client">
@@ -71,11 +71,11 @@
                                 block
                             </button>
                         </c:if>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </div>
 
 <footer>

@@ -13,10 +13,14 @@ import by.epam.agency.pool.ProxyConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class TourDAOImpl implements TourDAO {
@@ -33,9 +37,18 @@ public class TourDAOImpl implements TourDAO {
         return TourDAOImplHolder.INSTANCE;
     }
 
-    @Override
-    public void create(Tour item) throws DAOException {
-
+    public static String getImage(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int bytesRead = -1;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] imageBytes = outputStream.toByteArray();
+        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+        inputStream.close();
+        outputStream.close();
+        return base64Image;
     }
 
     @Override
@@ -50,7 +63,36 @@ public class TourDAOImpl implements TourDAO {
 
     @Override
     public Tour findById(int id) throws DAOException {
-        return null;
+        Tour tour = new Tour();
+        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_TOUR_BY_ID)) {
+            statement.setInt(CITY_ID_QUERY_INDEX, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    tour.setTourId(resultSet.getInt(SqlColumn.TOUR_ID.toString()));
+                    tour.setName(resultSet.getString(SqlColumn.TOUR_NAME.toString()));
+                    tour.setCost(resultSet.getFloat(SqlColumn.TOUR_COST.toString()));
+                    tour.setDepartureDate(resultSet.getDate(SqlColumn.TOUR_DEPARTURE_DATE.toString()));
+                    tour.setDays(resultSet.getInt(SqlColumn.TOUR_DAYS.toString()));
+                    tour.setPlaces(resultSet.getInt(SqlColumn.TOUR_PLACES.toString()));
+                    TourType tourType = new TourType();
+                    tourType.setTourTypeId(resultSet.getInt(SqlColumn.TOUR_TYPE_ID.toString()));
+                    tour.setTourType(tourType);
+                    tour.setCity(getCityById(resultSet.getInt(SqlColumn.TOUR_CITY_ID.toString())));
+                    tour.setDepartureCity(getCityById(resultSet.getInt(SqlColumn.TOUR_DEPARTURE_CITY_ID.toString())));
+                    tour.setHot(resultSet.getBoolean(SqlColumn.TOUR_IS_HOT.toString()));
+                    Transport transport = new Transport();
+                    transport.setTransportId(resultSet.getInt(SqlColumn.TRANSPORT_ID.toString()));
+                    tour.setTransport(transport);
+                    tour.setDescription(resultSet.getString(SqlColumn.DESCRIPTION.toString()));
+                    tour.setImage(resultSet.getBlob(SqlColumn.TOUR_IMAGE.toString()).getBinaryStream());
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+        return tour;
     }
 
     @Override
@@ -64,6 +106,9 @@ public class TourDAOImpl implements TourDAO {
                     createTourToReturn(tour, resultSet);
                     listToReturn.add(tour);
                 }
+            } catch (IOException e) {
+                LOGGER.error(e);
+                throw new DAOException(e);
             }
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -77,7 +122,7 @@ public class TourDAOImpl implements TourDAO {
 
     }
 
-    private void createTourToReturn(Tour tour, ResultSet resultSet) throws SQLException, DAOException {
+    private void createTourToReturn(Tour tour, ResultSet resultSet) throws SQLException, DAOException, IOException {
         tour.setTourId(resultSet.getInt(SqlColumn.TOUR_ID.toString()));
         tour.setName(resultSet.getString(SqlColumn.TOUR_NAME.toString()));
         tour.setCost(resultSet.getFloat(SqlColumn.TOUR_COST.toString()));
@@ -94,6 +139,31 @@ public class TourDAOImpl implements TourDAO {
         transport.setType(resultSet.getString(SqlColumn.TRANSPORT.toString()));
         tour.setTransport(transport);
         tour.setDescription(resultSet.getString(SqlColumn.DESCRIPTION.toString()));
+        tour.setImage(resultSet.getBlob(SqlColumn.TOUR_IMAGE.toString()).getBinaryStream());
+        tour.setImageString(getImage(tour.getImage()));
+    }
+
+    @Override
+    public void create(Tour tour) throws DAOException {
+        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.CREATE_TOUR)) {
+            statement.setString(1, tour.getName());
+            statement.setFloat(2, tour.getCost());
+            statement.setDate(3, tour.getDepartureDate());
+            statement.setInt(4, tour.getDays());
+            statement.setInt(5, tour.getPlaces());
+            statement.setInt(6, tour.getTourType().getTourTypeId());
+            statement.setInt(7, tour.getCity().getCityId());
+            statement.setInt(8, tour.getCity().getCityId());
+            statement.setInt(9, tour.getTransport().getTransportId());
+            statement.setString(10, tour.getDescription());
+            statement.setBoolean(11, tour.isHot());
+            statement.setBlob(12, tour.getImage());
+            statement.execute();
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
     }
 
     public City getCityById(int id) throws DAOException {
@@ -112,6 +182,30 @@ public class TourDAOImpl implements TourDAO {
             throw new DAOException(e);
         }
         return city;
+    }
+
+    @Override
+    public List<Tour> getHotTours() throws DAOException {
+        List<Tour> listToReturn = new ArrayList<>();
+        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_TOURS)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Tour tour = new Tour();
+                    createTourToReturn(tour, resultSet);
+                    if (tour.isHot()) {
+                        listToReturn.add(tour);
+                    }
+                }
+            } catch (IOException e) {
+                LOGGER.error(e);
+                throw new DAOException(e);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+        return listToReturn;
     }
 
     private static final class TourDAOImplHolder {

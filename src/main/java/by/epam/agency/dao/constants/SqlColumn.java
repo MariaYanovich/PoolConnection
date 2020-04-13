@@ -29,7 +29,8 @@ public enum SqlColumn {
     TOUR_TYPE,
     TRANSPORT,
     TRANSPORT_ID,
-    TOUR_IS_HOT;
+    TOUR_IS_HOT,
+    TOUR_IMAGE;
 
     @Override
     public String toString() {

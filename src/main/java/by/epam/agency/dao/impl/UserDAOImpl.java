@@ -120,7 +120,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void create(User user) throws DAOException {
+    public void createClient(User user) throws DAOException {
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.CREATE_USER)) {
             statement.setString(CREATE_USER_LOGIN_INDEX, user.getLogin());
@@ -153,13 +153,9 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    @Override
-    public void delete(User item) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
-    }
 
     @Override
-    public void delete(int id) {
+    public void deleteClient(int id) throws DAOException {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.DELETE_CLIENT)) {
@@ -168,6 +164,7 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
+            throw new DAOException(e);
         }
     }
 
@@ -190,8 +187,9 @@ public class UserDAOImpl implements UserDAO {
         return listToReturn;
     }
 
+
     @Override
-    public void update(User user) throws DAOException {
+    public void updateClient(User user) throws DAOException {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_CLIENT_INFO)) {
@@ -282,6 +280,25 @@ public class UserDAOImpl implements UserDAO {
         user.setRole(Role.valueOf(resultSet.getString(SqlColumn.USER_ROLE.toString()).toUpperCase()));
     }
 
+    @Override
+    public void update(User id) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException());
+    }
+
+    @Override
+    public void create(User item) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException());
+    }
+
+    @Override
+    public void delete(User item) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException());
+    }
+
+    @Override
+    public void delete(int id) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException());
+    }
 
     private static final class UserDAOImplHolder {
         private static final UserDAOImpl INSTANCE = new UserDAOImpl();

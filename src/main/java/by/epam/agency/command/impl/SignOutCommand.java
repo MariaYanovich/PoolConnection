@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SignOutCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().invalidate();
         request.getSession().setAttribute(JspParameterType.ROLE, Role.GUEST);
         request.getSession().setAttribute(JspParameterType.LOGIN, null);
         return PageType.HOME_PAGE.getAddress();

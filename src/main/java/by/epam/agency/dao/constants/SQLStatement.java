@@ -40,19 +40,6 @@ public class SQLStatement {
             "On travel_agency_db.user.user_role_id=travel_agency_db.user_role.user_role_id\n" +
             "ORDER by user.user_id";
 
-    public static final String GET_ALL_TOURS = "SELECT tour.tour_id, tour.tour_name, " +
-            "    tour.tour_cost, tour.tour_departure_date,tour.tour_days,\n" +
-            "    tour.tour_places,tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
-            "    tour.tour_is_hot,transport.transport, tour.description\n" +
-            "FROM travel_agency_db.tour\n" +
-            "JOIN travel_agency_db.tour_type \n" +
-            "ON travel_agency_db.tour.tour_type_id = tour_type.tour_type_id\n" +
-            "JOIN travel_agency_db.transport \n" +
-            "ON travel_agency_db.tour.tour_transport_id = transport.transport_id "
-            + "ORDER by tour.tour_id";
-
-    public static final String GET_CITY_BY_ID = "SELECT city_id, city FROM travel_agency_db.city where city_id=?";
-
     public static final String BLOCK_USER = "UPDATE `travel_agency_db`.`user` " +
             "SET `user_role_id` = '3' WHERE (`user_id` = ?)";
 
@@ -69,6 +56,28 @@ public class SQLStatement {
 
     public static final String DELETE_CLIENT = "DELETE FROM `travel_agency_db`.`user`\n" +
             "WHERE user_id = ?";
+
+    public static final String GET_ALL_TOURS = "SELECT tour.tour_id, tour.tour_name, " +
+            "    tour.tour_cost, tour.tour_departure_date,tour.tour_days,\n" +
+            "    tour.tour_places,tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
+            "    tour.tour_is_hot,transport.transport, tour.description, tour.tour_image\n" +
+            "FROM travel_agency_db.tour\n" +
+            "JOIN travel_agency_db.tour_type \n" +
+            "ON travel_agency_db.tour.tour_type_id = tour_type.tour_type_id\n" +
+            "JOIN travel_agency_db.transport \n" +
+            "ON travel_agency_db.tour.tour_transport_id = transport.transport_id "
+            + "ORDER by tour.tour_id";
+
+    public static final String GET_CITY_BY_ID = "SELECT * FROM travel_agency_db.city where city_id=?";
+
+    public static final String CREATE_TOUR = "INSERT INTO `travel_agency_db`.`tour`\n" +
+            "(`tour_name`, `tour_cost`, `tour_departure_date`,`tour_days`, `tour_places`,`tour_type_id`,\n" +
+            "`tour_city_id`, `tour_departure_city_id`, `tour_transport_id`, `description`, `tour_is_hot`,\n" +
+            "`tour_image`)\n" +
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+
+    public static final String GET_TOUR_BY_ID = "SELECT *\n" +
+            "FROM `travel_agency_db`.`tour` where tour.tour_id =?";
 
     private SQLStatement() {
     }
