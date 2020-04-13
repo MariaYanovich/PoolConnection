@@ -85,17 +85,39 @@
                                 </div>
                             </div>
                             <div style="padding-top: 5px">
-                            <c:if test="${sessionScope.role !='ADMIN'}">
-                                <button class="btn btn-info" aria-label="Hot">
-                                    HOT
-                                </button>
-                                <button class="btn btn-danger">
-                                    <i class="fa fa-trash-o fa-lg"></i> Delete</button>
+                                <c:if test="${sessionScope.role =='ADMIN'}">
+                                    <form method="post">
+                                        <c:if test="${tour.hot}">
+                                            <button class="btn btn-info"
+                                                    aria-label="Hot"
+                                                    type="submit" name="command"
+                                                    value="un_hot_tour">
+                                                <input type="hidden" name="tour_id"
+                                                       value="${tour.tourId}"/>
+                                                do not hot
+                                            </button>
+                                        </c:if>
+                                        <c:if test="${!tour.hot}">
+                                            <button class="btn btn-info"
+                                                    aria-label="UnHot"
+                                                    type="submit" name="command"
+                                                    value="set_hot_tour">
+                                                <input type="hidden" name="tour_id"
+                                                       value="${tour.tourId}"/>
+                                                do hot
+                                            </button>
+                                        </c:if>
+                                    <button class="btn btn-danger">
+                                        <i class="fa fa-trash-o fa-lg"></i>
+                                        Delete
+                                    </button>
 
-                                <button class="btn btn-default btn-sm">
-                                    <i class="fa fa-cog"></i> Settings</button>
-                            </c:if>
-                        </div>
+                                    <button class="btn btn-default btn-sm">
+                                        <i class="fa fa-cog"></i> Settings
+                                    </button>
+                                    </form>
+                                </c:if>
+                            </div>
                         </div>
                         <a href="data:image/jpg;base64,${tour.imageString}"
                            class="icon image-popup d-flex justify-content-center align-items-center">

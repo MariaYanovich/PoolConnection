@@ -28,6 +28,7 @@ public class TourDAOImpl implements TourDAO {
     private static final Logger LOGGER = LogManager.getLogger(TourDAOImpl.class.getName());
 
     private static final int CITY_ID_QUERY_INDEX = 1;
+    private static final int TOUR_ID_INDEX = 1;
 
     private TourDAOImpl() {
 
@@ -39,12 +40,40 @@ public class TourDAOImpl implements TourDAO {
 
     @Override
     public void delete(Tour item) throws DAOException {
-
+        throw new DAOException(new UnsupportedOperationException());
     }
 
     @Override
     public void delete(int id) throws DAOException {
 
+    }
+
+    @Override
+    public void unHotTour(int id) throws DAOException {
+        try {
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UN_HOT_TOUR)) {
+                statement.setInt(TOUR_ID_INDEX, id);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public void setHotTour(int id) throws DAOException {
+        try {
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.SET_HOT_TOUR)) {
+                statement.setInt(TOUR_ID_INDEX, id);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
     }
 
     @Override

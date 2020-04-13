@@ -39,7 +39,6 @@
             <th>PHONE</th>
             <th>ROLE</th>
             <th>BLOCK/UNBLOCK</th>
-
         </tr>
         <c:forEach items="${users}" var="user">
             <tr>

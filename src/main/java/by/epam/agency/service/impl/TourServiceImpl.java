@@ -44,6 +44,26 @@ public class TourServiceImpl implements TourService {
         }
     }
 
+    @Override
+    public void unHotTour(int id) throws ServiceException {
+        try {
+            tourDAO.unHotTour(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void setHotTour(int id) throws ServiceException {
+        try {
+            tourDAO.setHotTour(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
     private static final class TourServiceImplHolder {
         private static final TourServiceImpl INSTANCE = new TourServiceImpl();
     }

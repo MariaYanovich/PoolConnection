@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface TourDAO extends DAO<Tour> {
 
+    void unHotTour(int id) throws DAOException;
+
+    void setHotTour(int id) throws DAOException;
+
     List<Tour> getHotTours() throws DAOException;
 
 }

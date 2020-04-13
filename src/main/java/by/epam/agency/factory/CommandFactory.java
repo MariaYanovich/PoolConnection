@@ -48,6 +48,10 @@ public class CommandFactory {
                 return new GetToursListCommand();
             case GET_HOT_TOURS:
                 return new GetHotToursCommand();
+            case UN_HOT_TOUR:
+                return new UnHotTourCommand();
+            case SET_HOT_TOUR:
+                return new SetHotTourCommand();
             default:
                 return new ErrorCommand();
         }
