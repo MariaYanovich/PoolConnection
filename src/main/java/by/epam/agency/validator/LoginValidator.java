@@ -1,21 +1,23 @@
-package by.epam.agency.validator.user;
+package by.epam.agency.validator;
+
 
 import by.epam.agency.exception.ValidatorException;
-import by.epam.agency.validator.Validator;
 import by.epam.agency.validator.constants.ValidatorRegex;
 
 import java.util.regex.Pattern;
 
-public class PhoneValidator extends Validator {
+public class LoginValidator extends Validator {
+    private String login;
 
-    public PhoneValidator(String phone) {
-        pattern = Pattern.compile(ValidatorRegex.PHONE);
-        matcher = pattern.matcher(phone);
+    public LoginValidator(String login) {
+        this.login = login;
+        pattern = Pattern.compile(ValidatorRegex.LOGIN);
+        matcher = pattern.matcher(login);
     }
 
     @Override
     public void validate() throws ValidatorException {
-        if (!matcher.find()) {
+        if (login == null || login.isEmpty() || !matcher.find()) {
             throw new ValidatorException();
         }
 

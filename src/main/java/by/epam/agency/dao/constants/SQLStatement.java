@@ -48,7 +48,7 @@ public class SQLStatement {
 
     public static final String UPDATE_ADMIN_INFO = "UPDATE travel_agency_db.user\n" +
             "SET user_name = ?, user_surname = ?, user_phone = ?\n" +
-            "WHERE user_id = ?";
+            "WHERE user_id = ?;";
 
     public static final String UPDATE_CLIENT_INFO = "UPDATE travel_agency_db.user\n" +
             "SET user_name = ?, user_surname = ?, user_phone = ?, user_cash = ?\n" +
@@ -68,13 +68,40 @@ public class SQLStatement {
             "ON travel_agency_db.tour.tour_transport_id = transport.transport_id "
             + "ORDER by tour.tour_id";
 
+    public static final String CREATE_CITY = "INSERT INTO `travel_agency_db`.`city`" +
+            "(`city`) VALUES (?)";
+
+    public static final String DELETE_CITY = "DELETE FROM `travel_agency_db`.`city`\n" +
+            "WHERE city_id = ?";
+
     public static final String GET_CITY_BY_ID = "SELECT * FROM travel_agency_db.city where city_id=?";
+
+    public static final String GET_ALL_CITIES = "SELECT * FROM travel_agency_db.city"
+            + " ORDER by city.city";
+
+    public static final String CHECK_CITY = "SELECT city " +
+            "FROM travel_agency_db.city where city.city=?";
 
     public static final String CREATE_TOUR = "INSERT INTO `travel_agency_db`.`tour`\n" +
             "(`tour_name`, `tour_cost`, `tour_departure_date`,`tour_days`, `tour_places`,`tour_type_id`,\n" +
             "`tour_city_id`, `tour_departure_city_id`, `tour_transport_id`, `tour_is_hot`,\n" +
             "`tour_image`)\n" +
-            "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+
+    public static final String CREATE_TOUR_TYPE = "INSERT INTO `travel_agency_db`.`tour_type`" +
+            "(`tour_type`) VALUES (?)";
+
+    public static final String DELETE_TOUR_TYPE = "DELETE FROM `travel_agency_db`.`tour_type`\n" +
+            "WHERE tour_type_id = ?";
+
+    public static final String GET_TOUR_TYPE_BY_ID = "SELECT * FROM travel_agency_db.tour_type " +
+            "WHERE tour_type_id=?";
+
+    public static final String GET_ALL_TOUR_TYPES = "SELECT * FROM travel_agency_db.tour_type " +
+            "ORDER by tour_type_id";
+
+    public static final String CHECK_TOUR_TYPE = "SELECT tour_type " +
+            "FROM travel_agency_db.tour_type where tour_type.tour_type=?";
 
     public static final String GET_TOUR_BY_ID = "SELECT *\n" +
             "FROM `travel_agency_db`.`tour` where tour.tour_id =?";

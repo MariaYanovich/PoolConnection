@@ -1,12 +1,17 @@
 package by.epam.agency.factory;
 
 
+import by.epam.agency.service.CityService;
 import by.epam.agency.service.TourService;
+import by.epam.agency.service.TourTypeService;
 import by.epam.agency.service.UserService;
+import by.epam.agency.service.impl.CityServiceImpl;
 import by.epam.agency.service.impl.TourServiceImpl;
+import by.epam.agency.service.impl.TourTypeServiceImpl;
 import by.epam.agency.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
+
     private ServiceFactory() {
 
     }
@@ -21,6 +26,14 @@ public class ServiceFactory {
 
     public TourService getTourService() {
         return TourServiceImpl.getInstance();
+    }
+
+    public CityService getCityService() {
+        return CityServiceImpl.getInstance();
+    }
+
+    public TourTypeService getTourTypeService() {
+        return TourTypeServiceImpl.getInstance();
     }
 
     private static final class ServiceFactoryHolder {

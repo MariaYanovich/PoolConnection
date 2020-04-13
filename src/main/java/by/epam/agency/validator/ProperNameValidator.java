@@ -1,7 +1,6 @@
-package by.epam.agency.validator.user;
+package by.epam.agency.validator;
 
 import by.epam.agency.exception.ValidatorException;
-import by.epam.agency.validator.Validator;
 import by.epam.agency.validator.constants.ValidatorRegex;
 
 import java.util.regex.Pattern;

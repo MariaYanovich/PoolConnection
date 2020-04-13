@@ -8,8 +8,7 @@ import by.epam.agency.exception.ServiceException;
 import by.epam.agency.exception.ValidatorException;
 import by.epam.agency.factory.DAOFactory;
 import by.epam.agency.service.UserService;
-import by.epam.agency.validator.Validator;
-import by.epam.agency.validator.user.*;
+import by.epam.agency.validator.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -207,8 +206,7 @@ public class UserServiceImpl implements UserService {
 
 
     private boolean checkLoginExistence(String userLogin) throws DAOException {
-        String login = userDAO.findLogin(userLogin);
-        return login == null;
+        return userDAO.findLogin(userLogin) == null;
     }
 
     private static final class UserServiceImplHolder {
