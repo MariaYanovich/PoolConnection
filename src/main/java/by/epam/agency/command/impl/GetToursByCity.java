@@ -14,14 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetHotToursCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(GetHotToursCommand.class.getName());
+public class GetToursByCity implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(GetToursByCity.class.getName());
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter(JspParameterType.CITY_ID);
         List<Tour> tours = new ArrayList<>();
         try {
-            tours = ServiceFactory.getInstance().getTourService().getHotTours();
+            tours = ServiceFactory.getInstance().getTourService().getToursByCityId(Integer.parseInt(id));
         } catch (ServiceException e) {
             LOGGER.error(e);
         }

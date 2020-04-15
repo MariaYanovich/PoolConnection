@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 public class SignUpCommand implements Command {
 
-    public static User signUp(HttpServletRequest request) throws ServiceException {
+    public static User initializeSignUpParameters(HttpServletRequest request) throws ServiceException {
         String login = request.getParameter(JspParameterType.LOGIN);
         String password = request.getParameter(JspParameterType.PASSWORD);
         String name = request.getParameter(JspParameterType.NAME);
@@ -29,7 +29,7 @@ public class SignUpCommand implements Command {
         String page;
         HttpSession session = request.getSession(true);
         try {
-            SignInCommand.setSessionAttributes(session, signUp(request));
+            SignInCommand.setSessionAttributes(session, initializeSignUpParameters(request));
             session.setAttribute(JspParameterType.ROLE, Role.CLIENT);
             page = PageType.HOME_PAGE.getAddress();
         } catch (ServiceException e) {

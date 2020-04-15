@@ -3,7 +3,9 @@ package by.epam.agency.command.impl;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.entity.City;
 import by.epam.agency.entity.Tour;
+import by.epam.agency.entity.TourType;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GetToursListCommand implements Command {
@@ -18,13 +21,19 @@ public class GetToursListCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        List<Tour> listResults = null;
+        List<Tour> tours = new ArrayList<>();
+        List<City> cities = new ArrayList<>();
+        List<TourType> tourTypes = new ArrayList<>();
         try {
-            listResults = ServiceFactory.getInstance().getTourService().getAllTours();
+            tours = ServiceFactory.getInstance().getTourService().getAllTours();
+            cities = ServiceFactory.getInstance().getCityService().getAllCities();
+            tourTypes = ServiceFactory.getInstance().getTourTypeService().getAllTourTypes();
         } catch (ServiceException e) {
             LOGGER.error(e);
         }
-        request.setAttribute(JspParameterType.TOURS, listResults);
+        request.getSession().setAttribute(JspParameterType.TOURS, tours);
+        request.getSession().setAttribute(JspParameterType.CITIES, cities);
+        request.getSession().setAttribute(JspParameterType.TOUR_TYPES, tourTypes);
         return PageType.TOURS_LIST_PAGE.getAddress();
     }
 }

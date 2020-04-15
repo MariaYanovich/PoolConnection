@@ -62,7 +62,7 @@ public class TourTypeServiceImpl implements TourTypeService {
     }
 
     @Override
-    public List<TourType> getAll() throws ServiceException {
+    public List<TourType> getAllTourTypes() throws ServiceException {
         try {
             return tourTypeDAO.getAll();
         } catch (DAOException e) {

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GetUsersListCommand implements Command {
@@ -18,7 +19,7 @@ public class GetUsersListCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        List<User> listResults = null;
+        List<User> listResults = new ArrayList<>();
         try {
             listResults = ServiceFactory.getInstance().getUserService().getAllUsers();
         } catch (ServiceException e) {

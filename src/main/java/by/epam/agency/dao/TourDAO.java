@@ -13,4 +13,7 @@ public interface TourDAO extends DAO<Tour> {
 
     List<Tour> getHotTours() throws DAOException;
 
+    List<Tour> getToursByCityId(int id) throws DAOException;
+
+    List<Tour> getToursByTourTypeId(int id) throws DAOException;
 }

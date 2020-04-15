@@ -46,14 +46,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createAdmin(String login, String password, String name, String surname, String phone) throws ServiceException {
+    public void createAdmin(String login, String password, String name, String surname, String phone) throws ServiceException {
         Validator validator = createSignUpAdminParametersValidator(login, password, name, surname, phone);
         try {
             validator.validate();
             if (checkLoginExistence(login)) {
                 User user = new User(login, password.toCharArray(), name, surname, phone, Role.ADMIN);
                 userDAO.createAdmin(user);
-                return user;
             } else {
                 throw new ServiceException();
             }
@@ -70,9 +69,8 @@ public class UserServiceImpl implements UserService {
         try {
             validator.validate();
             if (checkLoginExistence(login)) {
-                User user = new User(login, password.toCharArray(), name, surname, Float.parseFloat(cash), phone);
-                userDAO.createClient(user);
-                return user;
+                return userDAO.createClient(new User(login, password.toCharArray(),
+                        name, surname, Float.parseFloat(cash), phone));
             } else {
                 throw new ServiceException();
             }

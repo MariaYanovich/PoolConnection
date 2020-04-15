@@ -12,5 +12,5 @@ public interface TourTypeService {
 
     TourType findById(int id) throws ServiceException;
 
-    List<TourType> getAll() throws ServiceException;
+    List<TourType> getAllTourTypes() throws ServiceException;
 }

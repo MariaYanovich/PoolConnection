@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>All tours</title>
+    <title>Tours</title>
     <meta charset="utf-8">
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -33,21 +33,74 @@
     <link rel="stylesheet" href="${root}/resources/css/style.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="${root}/resources/css/navigation.css">
 </head>
-<body>
 <header>
     <c:import url="/WEB-INF/view/header.jsp"/>
 </header>
-
-<div class="text">
-    <h1 align="center">Our offers</h1>
+<body>
+<div class="nanvnav">
+    <nav>
+        <ul class="dropdown">
+            <li class="drop"><a href="#">Cities</a>
+                <ul class="sub_menu">
+                    <li>
+                        <jsp:useBean id="cities" scope="session"
+                                     type="java.util.List"/>
+                        <c:forEach items="${cities}" var="city">
+                            <form method="post" name="cities">
+                                <button class="btn btn-outline-info btn-lg btn-block"
+                                        aria-label="Cities" type="submit"
+                                        name="command"
+                                        value="GET_BY_CITY"><input type="hidden"
+                                                                   name="city_id"
+                                                                   value="${city.cityId}"/>
+                                        ${city.city}
+                                </button>
+                            </form>
+                        </c:forEach>
+                    </li>
+                </ul>
+            </li>
+            <li class="drop"><a href="#">Types</a>
+                <ul class="sub_menu">
+                    <li>
+                        <jsp:useBean id="tour_types" scope="session"
+                                     type="java.util.List"/>
+                        <c:forEach items="${tour_types}" var="tour_type">
+                            <form method="post" name="tourTypes">
+                                <button class="btn btn-outline-info btn-lg btn-block"
+                                        aria-label="TourType" type="submit"
+                                        name="command"
+                                        value="GET_BY_TOUR_TYPE"><input
+                                        type="hidden"
+                                        name="tour_type_id"
+                                        value="${tour_type.tourTypeId}"/>
+                                        ${tour_type.type}
+                                </button>
+                            </form>
+                        </c:forEach>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <form method="post" name="hotTours">
+            <button class="btn btn-info btn-lg"
+                    aria-label="Hot"
+                    type="submit"
+                    name="command"
+                    value="GET_HOT_TOURS">Hot tours
+            </button>
+        </form>
+    </nav>
 </div>
 
 <section class="ftco-section">
     <div class="container">
         <div class="row">
             <jsp:useBean id="tours" class="java.util.ArrayList"
-                         scope="request"/>
+                         scope="session"/>
             <c:forEach items="${tours}" var="tour">
                 <div class="col-md-6 col-lg-4 ftco-animate">
                     <div class="project">
@@ -69,20 +122,20 @@
                             </div>
                             <div class="star d-flex clearfix">
                                 <div class="mr-auto float-left">
-                                    <span class="ion-ios-star"><c:out
-                                            value="${tour.tourType.type}"/></span>
+                                                <span class="ion-ios-star"><c:out
+                                                        value="${tour.tourType.type}"/></span>
                                 </div>
                             </div>
                             <div class="star d-flex clearfix">
                                 <div class="mr-auto float-left">
-                                    <span class="ion-ios-star"><c:out
-                                            value="${tour.transport.type}"/></span>
+                                                <span class="ion-ios-star"><c:out
+                                                        value="${tour.transport.type}"/></span>
                                 </div>
                             </div>
                             <div class="star d-flex clearfix">
                                 <div class="mr-auto float-left">
-                                    <span class="ion-ios-star"><c:out
-                                            value="from ${tour.departureCity.city}"/></span>
+                                                <span class="ion-ios-star"><c:out
+                                                        value="from ${tour.departureCity.city}"/></span>
                                 </div>
                             </div>
                             <div style="padding-top: 5px">
@@ -110,7 +163,8 @@
                                         <c:if test="${tour.hot}">
                                             <button class="btn btn-info"
                                                     aria-label="Hot"
-                                                    type="submit" name="command"
+                                                    type="submit"
+                                                    name="command"
                                                     value="un_hot_tour">
                                                 <input type="hidden"
                                                        name="tour_id"
@@ -121,7 +175,8 @@
                                         <c:if test="${!tour.hot}">
                                             <button class="btn btn-info"
                                                     aria-label="UnHot"
-                                                    type="submit" name="command"
+                                                    type="submit"
+                                                    name="command"
                                                     value="set_hot_tour">
                                                 <input type="hidden"
                                                        name="tour_id"
@@ -132,13 +187,15 @@
                                         <button class="btn btn-danger"
                                                 type="submit" name="command"
                                                 value="delete_tour">
-                                            <input type="hidden" name="tour_id"
+                                            <input type="hidden"
+                                                   name="tour_id"
                                                    value="${tour.tourId}"/>
                                             <i class="fa fa-trash-o fa-lg"></i>
                                             Delete
                                         </button>
                                         <button class="btn btn-default btn-sm">
-                                            <i class="fa fa-cog"></i> Settings
+                                            <i class="fa fa-cog"></i>
+                                            Settings
                                         </button>
                                     </form>
                                 </c:if>
@@ -167,7 +224,8 @@
     <svg class="circular" width="48px" height="48px">
         <circle class="path-bg" cx="24" cy="24" r="22" fill="none"
                 stroke-width="4" stroke="#eeeeee"/>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4"
+        <circle class="path" cx="24" cy="24" r="22" fill="none"
+                stroke-width="4"
                 stroke-miterlimit="10" stroke="#F96D00"/>
     </svg>
 </div>
@@ -186,6 +244,6 @@
 <script src="${root}/resources/js/bootstrap-datepicker.js"></script>
 <script src="${root}/resources/js/scrollax.min.js"></script>
 <script src="${root}/resources/js/main.js"></script>
-
+<script src="${root}/resources/js/nav.js"></script>
 </body>
 </html>

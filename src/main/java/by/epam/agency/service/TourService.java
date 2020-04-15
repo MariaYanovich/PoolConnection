@@ -11,6 +11,10 @@ public interface TourService {
 
     List<Tour> getHotTours() throws ServiceException;
 
+    List<Tour> getToursByCityId(int id) throws ServiceException;
+
+    List<Tour> getToursByTourTypeId(int id) throws ServiceException;
+
     void unHotTour(int id) throws ServiceException;
 
     void deleteTour(int id) throws ServiceException;

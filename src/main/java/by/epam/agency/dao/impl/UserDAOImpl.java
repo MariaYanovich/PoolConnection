@@ -67,7 +67,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setInt(USER_ID_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    createUserToFindById(user, resultSet);
+                    initializeUser(user, resultSet);
                 }
             }
         } catch (SQLException e) {
@@ -105,7 +105,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(USER_PASSWORD_INDEX, password);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    createUserToFindByLoginAndPassword(user, resultSet);
+                    initializeUser(user, resultSet);
                 }
             }
             if (user.getPassword() == null || user.getLogin() == null) {
@@ -119,15 +119,16 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void createClient(User user) throws DAOException {
+    public User createClient(User user) throws DAOException {
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.CREATE_USER)) {
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.CREATE_CLIENT)) {
             initializeCreateClientStatement(statement, user);
             statement.execute();
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DAOException(e);
         }
+        return findUserByLoginAndPassword(user.getLogin(), String.valueOf(user.getPassword()));
     }
 
     @Override
@@ -165,7 +166,7 @@ public class UserDAOImpl implements UserDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     User user = new User();
-                    createUserToFindByLoginAndPassword(user, resultSet);
+                    initializeUser(user, resultSet);
                     listToReturn.add(user);
                 }
             }
@@ -182,11 +183,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_CLIENT_INFO)) {
-                statement.setString(UPDATE_CLIENT_NAME_INDEX, user.getName());
-                statement.setString(UPDATE_CLIENT_SURNAME_INDEX, user.getSurname());
-                statement.setString(UPDATE_CLIENT_PHONE_INDEX, user.getPhone());
-                statement.setFloat(UPDATE_CLIENT_CASH_INDEX, user.getCash());
-                statement.setInt(UPDATE_CLIENT_ID_INDEX, user.getId());
+                initializeUpdateClientStatement(statement, user);
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -200,10 +197,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_ADMIN_INFO)) {
-                statement.setString(UPDATE_ADMIN_NAME_INDEX, user.getName());
-                statement.setString(UPDATE_ADMIN_SURNAME_INDEX, user.getSurname());
-                statement.setString(UPDATE_ADMIN_PHONE_INDEX, user.getPhone());
-                statement.setInt(UPDATE_ADMIN_ID_INDEX, user.getId());
+                initializeUpdateAdminStatement(statement, user);
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -241,33 +235,19 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    private void commonUserCreate(User user, ResultSet resultSet) throws SQLException {
+    private void initializeUser(User user, ResultSet resultSet) throws SQLException {
         user.setId(resultSet.getInt(SqlColumn.USER_ID.toString()));
         user.setLogin(resultSet.getString(SqlColumn.USER_LOGIN.toString()));
         user.setPassword(resultSet.getString(SqlColumn.USER_PASSWORD.toString()).toCharArray());
         user.setName(resultSet.getString(SqlColumn.USER_NAME.toString()));
         user.setSurname(resultSet.getString(SqlColumn.USER_SURNAME.toString()));
-    }
-
-    private void createUserToFindById(User user, ResultSet resultSet) throws SQLException {
-        commonUserCreate(user, resultSet);
-        Discount discount = new Discount();
-        discount.setId(resultSet.getInt(SqlColumn.USER_DISCOUNT_ID.toString()));
-        user.setDiscount(discount);
-        user.setCash(resultSet.getFloat(SqlColumn.USER_CASH.toString()));
-        user.setPhone(resultSet.getString(SqlColumn.USER_PHONE.toString()));
-        user.setRole(Role.getRoleById(resultSet.getInt(SqlColumn.USER_ROLE_ID.toString())));
-    }
-
-    private void createUserToFindByLoginAndPassword(User user, ResultSet resultSet) throws SQLException {
-        commonUserCreate(user, resultSet);
-        Discount discount = new Discount();
-        discount.setDiscountSize(resultSet.getFloat(SqlColumn.USER_DISCOUNT_SIZE.toString()));
-        user.setDiscount(discount);
+        user.setDiscount(new Discount(resultSet.getInt(SqlColumn.USER_DISCOUNT_ID.toString()),
+                resultSet.getInt(SqlColumn.USER_DISCOUNT_SIZE.toString())));
         user.setCash(resultSet.getFloat(SqlColumn.USER_CASH.toString()));
         user.setPhone(resultSet.getString(SqlColumn.USER_PHONE.toString()));
         user.setRole(Role.valueOf(resultSet.getString(SqlColumn.USER_ROLE.toString()).toUpperCase()));
     }
+
 
     private void initializeCreateClientStatement(PreparedStatement statement, User user) throws SQLException {
         statement.setString(CREATE_USER_LOGIN_INDEX, user.getLogin());
@@ -285,6 +265,21 @@ public class UserDAOImpl implements UserDAO {
         statement.setString(CREATE_ADMIN_SURNAME_INDEX, user.getSurname());
         statement.setString(CREATE_ADMIN_PHONE_INDEX, user.getPhone());
         statement.setInt(CREATE_ADMIN_ROLE_INDEX, user.getRole().getId());
+    }
+
+    private void initializeUpdateClientStatement(PreparedStatement statement, User user) throws SQLException {
+        statement.setString(UPDATE_CLIENT_NAME_INDEX, user.getName());
+        statement.setString(UPDATE_CLIENT_SURNAME_INDEX, user.getSurname());
+        statement.setString(UPDATE_CLIENT_PHONE_INDEX, user.getPhone());
+        statement.setFloat(UPDATE_CLIENT_CASH_INDEX, user.getCash());
+        statement.setInt(UPDATE_CLIENT_ID_INDEX, user.getId());
+    }
+
+    private void initializeUpdateAdminStatement(PreparedStatement statement, User user) throws SQLException {
+        statement.setString(UPDATE_ADMIN_NAME_INDEX, user.getName());
+        statement.setString(UPDATE_ADMIN_SURNAME_INDEX, user.getSurname());
+        statement.setString(UPDATE_ADMIN_PHONE_INDEX, user.getPhone());
+        statement.setInt(UPDATE_ADMIN_ID_INDEX, user.getId());
     }
 
     @Override

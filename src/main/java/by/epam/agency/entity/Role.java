@@ -9,16 +9,6 @@ public enum Role {
         this.id = id;
     }
 
-    public static Role getRoleById(int id) {
-        Role[] roles = Role.values();
-        for (Role role : roles) {
-            if (role.getId() == id) {
-                return role;
-            }
-        }
-        return null;
-    }
-
     public int getId() {
         return id;
     }

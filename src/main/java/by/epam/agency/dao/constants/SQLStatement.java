@@ -5,7 +5,7 @@ public class SQLStatement {
     public static final String CHECK_LOGIN = "SELECT user_login " +
             "FROM travel_agency_db.user where user_login=?";
 
-    public static final String CREATE_USER = "INSERT INTO `travel_agency_db`.`user`" +
+    public static final String CREATE_CLIENT = "INSERT INTO `travel_agency_db`.`user`" +
             "(`user_login`,`user_password`,`user_name`,`user_surname`," +
             "`user_cash`,`user_phone`) VALUES (?,?,?,?,?,?)";
 
@@ -13,31 +13,34 @@ public class SQLStatement {
             "(`user_login`,`user_password`,`user_name`,`user_surname`," +
             "`user_phone`, `user_role_id`) VALUES (?,?,?,?,?,?)";
 
-    public static final String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT user_id, " +
-            "user_login, user_password, user_name, user_surname,\n" +
-            "user_discount.user_discount_size, user_cash, user_phone, user_role.user_role\n" +
-            "FROM travel_agency_db.user join travel_agency_db.user_discount \n" +
+    public static final String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT user_id, user_login, user_password, user_name, user_surname,\n" +
+            "user_discount.user_discount_id, user_discount.user_discount_size, user_cash, \n" +
+            "user_phone, user_role.user_role_id, user_role.user_role\n" +
+            "FROM travel_agency_db.user\n" +
+            "inner join travel_agency_db.user_discount \n" +
             "ON travel_agency_db.user.user_discount_id=travel_agency_db.user_discount.user_discount_id\n" +
-            "join travel_agency_db.user_role\n" +
-            "ON travel_agency_db.user.user_role_id=travel_agency_db.user_role.user_role_id\n" +
+            "inner join travel_agency_db.user_role\n" +
+            "ON travel_agency_db.user.user_role_id=travel_agency_db.user_role.user_role_id " +
             "WHERE user_login=? and user_password=?";
 
-    public static final String GET_USER_BY_ID = "SELECT user_id, user_login, user_password, user_name," +
-            "user_surname, user_discount_id, user_cash, user_phone, user_role_id\n" +
+    public static final String GET_USER_BY_ID = "SELECT user_id, user_login, user_password, user_name, user_surname,\n" +
+            "user_discount.user_discount_id, user_discount.user_discount_size, user_cash, \n" +
+            "user_phone, user_role.user_role_id, user_role.user_role\n" +
             "FROM travel_agency_db.user\n" +
+            "inner join travel_agency_db.user_discount \n" +
+            "ON travel_agency_db.user.user_discount_id=travel_agency_db.user_discount.user_discount_id\n" +
+            "inner join travel_agency_db.user_role\n" +
+            "ON travel_agency_db.user.user_role_id=travel_agency_db.user_role.user_role_id " +
             "WHERE user_id=?";
 
-    public static final String GET_USER_ROLE_BY_ID = "SELECT user_role_id, user_role" +
-            " FROM travel_agency_db.user_role where user_role_id=?";
-
-    public static final String GET_ALL_USERS = "SELECT user.user_id, user.user_login, " +
-            "user.user_password,user.user_name, user.user_surname, user_discount.user_discount_size,\n" +
-            "user.user_cash, user.user_phone, user_role.user_role\n" +
+    public static final String GET_ALL_USERS = "SELECT user_id, user_login, user_password, user_name, user_surname,\n" +
+            "user_discount.user_discount_id, user_discount.user_discount_size, user_cash, \n" +
+            "user_phone, user_role.user_role_id, user_role.user_role\n" +
             "FROM travel_agency_db.user\n" +
-            "join travel_agency_db.user_discount \n" +
+            "inner join travel_agency_db.user_discount \n" +
             "ON travel_agency_db.user.user_discount_id=travel_agency_db.user_discount.user_discount_id\n" +
-            "join travel_agency_db.user_role\n" +
-            "On travel_agency_db.user.user_role_id=travel_agency_db.user_role.user_role_id\n" +
+            "inner join travel_agency_db.user_role\n" +
+            "ON travel_agency_db.user.user_role_id=travel_agency_db.user_role.user_role_id " +
             "ORDER by user.user_id";
 
     public static final String BLOCK_USER = "UPDATE `travel_agency_db`.`user` " +
@@ -57,16 +60,15 @@ public class SQLStatement {
     public static final String DELETE_CLIENT = "DELETE FROM `travel_agency_db`.`user`\n" +
             "WHERE user_id = ?";
 
-    public static final String GET_ALL_TOURS = "SELECT tour.tour_id, tour.tour_name, " +
-            "    tour.tour_cost, tour.tour_departure_date,tour.tour_days,\n" +
-            "    tour.tour_places,tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
-            "    tour.tour_is_hot,transport.transport, tour.tour_image\n" +
+    public static final String GET_ALL_TOURS = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
+            "tour.tour_places, tour_type.tour_type_id, tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
+            "tour.tour_is_hot, transport.transport_id, transport.transport, tour.tour_image \n" +
             "FROM travel_agency_db.tour\n" +
-            "JOIN travel_agency_db.tour_type \n" +
+            "right join travel_agency_db.tour_type\n" +
             "ON travel_agency_db.tour.tour_type_id = tour_type.tour_type_id\n" +
-            "JOIN travel_agency_db.transport \n" +
-            "ON travel_agency_db.tour.tour_transport_id = transport.transport_id "
-            + "ORDER by tour.tour_id";
+            "right join travel_agency_db.transport\n" +
+            "ON travel_agency_db.tour.tour_transport_id = transport.transport_id \n" +
+            "ORDER by tour.tour_id";
 
     public static final String CREATE_CITY = "INSERT INTO `travel_agency_db`.`city`" +
             "(`city`) VALUES (?)";
@@ -103,8 +105,15 @@ public class SQLStatement {
     public static final String CHECK_TOUR_TYPE = "SELECT tour_type " +
             "FROM travel_agency_db.tour_type where tour_type.tour_type=?";
 
-    public static final String GET_TOUR_BY_ID = "SELECT *\n" +
-            "FROM `travel_agency_db`.`tour` where tour.tour_id =?";
+    public static final String GET_TOUR_BY_ID = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
+            "tour.tour_places, tour_type.tour_type_id, tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
+            "tour.tour_is_hot, transport.transport_id, transport.transport, tour.tour_image \n" +
+            "FROM travel_agency_db.tour\n" +
+            "right join travel_agency_db.tour_type\n" +
+            "ON travel_agency_db.tour.tour_type_id = tour_type.tour_type_id\n" +
+            "right join travel_agency_db.transport\n" +
+            "ON travel_agency_db.tour.tour_transport_id = transport.transport_id \n" +
+            "where tour.tour_id =?";
 
     public static final String SET_HOT_TOUR = "UPDATE `travel_agency_db`.`tour` " +
             "SET `tour_is_hot` = '1' WHERE (`tour_id` = ?)";

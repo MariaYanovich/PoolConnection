@@ -62,7 +62,7 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<City> getAll() throws ServiceException {
+    public List<City> getAllCities() throws ServiceException {
         try {
             return cityDAO.getAll();
         } catch (DAOException e) {

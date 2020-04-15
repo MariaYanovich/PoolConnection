@@ -45,6 +45,26 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
+    public List<Tour> getToursByCityId(int id) throws ServiceException {
+        try {
+            return tourDAO.getToursByCityId(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Tour> getToursByTourTypeId(int id) throws ServiceException {
+        try {
+            return tourDAO.getToursByTourTypeId(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public void unHotTour(int id) throws ServiceException {
         try {
             tourDAO.unHotTour(id);

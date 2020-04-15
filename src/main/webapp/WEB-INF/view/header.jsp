@@ -108,7 +108,6 @@
             </c:if>
 
             <c:if test="${sessionScope.role !='ADMIN'}">
-
                 <form method="post" name="search">
                     <button type="submit" class="just_btn" name="command"
                             value="redirect">Search
@@ -119,17 +118,9 @@
 
             <form method="post" name="tours_list">
                 <button type="submit" class="just_btn" name="command"
-                        value="GET_TOURS_LIST">All tours
+                        value="GET_TOURS_LIST">Tours
                 </button>
             </form>
-
-            <c:if test="${sessionScope.role !='ADMIN'}">
-                <form method="post" name="hotTours">
-                    <button type="submit" class="just_btn" name="command"
-                            value="GET_HOT_TOURS">Hot tours
-                    </button>
-                </form>
-            </c:if>
 
             <form method="post" name="home">
                 <button type="submit" class="just_btn" name="command"

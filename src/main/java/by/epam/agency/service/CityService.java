@@ -12,5 +12,5 @@ public interface CityService {
 
     City findById(int id) throws ServiceException;
 
-    List<City> getAll() throws ServiceException;
+    List<City> getAllCities() throws ServiceException;
 }

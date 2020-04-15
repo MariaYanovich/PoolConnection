@@ -22,6 +22,10 @@ public class JspParameterType {
     public static final String IMAGE = "image";
     public static final String TOUR = "tour";
     public static final String TOUR_ID = "tour_id";
+    public static final String CITIES = "cities";
+    public static final String TOUR_TYPES = "tour_types";
+    public static final String CITY_ID = "city_id";
+    public static final String TOUR_TYPE_ID = "tour_type_id";
 
     private JspParameterType() {
     }

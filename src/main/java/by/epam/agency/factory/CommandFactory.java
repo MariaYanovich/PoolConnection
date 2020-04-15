@@ -54,6 +54,11 @@ public class CommandFactory {
                 return new SetHotTourCommand();
             case DELETE_TOUR:
                 return new DeleteTourCommand();
+            case GET_BY_CITY:
+                return new GetToursByCity();
+            case GET_BY_TOUR_TYPE:
+                return new GetToursByType();
+
             default:
                 return new ErrorCommand();
         }

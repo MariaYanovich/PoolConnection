@@ -8,9 +8,9 @@ import java.util.List;
 public interface UserService {
     User signIn(String login, String password) throws ServiceException;
 
-    User createAdmin(String login, String password, String name, String surname, String phone) throws ServiceException;
-
     User signUp(String login, String password, String name, String surname, String cash, String phone) throws ServiceException;
+
+    void createAdmin(String login, String password, String name, String surname, String phone) throws ServiceException;
 
     void deleteClient(int id) throws ServiceException;
 
@@ -18,9 +18,9 @@ public interface UserService {
 
     void unblockClient(int id) throws ServiceException;
 
-    List<User> getAllUsers() throws ServiceException;
-
     void updateAdmin(User user) throws ServiceException;
 
     void updateClient(User user) throws ServiceException;
+
+    List<User> getAllUsers() throws ServiceException;
 }
