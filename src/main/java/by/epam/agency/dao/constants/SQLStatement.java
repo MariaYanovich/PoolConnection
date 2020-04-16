@@ -95,6 +95,12 @@ public class SQLStatement {
     public static final String CHECK_TOUR_TYPE = "SELECT tour_type " +
             "FROM travel_agency_db.tour_type where tour_type.tour_type=?";
 
+    public static final String GET_TRANSPORT_BY_ID = "SELECT * FROM travel_agency_db.transport " +
+            "WHERE transport_id=?";
+
+    public static final String GET_ALL_TRANSPORT = "SELECT * FROM travel_agency_db.transport " +
+            "ORDER by transport_id";
+
     public static final String GET_ALL_TOURS = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
             "tour.tour_places, tour_type.tour_type_id, tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
             "tour_status.tour_status_id,  tour_status.tour_status, transport.transport_id, transport.transport, tour.tour_image \n" +
@@ -124,6 +130,9 @@ public class SQLStatement {
 
     public static final String UN_HOT_TOUR = "UPDATE `travel_agency_db`.`tour` " +
             "SET `tour_status_id` = '1' WHERE (`tour_id` = ?)";
+
+    public static final String SET_ARCHIVE_TOUR = "UPDATE `travel_agency_db`.`tour` " +
+            "SET `tour_status_id` = '3' WHERE (`tour_id` = ?)";
 
     public static final String DELETE_TOUR = "DELETE FROM `travel_agency_db`.`tour`\n" +
             "WHERE tour_id = ?";

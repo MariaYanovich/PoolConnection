@@ -2,7 +2,7 @@ package by.epam.agency.entity;
 
 public enum  TourStatus {
 
-    RELEVANT(3), HOT(2), IRRELEVANT(1);
+    ACTUAL(1), HOT(2), ARCHIVAL(3);
     private int id;
 
     TourStatus(int id) {

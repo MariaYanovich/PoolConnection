@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.List;
 
 public class TourDAOImpl implements TourDAO {
@@ -124,6 +125,7 @@ public class TourDAOImpl implements TourDAO {
             LOGGER.error(e);
             throw new DAOException(e);
         }
+        updateArchiveTours(listToReturn);
         return listToReturn;
     }
 
@@ -249,6 +251,21 @@ public class TourDAOImpl implements TourDAO {
         tour.setImage(resultSet.getBlob(SqlColumn.TOUR_IMAGE.toString()).getBinaryStream());
     }
 
+    private void updateArchiveTours(List<Tour> tours) throws DAOException {
+        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.SET_ARCHIVE_TOUR)) {
+            for (Tour tour : tours) {
+                if (tour.getDepartureDate().before(Calendar.getInstance().getTime())) {
+                    statement.setInt(TOUR_ID_INDEX, tour.getTourId());
+                    tour.setTourStatus(TourStatus.ARCHIVAL);
+                    statement.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
 
     private void initializeStatementToCreateTour(PreparedStatement statement, Tour tour) throws SQLException {
         statement.setString(CREATE_TOUR_NAME_INDEX, tour.getName());
