@@ -121,7 +121,16 @@
                         value="GET_TOURS_LIST">Tours
                 </button>
             </form>
-
+            <c:if test="${sessionScope.role!='ADMIN'}">
+            <form method="post" name="sign_up">
+                <button type="submit" class="just_btn" name="command"
+                        value="redirect">
+                    Add tour
+                </button>
+                <input type="hidden" name="address"
+                       value="ADD_TOUR_PAGE"/>
+            </form>
+            </c:if>
             <form method="post" name="home">
                 <button type="submit" class="just_btn" name="command"
                         value="redirect">Home

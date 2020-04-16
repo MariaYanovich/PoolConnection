@@ -25,6 +25,16 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
+    public void addTour(Tour tour) throws ServiceException {
+        try {
+            tourDAO.create(tour);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<Tour> getAllTours() throws ServiceException {
         try {
             return tourDAO.getAll();

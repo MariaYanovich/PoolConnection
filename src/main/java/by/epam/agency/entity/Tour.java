@@ -15,7 +15,7 @@ public class Tour implements Serializable {
     private TourType tourType;
     private City city;
     private City departureCity;
-    private boolean isHot;
+    private TourStatus tourStatus;
     private Transport transport;
     private InputStream image;
     private String imageString;
@@ -25,16 +25,16 @@ public class Tour implements Serializable {
 
     public Tour(String name, float cost, Date departureDate,
                 int days, int places, TourType tourType, City city,
-                City departureCity, boolean isHot, Transport transport,
+                City departureCity, TourStatus tourStatus, Transport transport,
                 InputStream image, String imageString) {
         this(name, cost, departureDate, days, places, tourType, city,
-                departureCity, isHot, transport, image);
+                departureCity, tourStatus, transport, image);
         this.imageString = imageString;
     }
 
     public Tour(String name, float cost, Date departureDate,
                 int days, int places, TourType tourType, City city,
-                City departureCity, boolean isHot, Transport transport,
+                City departureCity, TourStatus tourStatus, Transport transport,
                 InputStream image) {
         this.name = name;
         this.cost = cost;
@@ -44,7 +44,7 @@ public class Tour implements Serializable {
         this.tourType = tourType;
         this.city = city;
         this.departureCity = departureCity;
-        this.isHot = isHot;
+        this.tourStatus = tourStatus;
         this.transport = transport;
         this.image = image;
     }
@@ -122,12 +122,12 @@ public class Tour implements Serializable {
     }
 
 
-    public boolean isHot() {
-        return isHot;
+    public TourStatus getTourStatus() {
+        return tourStatus;
     }
 
-    public void setHot(boolean hot) {
-        isHot = hot;
+    public void setTourStatus(TourStatus tourStatus) {
+        this.tourStatus = tourStatus;
     }
 
     public Transport getTransport() {
@@ -155,7 +155,6 @@ public class Tour implements Serializable {
                 Float.compare(tour.getCost(), getCost()) == 0 &&
                 getDays() == tour.getDays() &&
                 getPlaces() == tour.getPlaces() &&
-                isHot() == tour.isHot() &&
                 Objects.equals(getName(), tour.getName()) &&
                 Objects.equals(getDepartureDate(), tour.getDepartureDate()) &&
                 Objects.equals(getTourType(), tour.getTourType()) &&
@@ -177,7 +176,7 @@ public class Tour implements Serializable {
     public int hashCode() {
         return Objects.hash(getTourId(), getName(), getCost(),
                 getDepartureDate(), getDays(), getPlaces(), getTourType(),
-                getCity(), getDepartureCity(), isHot(), getTransport(), getImage());
+                getCity(), getDepartureCity(), getTransport(), getImage());
     }
 
     @Override
@@ -192,7 +191,7 @@ public class Tour implements Serializable {
                 ", tourType=" + tourType +
                 ", city=" + city +
                 ", departureCity=" + departureCity +
-                ", isHot=" + isHot +
+                ", tourStatus=" + tourStatus +
                 ", transport=" + transport +
                 ", image='" + image + '\'' +
                 "}\n";

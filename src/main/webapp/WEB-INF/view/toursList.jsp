@@ -40,185 +40,189 @@
     <c:import url="/WEB-INF/view/header.jsp"/>
 </header>
 <body>
-<div class="nanvnav">
-    <nav>
-        <ul class="dropdown">
-            <li class="drop"><a href="#">Cities</a>
-                <ul class="sub_menu">
-                    <li>
-                        <jsp:useBean id="cities" scope="session"
-                                     type="java.util.List"/>
-                        <c:forEach items="${cities}" var="city">
-                            <form method="post" name="cities">
-                                <button class="btn btn-outline-info btn-lg btn-block"
-                                        aria-label="Cities" type="submit"
-                                        name="command"
-                                        value="GET_BY_CITY"><input type="hidden"
-                                                                   name="city_id"
-                                                                   value="${city.cityId}"/>
-                                        ${city.city}
-                                </button>
-                            </form>
-                        </c:forEach>
-                    </li>
-                </ul>
-            </li>
-            <li class="drop"><a href="#">Types</a>
-                <ul class="sub_menu">
-                    <li>
-                        <jsp:useBean id="tour_types" scope="session"
-                                     type="java.util.List"/>
-                        <c:forEach items="${tour_types}" var="tour_type">
-                            <form method="post" name="tourTypes">
-                                <button class="btn btn-outline-info btn-lg btn-block"
-                                        aria-label="TourType" type="submit"
-                                        name="command"
-                                        value="GET_BY_TOUR_TYPE"><input
-                                        type="hidden"
-                                        name="tour_type_id"
-                                        value="${tour_type.tourTypeId}"/>
-                                        ${tour_type.type}
-                                </button>
-                            </form>
-                        </c:forEach>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        <form method="post" name="hotTours">
-            <button class="btn btn-info btn-lg"
-                    aria-label="Hot"
-                    type="submit"
-                    name="command"
-                    value="GET_HOT_TOURS">Hot tours
-            </button>
-        </form>
-    </nav>
-</div>
+<c:if test="${sessionScope.role!='ADMIN'}">
+    <div class="nanvnav">
+        <nav>
+            <ul class="dropdown">
+                <li class="drop"><a href="#">Cities</a>
+                    <ul class="sub_menu">
+                        <li>
+                            <jsp:useBean id="cities" scope="session"
+                                         type="java.util.List"/>
+                            <c:forEach items="${cities}" var="city">
+                                <form method="post" name="cities">
+                                    <button class="btn btn-outline-info btn-lg btn-block"
+                                            aria-label="Cities" type="submit"
+                                            name="command"
+                                            value="GET_BY_CITY"><input
+                                            type="hidden"
+                                            name="city_id"
+                                            value="${city.cityId}"/>
+                                            ${city.city}
+                                    </button>
+                                </form>
+                            </c:forEach>
+                        </li>
+                    </ul>
+                </li>
+                <li class="drop"><a href="#">Types</a>
+                    <ul class="sub_menu">
+                        <li>
+                            <jsp:useBean id="tour_types" scope="session"
+                                         type="java.util.List"/>
+                            <c:forEach items="${tour_types}" var="tour_type">
+                                <form method="post" name="tourTypes">
+                                    <button class="btn btn-outline-info btn-lg btn-block"
+                                            aria-label="TourType" type="submit"
+                                            name="command"
+                                            value="GET_BY_TOUR_TYPE"><input
+                                            type="hidden"
+                                            name="tour_type_id"
+                                            value="${tour_type.tourTypeId}"/>
+                                            ${tour_type.type}
+                                    </button>
+                                </form>
+                            </c:forEach>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
 
-<section class="ftco-section">
-    <div class="container">
-        <div class="row">
-            <jsp:useBean id="tours" class="java.util.ArrayList"
-                         scope="session"/>
-            <c:forEach items="${tours}" var="tour">
-                <div class="col-md-6 col-lg-4 ftco-animate">
-                    <div class="project">
-                        <div class="img">
-                            <img src="data:image/jpg;base64,${tour.imageString}"
-                                 class="img-fluid" alt="Colorlib Template">
-                        </div>
-                        <div class="text">
-                            <h4 class="price"><c:out
-                                    value="${tour.cost}$"/></h4>
-                            <span><c:out value="${tour.days}"/> days</span>
-                            <h3><c:out
-                                    value="${tour.name} to ${tour.city.city}"/>
-                            </h3>
-                            <div class="star d-flex clearfix">
-                                <div class="mr-auto float-left">
-                                    <span class="rate">${tour.departureDate}</span>
-                                </div>
+            <form method="post" name="hotTours">
+                <button class="btn btn-info btn-lg"
+                        aria-label="Hot"
+                        type="submit"
+                        name="command"
+                        value="GET_HOT_TOURS">Hot tours
+                </button>
+            </form>
+        </nav>
+    </div>
+</c:if>
+<jsp:useBean id="tours" class="java.util.ArrayList"
+             scope="session"/>
+
+<c:if test="${empty tours}">
+    <section class="hero">
+        <h1 class="caption">No such tours</h1>
+    </section>
+</c:if>
+
+<c:if test="${not empty tours}">
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <c:forEach items="${tours}" var="tour">
+                    <div class="col-md-6 col-lg-4 ftco-animate">
+                        <div class="project">
+                            <div class="img">
+                                <img src="data:image/jpg;base64,${tour.imageString}"
+                                     class="img-fluid" alt="Colorlib Template">
                             </div>
-                            <div class="star d-flex clearfix">
-                                <div class="mr-auto float-left">
+                            <div class="text">
+                                <h4 class="price"><c:out
+                                        value="${tour.cost}$"/></h4>
+                                <span><c:out value="${tour.days}"/> days</span>
+                                <h3><c:out
+                                        value="${tour.name} to ${tour.city.city}"/>
+                                </h3>
+                                <div class="star d-flex clearfix">
+                                    <div class="mr-auto float-left">
+                                        <span class="rate">${tour.departureDate}</span>
+                                    </div>
+                                </div>
+                                <div class="star d-flex clearfix">
+                                    <div class="mr-auto float-left">
                                                 <span class="ion-ios-star"><c:out
                                                         value="${tour.tourType.type}"/></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="star d-flex clearfix">
-                                <div class="mr-auto float-left">
+                                <div class="star d-flex clearfix">
+                                    <div class="mr-auto float-left">
                                                 <span class="ion-ios-star"><c:out
                                                         value="${tour.transport.type}"/></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="star d-flex clearfix">
-                                <div class="mr-auto float-left">
+                                <div class="star d-flex clearfix">
+                                    <div class="mr-auto float-left">
                                                 <span class="ion-ios-star"><c:out
                                                         value="from ${tour.departureCity.city}"/></span>
+                                    </div>
+                                </div>
+                                <div style="padding-top: 5px">
+                                    <c:if test="${sessionScope.role =='CLIENT'}">
+                                        <%--                                        <form method="post">--%>
+                                        <%--                                                <button class="btn btn-info"--%>
+                                        <%--                                                        aria-label="Buy"--%>
+                                        <%--                                                        type="submit" name="command"--%>
+                                        <%--                                                        value="buy_tour">--%>
+                                        <%--                                                    <input type="hidden" name="tour_id"--%>
+                                        <%--                                                           value="${tour.tourId}"/>--%>
+                                        <%--                                                    do not hot--%>
+                                        <%--                                                </button>--%>
+                                        <%--                                        </form>--%>
+                                        <form method="post">
+                                            <button class="btn btn-info"
+                                                    aria-label="Buy"
+                                                    type="submit">
+                                                Buy
+                                            </button>
+                                        </form>
+                                    </c:if>
+                                    <c:if test="${sessionScope.role =='ADMIN'}">
+                                        <form method="post">
+                                            <c:if test="${tour.tourStatus=='HOT'}">
+                                                <button class="btn btn-info"
+                                                        aria-label="Hot"
+                                                        type="submit"
+                                                        name="command"
+                                                        value="un_hot_tour">
+                                                    <input type="hidden"
+                                                           name="tour_id"
+                                                           value="${tour.tourId}"/>
+                                                    do not hot
+                                                </button>
+                                            </c:if>
+                                            <c:if test="${tour.tourStatus!='HOT'}">
+                                                <button class="btn btn-info"
+                                                        aria-label="UnHot"
+                                                        type="submit"
+                                                        name="command"
+                                                        value="set_hot_tour">
+                                                    <input type="hidden"
+                                                           name="tour_id"
+                                                           value="${tour.tourId}"/>
+                                                    do hot
+                                                </button>
+                                            </c:if>
+                                            <button class="btn btn-danger"
+                                                    type="submit" name="command"
+                                                    value="delete_tour">
+                                                <input type="hidden"
+                                                       name="tour_id"
+                                                       value="${tour.tourId}"/>
+                                                <i class="fa fa-trash-o fa-lg"></i>
+                                                Delete
+                                            </button>
+                                            <button class="btn btn-default btn-sm">
+                                                <i class="fa fa-cog"></i>
+                                                Settings
+                                            </button>
+                                        </form>
+                                    </c:if>
                                 </div>
                             </div>
-                            <div style="padding-top: 5px">
-                                <c:if test="${sessionScope.role =='CLIENT'}">
-                                    <%--                                        <form method="post">--%>
-                                    <%--                                                <button class="btn btn-info"--%>
-                                    <%--                                                        aria-label="Buy"--%>
-                                    <%--                                                        type="submit" name="command"--%>
-                                    <%--                                                        value="buy_tour">--%>
-                                    <%--                                                    <input type="hidden" name="tour_id"--%>
-                                    <%--                                                           value="${tour.tourId}"/>--%>
-                                    <%--                                                    do not hot--%>
-                                    <%--                                                </button>--%>
-                                    <%--                                        </form>--%>
-                                    <form method="post">
-                                        <button class="btn btn-info"
-                                                aria-label="Buy"
-                                                type="submit">
-                                            Buy
-                                        </button>
-                                    </form>
-                                </c:if>
-                                <c:if test="${sessionScope.role =='ADMIN'}">
-                                    <form method="post">
-                                        <c:if test="${tour.hot}">
-                                            <button class="btn btn-info"
-                                                    aria-label="Hot"
-                                                    type="submit"
-                                                    name="command"
-                                                    value="un_hot_tour">
-                                                <input type="hidden"
-                                                       name="tour_id"
-                                                       value="${tour.tourId}"/>
-                                                do not hot
-                                            </button>
-                                        </c:if>
-                                        <c:if test="${!tour.hot}">
-                                            <button class="btn btn-info"
-                                                    aria-label="UnHot"
-                                                    type="submit"
-                                                    name="command"
-                                                    value="set_hot_tour">
-                                                <input type="hidden"
-                                                       name="tour_id"
-                                                       value="${tour.tourId}"/>
-                                                do hot
-                                            </button>
-                                        </c:if>
-                                        <button class="btn btn-danger"
-                                                type="submit" name="command"
-                                                value="delete_tour">
-                                            <input type="hidden"
-                                                   name="tour_id"
-                                                   value="${tour.tourId}"/>
-                                            <i class="fa fa-trash-o fa-lg"></i>
-                                            Delete
-                                        </button>
-                                        <button class="btn btn-default btn-sm">
-                                            <i class="fa fa-cog"></i>
-                                            Settings
-                                        </button>
-                                    </form>
-                                </c:if>
-                            </div>
+                            <a href="data:image/jpg;base64,${tour.imageString}"
+                               class="icon image-popup d-flex justify-content-center align-items-center">
+                                <span class="icon-expand"></span>
+                            </a>
                         </div>
-                        <a href="data:image/jpg;base64,${tour.imageString}"
-                           class="icon image-popup d-flex justify-content-center align-items-center">
-                            <span class="icon-expand"></span>
-                        </a>
                     </div>
-                </div>
-
-            </c:forEach>
+                </c:forEach>
+            </div>
         </div>
-    </div>
-</section>
-
-<footer>
-    <div class="copyrights wrapper">
-        <ctg:copyrightTag/>
-    </div>
-</footer>
-
+    </section>
+</c:if>
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">
@@ -246,4 +250,9 @@
 <script src="${root}/resources/js/main.js"></script>
 <script src="${root}/resources/js/nav.js"></script>
 </body>
+<footer>
+    <div class="copyrights wrapper">
+        <ctg:copyrightTag/>
+    </div>
+</footer>
 </html>

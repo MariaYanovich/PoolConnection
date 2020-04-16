@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface TourService {
 
+    void addTour(Tour tour) throws ServiceException;
+
     List<Tour> getAllTours() throws ServiceException;
 
     List<Tour> getHotTours() throws ServiceException;

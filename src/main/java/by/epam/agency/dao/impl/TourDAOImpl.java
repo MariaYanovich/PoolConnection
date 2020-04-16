@@ -3,10 +3,7 @@ package by.epam.agency.dao.impl;
 import by.epam.agency.dao.TourDAO;
 import by.epam.agency.dao.constants.SQLStatement;
 import by.epam.agency.dao.constants.SqlColumn;
-import by.epam.agency.entity.City;
-import by.epam.agency.entity.Tour;
-import by.epam.agency.entity.TourType;
-import by.epam.agency.entity.Transport;
+import by.epam.agency.entity.*;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
 import by.epam.agency.pool.ProxyConnection;
@@ -35,7 +32,7 @@ public class TourDAOImpl implements TourDAO {
     private static final int CREATE_TOUR_TYPE_INDEX = 6;
     private static final int CREATE_TOUR_CITY_INDEX = 7;
     private static final int CREATE_TOUR_DEPARTURE_CITY_INDEX = 8;
-    private static final int CREATE_TOUR_IS_HOT_INDEX = 9;
+    private static final int CREATE_TOUR_STATUS_INDEX = 9;
     private static final int CREATE_TOUR_TRANSPORT_INDEX = 10;
     private static final int CREATE_TOUR_IMAGE_INDEX = 11;
     private static final int CITY_ID_QUERY_INDEX = 1;
@@ -171,7 +168,7 @@ public class TourDAOImpl implements TourDAO {
                 Tour tour = new Tour();
                 initializeTour(tour, resultSet);
                 tour.setImageString(getImage(tour.getImage()));
-                if (tour.isHot()) {
+                if (tour.getTourStatus().getId() == 2) {
                     listToReturn.add(tour);
                 }
             }
@@ -244,7 +241,7 @@ public class TourDAOImpl implements TourDAO {
         tour.setPlaces(resultSet.getInt(SqlColumn.TOUR_PLACES.toString()));
         tour.setCity(getCityById(resultSet.getInt(SqlColumn.TOUR_CITY_ID.toString())));
         tour.setDepartureCity(getCityById(resultSet.getInt(SqlColumn.TOUR_DEPARTURE_CITY_ID.toString())));
-        tour.setHot(resultSet.getBoolean(SqlColumn.TOUR_IS_HOT.toString()));
+        tour.setTourStatus(TourStatus.valueOf(resultSet.getString(SqlColumn.TOUR_STATUS.toString()).toUpperCase()));
         tour.setTourType(new TourType(resultSet.getInt(SqlColumn.TOUR_TYPE_ID.toString()),
                 resultSet.getString(SqlColumn.TOUR_TYPE.toString())));
         tour.setTransport(new Transport(resultSet.getInt(SqlColumn.TRANSPORT_ID.toString()),
@@ -263,7 +260,7 @@ public class TourDAOImpl implements TourDAO {
         statement.setInt(CREATE_TOUR_CITY_INDEX, tour.getCity().getCityId());
         statement.setInt(CREATE_TOUR_DEPARTURE_CITY_INDEX, tour.getCity().getCityId());
         statement.setInt(CREATE_TOUR_TRANSPORT_INDEX, tour.getTransport().getTransportId());
-        statement.setBoolean(CREATE_TOUR_IS_HOT_INDEX, tour.isHot());
+        statement.setInt(CREATE_TOUR_STATUS_INDEX, tour.getTourStatus().getId());
         statement.setBlob(CREATE_TOUR_IMAGE_INDEX, tour.getImage());
     }
 

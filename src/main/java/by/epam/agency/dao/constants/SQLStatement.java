@@ -60,16 +60,6 @@ public class SQLStatement {
     public static final String DELETE_CLIENT = "DELETE FROM `travel_agency_db`.`user`\n" +
             "WHERE user_id = ?";
 
-    public static final String GET_ALL_TOURS = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
-            "tour.tour_places, tour_type.tour_type_id, tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
-            "tour.tour_is_hot, transport.transport_id, transport.transport, tour.tour_image \n" +
-            "FROM travel_agency_db.tour\n" +
-            "right join travel_agency_db.tour_type\n" +
-            "ON travel_agency_db.tour.tour_type_id = tour_type.tour_type_id\n" +
-            "right join travel_agency_db.transport\n" +
-            "ON travel_agency_db.tour.tour_transport_id = transport.transport_id \n" +
-            "ORDER by tour.tour_id";
-
     public static final String CREATE_CITY = "INSERT INTO `travel_agency_db`.`city`" +
             "(`city`) VALUES (?)";
 
@@ -86,7 +76,7 @@ public class SQLStatement {
 
     public static final String CREATE_TOUR = "INSERT INTO `travel_agency_db`.`tour`\n" +
             "(`tour_name`, `tour_cost`, `tour_departure_date`,`tour_days`, `tour_places`,`tour_type_id`,\n" +
-            "`tour_city_id`, `tour_departure_city_id`, `tour_transport_id`, `tour_is_hot`,\n" +
+            "`tour_city_id`, `tour_departure_city_id`, `tour_transport_id`, `tour_status_id`,\n" +
             "`tour_image`)\n" +
             "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -105,21 +95,35 @@ public class SQLStatement {
     public static final String CHECK_TOUR_TYPE = "SELECT tour_type " +
             "FROM travel_agency_db.tour_type where tour_type.tour_type=?";
 
-    public static final String GET_TOUR_BY_ID = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
+    public static final String GET_ALL_TOURS = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
             "tour.tour_places, tour_type.tour_type_id, tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
-            "tour.tour_is_hot, transport.transport_id, transport.transport, tour.tour_image \n" +
+            "tour_status.tour_status_id,  tour_status.tour_status, transport.transport_id, transport.transport, tour.tour_image \n" +
             "FROM travel_agency_db.tour\n" +
             "right join travel_agency_db.tour_type\n" +
             "ON travel_agency_db.tour.tour_type_id = tour_type.tour_type_id\n" +
             "right join travel_agency_db.transport\n" +
             "ON travel_agency_db.tour.tour_transport_id = transport.transport_id \n" +
+            "right join travel_agency_db.tour_status\n" +
+            "ON travel_agency_db.tour.tour_status_id = tour_status.tour_status_id \n" +
+            "WHERE tour_id is not null";
+
+    public static final String GET_TOUR_BY_ID = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
+            "tour.tour_places, tour_type.tour_type_id, tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
+            "tour_status.tour_status_id,  tour_status. tour_status, transport.transport_id, transport.transport, tour.tour_image \n" +
+            "FROM travel_agency_db.tour\n" +
+            "right join travel_agency_db.tour_type\n" +
+            "ON travel_agency_db.tour.tour_type_id = tour_type.tour_type_id\n" +
+            "right join travel_agency_db.transport\n" +
+            "ON travel_agency_db.tour.tour_transport_id = transport.transport_id \n" +
+            "right join travel_agency_db.tour_status\n" +
+            "ON travel_agency_db.tour.tour_status_id = tour_status.tour_status_id \n" +
             "where tour.tour_id =?";
 
     public static final String SET_HOT_TOUR = "UPDATE `travel_agency_db`.`tour` " +
-            "SET `tour_is_hot` = '1' WHERE (`tour_id` = ?)";
+            "SET `tour_status_id` = '2' WHERE (`tour_id` = ?)";
 
     public static final String UN_HOT_TOUR = "UPDATE `travel_agency_db`.`tour` " +
-            "SET `tour_is_hot` = '0' WHERE (`tour_id` = ?)";
+            "SET `tour_status_id` = '1' WHERE (`tour_id` = ?)";
 
     public static final String DELETE_TOUR = "DELETE FROM `travel_agency_db`.`tour`\n" +
             "WHERE tour_id = ?";
