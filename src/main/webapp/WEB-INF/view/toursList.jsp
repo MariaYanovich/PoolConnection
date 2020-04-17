@@ -44,7 +44,7 @@
     <div class="nanvnav">
         <nav>
             <ul class="dropdown">
-                <li class="drop"><a href="#">Cities</a>
+                <li class="drop"><a>Cities</a>
                     <ul class="sub_menu">
                         <li>
                             <jsp:useBean id="cities" scope="session"
@@ -65,7 +65,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="drop"><a href="#">Types</a>
+                <li class="drop"><a>Types</a>
                     <ul class="sub_menu">
                         <li>
                             <jsp:useBean id="tour_types" scope="session"
@@ -113,8 +113,6 @@
         <div class="container">
             <div class="row">
                 <c:forEach items="${tours}" var="tour">
-
-
                     <c:if test="${sessionScope.role =='ADMIN'}">
                         <div class="col-md-6 col-lg-4 ftco-animate">
                             <div class="project">
@@ -234,6 +232,7 @@
                             </div>
                         </div>
                     </c:if>
+
 
                     <c:if test="${sessionScope.role !='ADMIN'}">
                         <c:if test="${tour.tourStatus!='ARCHIVAL'}">

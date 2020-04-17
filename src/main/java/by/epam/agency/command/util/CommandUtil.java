@@ -16,9 +16,6 @@ public class CommandUtil {
     private static final Logger LOGGER = LogManager.getLogger(CommandUtil.class.getName());
 
     public void initializeTourParameters(HttpServletRequest request) {
-        request.getSession().invalidate();
-        request.getSession().setAttribute(JspParameterType.ROLE, Role.GUEST);
-        request.getSession().setAttribute(JspParameterType.LOGIN, null);
         List<Tour> tours = new ArrayList<>();
         List<City> cities = new ArrayList<>();
         List<TourType> tourTypes = new ArrayList<>();

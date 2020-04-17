@@ -54,8 +54,7 @@
                         <div class="home_search_title">Search for your trip
                         </div>
                         <div class="home_search_content">
-                            <form action="#" class="home_search_form"
-                                  id="home_search_form">
+                            <form method="post" name="searchTours">
                                 <div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
                                     <div class="input-group">
                                         <div class="rs-select2 js-select-simple select--no-search">
@@ -75,17 +74,24 @@
                                         <input type="date"
                                                class="search_input search_input_2"
                                                placeholder="Departure"
-                                               required="required">
+                                               required="required"
+                                               name="departure_date">
                                         <input type="text"
                                                class="search_input search_input_3"
                                                placeholder="Number of days"
-                                               required="required">
+                                               required="required"
+                                               name="days">
                                         <input type="text"
                                                class="search_input search_input_4"
                                                placeholder="Budget"
-                                               required="required">
-                                        <button class="home_search_button">
-                                            search
+                                               required="required"
+                                               name="cost">
+
+                                        <button class="home_search_button"
+                                                aria-label="Hot"
+                                                type="submit"
+                                                name="command"
+                                                value="SEARCH_TOURS">Search
                                         </button>
                                     </div>
                                 </div>

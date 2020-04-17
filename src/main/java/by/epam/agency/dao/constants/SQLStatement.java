@@ -114,6 +114,7 @@ public class SQLStatement {
             "WHERE tour_id is not null" +
             " ORDER by tour.tour_departure_date";
 
+
     public static final String GET_TOUR_BY_ID = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
             "tour.tour_places, tour_type.tour_type_id, tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
             "tour_status.tour_status_id,  tour_status. tour_status, transport.transport_id, transport.transport, tour.tour_image \n" +

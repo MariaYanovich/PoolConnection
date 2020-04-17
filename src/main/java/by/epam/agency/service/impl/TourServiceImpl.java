@@ -1,6 +1,7 @@
 package by.epam.agency.service.impl;
 
 import by.epam.agency.dao.TourDAO;
+import by.epam.agency.entity.City;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.exception.ServiceException;
@@ -11,6 +12,7 @@ import by.epam.agency.validator.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Date;
 import java.util.List;
 
 public class TourServiceImpl implements TourService {
@@ -54,6 +56,16 @@ public class TourServiceImpl implements TourService {
     public Tour findTour(int id) throws ServiceException {
         try {
             return tourDAO.findById(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Tour> searchToursByParameters(City city, Date departureDate, int days, float cost) throws ServiceException {
+        try {
+            return tourDAO.searchTourByParameters(city, departureDate, days, cost);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

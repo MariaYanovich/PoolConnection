@@ -64,6 +64,8 @@ public class CommandFactory {
                 return new UpdateTourInfoCommand();
             case GET_UPDATE_TOUR_PAGE:
                 return new GetUpdateTourPageCommand();
+            case SEARCH_TOURS:
+                return new SearchToursByParameters();
 //            default:
 //                return new ErrorCommand();
         }

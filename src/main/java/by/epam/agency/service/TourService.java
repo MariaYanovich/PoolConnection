@@ -1,13 +1,17 @@
 package by.epam.agency.service;
 
+import by.epam.agency.entity.City;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.ServiceException;
 
+import java.util.Date;
 import java.util.List;
 
 public interface TourService {
 
     void addTour(Tour tour) throws ServiceException;
+
+    List<Tour> searchToursByParameters(City city, Date departureDate, int days, float cost) throws ServiceException;
 
     List<Tour> getAllTours() throws ServiceException;
 
