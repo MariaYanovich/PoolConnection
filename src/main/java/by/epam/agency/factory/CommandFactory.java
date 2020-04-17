@@ -60,6 +60,10 @@ public class CommandFactory {
                 return new GetToursByType();
             case ADD_TOUR:
                 return new AddTourCommand();
+            case UPDATE_TOUR:
+                return new UpdateTourInfoCommand();
+            case GET_UPDATE_TOUR_PAGE:
+                return new GetUpdateTourPageCommand();
 //            default:
 //                return new ErrorCommand();
         }

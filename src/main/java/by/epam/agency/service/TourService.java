@@ -23,4 +23,7 @@ public interface TourService {
 
     void setHotTour(int id) throws ServiceException;
 
+    void updateTour(Tour tour) throws ServiceException;
+
+    Tour findTour(int id) throws ServiceException;
 }

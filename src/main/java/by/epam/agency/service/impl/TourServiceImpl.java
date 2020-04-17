@@ -39,6 +39,28 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
+    public void updateTour(Tour tour) throws ServiceException {
+        Validator validator = createUpdateParametersValidator(tour);
+        try {
+            validator.validate();
+            tourDAO.update(tour);
+        } catch (DAOException | ValidatorException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Tour findTour(int id) throws ServiceException {
+        try {
+            return tourDAO.findById(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<Tour> getAllTours() throws ServiceException {
         try {
             return tourDAO.getAll();
@@ -119,6 +141,17 @@ public class TourServiceImpl implements TourService {
         daysValidator.setNext(placesValidator);
         placesValidator.setNext(dateValidator);
         return nameValidator;
+    }
+
+    private Validator createUpdateParametersValidator(Tour tour) {
+        Validator costValidator = new MoneyValidator(tour.getCost());
+        Validator daysValidator = new PositiveIntValidator(tour.getDays());
+        Validator placesValidator = new PositiveIntValidator(tour.getPlaces());
+        Validator dateValidator = new TourDateValidator(tour.getDepartureDate());
+        costValidator.setNext(daysValidator);
+        daysValidator.setNext(placesValidator);
+        placesValidator.setNext(dateValidator);
+        return costValidator;
     }
 
     private static final class TourServiceImplHolder {

@@ -37,7 +37,15 @@ public class TourDAOImpl implements TourDAO {
     private static final int CREATE_TOUR_IMAGE_INDEX = 10;
     private static final int CITY_ID_QUERY_INDEX = 1;
     private static final int TOUR_ID_INDEX = 1;
-
+    private static final int UPDATE_TOUR_COST_INDEX = 1;
+    private static final int UPDATE_DEPARTURE_DATE_INDEX = 2;
+    private static final int UPDATE_TOUR_DAYS_INDEX = 3;
+    private static final int UPDATE_TOUR_PLACES_INDEX = 4;
+    private static final int UPDATE_TOUR_TYPE_INDEX = 5;
+    private static final int UPDATE_TOUR_CITY_INDEX = 6;
+    private static final int UPDATE_TOUR_DEPARTURE_CITY_INDEX = 7;
+    private static final int UPDATE_TOUR_TRANSPORT_INDEX = 8;
+    private static final int UPDATE_TOUR_ID_INDEX = 9;
 
     private TourDAOImpl() {
 
@@ -60,6 +68,33 @@ public class TourDAOImpl implements TourDAO {
             LOGGER.error(e);
             throw new DAOException(e);
         }
+    }
+
+
+    @Override
+    public void update(Tour tour) throws DAOException {
+        try {
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_TOUR_INFO)) {
+                initializeUpdateTourStatement(statement, tour);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
+
+    private void initializeUpdateTourStatement(PreparedStatement statement, Tour tour) throws SQLException {
+        statement.setFloat(UPDATE_TOUR_COST_INDEX, tour.getCost());
+        statement.setDate(UPDATE_DEPARTURE_DATE_INDEX, tour.getDepartureDate());
+        statement.setInt(UPDATE_TOUR_DAYS_INDEX, tour.getDays());
+        statement.setInt(UPDATE_TOUR_PLACES_INDEX, tour.getPlaces());
+        statement.setInt(UPDATE_TOUR_TYPE_INDEX, tour.getTourType().getTourTypeId());
+        statement.setInt(UPDATE_TOUR_CITY_INDEX, tour.getCity().getCityId());
+        statement.setInt(UPDATE_TOUR_DEPARTURE_CITY_INDEX, tour.getDepartureCity().getCityId());
+        statement.setInt(UPDATE_TOUR_TRANSPORT_INDEX, tour.getTransport().getTransportId());
+        statement.setInt(UPDATE_TOUR_ID_INDEX, tour.getTourId());
     }
 
     @Override
@@ -107,6 +142,7 @@ public class TourDAOImpl implements TourDAO {
         }
         return tour;
     }
+
 
     @Override
     public List<Tour> getAll() throws DAOException {
@@ -225,11 +261,6 @@ public class TourDAOImpl implements TourDAO {
     @Override
     public void delete(Tour item) throws DAOException {
         throw new DAOException(new UnsupportedOperationException());
-    }
-
-    @Override
-    public void update(Tour item) throws DAOException {
-
     }
 
 
