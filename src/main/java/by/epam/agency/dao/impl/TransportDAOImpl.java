@@ -29,9 +29,6 @@ public class TransportDAOImpl implements TransportDAO {
         return TransportDAOImplHolder.INSTANCE;
     }
 
-    private static final class TransportDAOImplHolder {
-        private static final TransportDAOImpl INSTANCE = new TransportDAOImpl();
-    }
     @Override
     public void create(Transport item) throws DAOException {
         throw new DAOException(new UnsupportedOperationException());
@@ -92,5 +89,9 @@ public class TransportDAOImpl implements TransportDAO {
     @Override
     public void update(Transport id) throws DAOException {
         throw new DAOException(new UnsupportedOperationException());
+    }
+
+    private static final class TransportDAOImplHolder {
+        private static final TransportDAOImpl INSTANCE = new TransportDAOImpl();
     }
 }

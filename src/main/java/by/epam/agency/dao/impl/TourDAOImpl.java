@@ -33,9 +33,8 @@ public class TourDAOImpl implements TourDAO {
     private static final int CREATE_TOUR_TYPE_INDEX = 6;
     private static final int CREATE_TOUR_CITY_INDEX = 7;
     private static final int CREATE_TOUR_DEPARTURE_CITY_INDEX = 8;
-    private static final int CREATE_TOUR_STATUS_INDEX = 9;
-    private static final int CREATE_TOUR_TRANSPORT_INDEX = 10;
-    private static final int CREATE_TOUR_IMAGE_INDEX = 11;
+    private static final int CREATE_TOUR_TRANSPORT_INDEX = 9;
+    private static final int CREATE_TOUR_IMAGE_INDEX = 10;
     private static final int CITY_ID_QUERY_INDEX = 1;
     private static final int TOUR_ID_INDEX = 1;
 
@@ -277,7 +276,6 @@ public class TourDAOImpl implements TourDAO {
         statement.setInt(CREATE_TOUR_CITY_INDEX, tour.getCity().getCityId());
         statement.setInt(CREATE_TOUR_DEPARTURE_CITY_INDEX, tour.getCity().getCityId());
         statement.setInt(CREATE_TOUR_TRANSPORT_INDEX, tour.getTransport().getTransportId());
-        statement.setInt(CREATE_TOUR_STATUS_INDEX, tour.getTourStatus().getId());
         statement.setBlob(CREATE_TOUR_IMAGE_INDEX, tour.getImage());
     }
 

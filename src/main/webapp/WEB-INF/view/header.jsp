@@ -24,7 +24,6 @@
         <a href="#" class="hamburger"></a>
         <nav>
             <c:if test="${sessionScope.role=='GUEST'}">
-
                 <form method="post" name="sign_in">
                     <button type="submit" class="login_btn" name="command"
                             value="redirect">
@@ -121,15 +120,15 @@
                         value="GET_TOURS_LIST">Tours
                 </button>
             </form>
-            <c:if test="${sessionScope.role!='ADMIN'}">
-            <form method="post" name="sign_up">
-                <button type="submit" class="just_btn" name="command"
-                        value="redirect">
-                    Add tour
-                </button>
-                <input type="hidden" name="address"
-                       value="ADD_TOUR_PAGE"/>
-            </form>
+            <c:if test="${sessionScope.role=='ADMIN'}">
+                <form method="post">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">
+                        Add tour
+                    </button>
+                    <input type="hidden" name="address"
+                           value="ADD_TOUR_PAGE"/>
+                </form>
             </c:if>
             <form method="post" name="home">
                 <button type="submit" class="just_btn" name="command"

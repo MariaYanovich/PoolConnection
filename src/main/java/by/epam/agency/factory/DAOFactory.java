@@ -31,6 +31,7 @@ public class DAOFactory {
     public TransportDAO getTransportDAO() {
         return TransportDAOImpl.getInstance();
     }
+
     private static final class DAOFactoryHolder {
         private static final DAOFactory INSTANCE = new DAOFactory();
     }

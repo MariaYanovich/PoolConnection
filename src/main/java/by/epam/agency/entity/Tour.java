@@ -17,7 +17,7 @@ public class Tour implements Serializable {
     private City departureCity;
     private TourStatus tourStatus;
     private Transport transport;
-    private InputStream image;
+    private transient InputStream image;
     private String imageString;
 
     public Tour() {

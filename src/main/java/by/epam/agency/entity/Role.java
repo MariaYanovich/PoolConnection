@@ -1,6 +1,8 @@
 package by.epam.agency.entity;
 
-public enum Role {
+import java.io.Serializable;
+
+public enum Role implements Serializable {
 
     BLOCKED(3), ADMIN(2), CLIENT(1), GUEST(0);
     private int id;

@@ -10,7 +10,7 @@ public interface TourTypeService {
 
     void delete(int id) throws ServiceException;
 
-    TourType findById(int id) throws ServiceException;
+    TourType findTourTypeById(int id) throws ServiceException;
 
     List<TourType> getAllTourTypes() throws ServiceException;
 }

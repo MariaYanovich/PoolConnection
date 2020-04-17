@@ -76,9 +76,9 @@ public class SQLStatement {
 
     public static final String CREATE_TOUR = "INSERT INTO `travel_agency_db`.`tour`\n" +
             "(`tour_name`, `tour_cost`, `tour_departure_date`,`tour_days`, `tour_places`,`tour_type_id`,\n" +
-            "`tour_city_id`, `tour_departure_city_id`, `tour_transport_id`, `tour_status_id`,\n" +
+            "`tour_city_id`, `tour_departure_city_id`, `tour_transport_id`, \n" +
             "`tour_image`)\n" +
-            "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            "VALUES (?,?,?,?,?,?,?,?,?,?)";
 
     public static final String CREATE_TOUR_TYPE = "INSERT INTO `travel_agency_db`.`tour_type`" +
             "(`tour_type`) VALUES (?)";

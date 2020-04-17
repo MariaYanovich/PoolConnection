@@ -58,10 +58,13 @@ public class CommandFactory {
                 return new GetToursByCity();
             case GET_BY_TOUR_TYPE:
                 return new GetToursByType();
-
-            default:
-                return new ErrorCommand();
+            case ADD_TOUR:
+                return new AddTourCommand();
+//            default:
+//                return new ErrorCommand();
         }
+        return null;
+
     }
 
     private static class CommandHolder {

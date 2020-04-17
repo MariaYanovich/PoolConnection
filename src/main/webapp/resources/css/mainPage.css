@@ -40,9 +40,11 @@ body {
     line-height: 1;
     min-height: 100%;
 }
-html{
+
+html {
     min-height: 100%;
 }
+
 img {
     max-width: 100%;
 }

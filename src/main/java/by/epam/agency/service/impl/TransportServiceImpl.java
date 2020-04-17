@@ -35,7 +35,7 @@ public class TransportServiceImpl implements TransportService {
     }
 
     @Override
-    public List<Transport> getAllTransport() throws ServiceException {
+    public List<Transport> getAllTransports() throws ServiceException {
         try {
             return transportDAO.getAll();
         } catch (DAOException e) {

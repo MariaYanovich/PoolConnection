@@ -52,7 +52,7 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public City findById(int id) throws ServiceException {
+    public City findCityById(int id) throws ServiceException {
         try {
             return cityDAO.findById(id);
         } catch (DAOException e) {

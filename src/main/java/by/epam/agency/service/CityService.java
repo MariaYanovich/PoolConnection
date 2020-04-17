@@ -10,7 +10,7 @@ public interface CityService {
 
     void delete(int id) throws ServiceException;
 
-    City findById(int id) throws ServiceException;
+    City findCityById(int id) throws ServiceException;
 
     List<City> getAllCities() throws ServiceException;
 }

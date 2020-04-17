@@ -52,7 +52,7 @@ public class TourTypeServiceImpl implements TourTypeService {
     }
 
     @Override
-    public TourType findById(int id) throws ServiceException {
+    public TourType findTourTypeById(int id) throws ServiceException {
         try {
             return tourTypeDAO.findById(id);
         } catch (DAOException e) {

@@ -5268,7 +5268,7 @@ input[type="button"].btn-block {
     }
 
     .card-group > .card:first-child .card-img-bottom,
-    .card-group > .card:first-child  {
+    .card-group > .card:first-child {
         border-bottom-right-radius: 0;
     }
 
@@ -5283,7 +5283,7 @@ input[type="button"].btn-block {
     }
 
     .card-group > .card:last-child .card-img-bottom,
-    .card-group > .card:last-child  {
+    .card-group > .card:last-child {
         border-bottom-left-radius: 0;
     }
 
@@ -5310,7 +5310,7 @@ input[type="button"].btn-block {
     .card-group > .card:not(:first-child):not(:last-child):not(:only-child) .card-img-top,
     .card-group > .card:not(:first-child):not(:last-child):not(:only-child) .card-img-bottom,
     .card-group > .card:not(:first-child):not(:last-child):not(:only-child) .card-header,
-    .card-group > .card:not(:first-child):not(:last-child):not(:only-child)  {
+    .card-group > .card:not(:first-child):not(:last-child):not(:only-child) {
         border-radius: 0;
     }
 }
