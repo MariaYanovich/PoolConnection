@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService {
         Validator passwordValidator = new PasswordValidator(password);
         Validator nameValidator = new ProperNameValidator(name);
         Validator surnameValidator = new ProperNameValidator(surname);
-        Validator cashValidator = new CashValidator(cash);
+        Validator cashValidator = new MoneyValidator(cash);
         Validator phoneValidator = new PhoneValidator(phone);
         loginValidator.setNext(passwordValidator);
         passwordValidator.setNext(nameValidator);
@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
     private Validator createUpdateParametersValidator(String name, String surname, float cash, String phone) {
         Validator nameValidator = new ProperNameValidator(name);
         Validator surnameValidator = new ProperNameValidator(surname);
-        Validator cashValidator = new CashValidator(cash);
+        Validator cashValidator = new MoneyValidator(cash);
         Validator phoneValidator = new PhoneValidator(phone);
         nameValidator.setNext(surnameValidator);
         surnameValidator.setNext(cashValidator);

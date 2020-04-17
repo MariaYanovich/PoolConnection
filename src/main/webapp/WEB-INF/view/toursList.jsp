@@ -316,10 +316,11 @@
 <script src="${root}/resources/js/scrollax.min.js"></script>
 <script src="${root}/resources/js/main.js"></script>
 <script src="${root}/resources/js/nav.js"></script>
-</body>
+
 <footer>
     <div class="copyrights wrapper">
         <ctg:copyrightTag/>
     </div>
 </footer>
+</body>
 </html>

@@ -157,18 +157,18 @@ h6 {
    #BACKGROUND
    ========================================================================== */
 .bg-blue {
-    background: #2c6ed5;
+    background: url('../img/hero.jpg') no-repeat bottom center;
 }
 
 /* ==========================================================================
    #SPACING
    ========================================================================== */
 .p-t-100 {
-    padding-top: 100px;
+    padding-top: 0;
 }
 
 .p-t-20 {
-    padding-top: 20px;
+    padding-top: 0;
 }
 
 .p-b-100 {
@@ -189,34 +189,6 @@ h6 {
 /* ==========================================================================
    #BUTTON
    ========================================================================== */
-.btn {
-    line-height: 40px;
-    display: inline-block;
-    padding: 0 25px;
-    cursor: pointer;
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
-    color: #fff;
-    -webkit-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.btn--radius {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-}
-
-.btn--green {
-    background: #57b846;
-}
-
-.btn--green:hover {
-    background: #4dae3c;
-}
 
 /* ==========================================================================
    #DATE PICKER

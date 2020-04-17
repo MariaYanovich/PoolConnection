@@ -50,7 +50,7 @@ public class AddTourCommand implements Command {
             request.getSession().setAttribute(JspParameterType.TOURS, ServiceFactory.getInstance().getTourService().getAllTours());
         } catch (ServiceException e) {
             LOGGER.error(e);
-            return PageType.HOME_PAGE.getAddress();
+            return PageType.ADD_TOUR_PAGE.getAddress();
         }
         return PageType.TOURS_LIST_PAGE.getAddress();
     }

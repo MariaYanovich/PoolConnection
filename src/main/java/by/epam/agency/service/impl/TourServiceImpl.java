@@ -4,8 +4,10 @@ import by.epam.agency.dao.TourDAO;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.exception.ServiceException;
+import by.epam.agency.exception.ValidatorException;
 import by.epam.agency.factory.DAOFactory;
 import by.epam.agency.service.TourService;
+import by.epam.agency.validator.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,9 +28,11 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public void addTour(Tour tour) throws ServiceException {
+        Validator validator = createAddTourParametersValidator(tour);
         try {
+            validator.validate();
             tourDAO.create(tour);
-        } catch (DAOException e) {
+        } catch (DAOException | ValidatorException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
@@ -102,6 +106,19 @@ public class TourServiceImpl implements TourService {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
+    }
+
+    private Validator createAddTourParametersValidator(Tour tour) {
+        Validator nameValidator = new ProperNameValidator(tour.getName());
+        Validator costValidator = new MoneyValidator(tour.getCost());
+        Validator daysValidator = new PositiveIntValidator(tour.getDays());
+        Validator placesValidator = new PositiveIntValidator(tour.getPlaces());
+        Validator dateValidator = new TourDateValidator(tour.getDepartureDate());
+        nameValidator.setNext(costValidator);
+        costValidator.setNext(daysValidator);
+        daysValidator.setNext(placesValidator);
+        placesValidator.setNext(dateValidator);
+        return nameValidator;
     }
 
     private static final class TourServiceImplHolder {

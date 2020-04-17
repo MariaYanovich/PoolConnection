@@ -27,9 +27,10 @@
 
     <meta http-equiv="Content-Security-Policy"
           content="default-src &apos;self&apos;; script-src &apos;self&apos; https://ajax.googleapis.com; style-src &apos;self&apos;; img-src &apos;self&apos; data:">
-
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Title Page-->
-    <title>Au Register Forms by Colorlib</title>
+    <title>Add tour</title>
 
     <!-- Icons font CSS-->
     <link href="${root}/resources/vendor/mdi-font/css/material-design-iconic-font.min.css"
@@ -86,8 +87,7 @@
                                 <div class="rs-select2 js-select-simple select--no-search">
 
                                     <select name="tour_type">
-                                        <option disabled="disabled"
-                                                selected="selected">TOUR TYPE
+                                        <option disabled="disabled">TOUR TYPE
                                         </option>
                                         <c:forEach
                                                 items="${sessionScope.tour_types}"
@@ -104,8 +104,7 @@
                             <div class="input-group">
                                 <div class="rs-select2 js-select-simple select--no-search">
                                     <select name="tour_transport">
-                                        <option disabled="disabled"
-                                                selected="selected">TRANSPORT
+                                        <option disabled="disabled">TRANSPORT
                                         </option>
                                         <c:forEach
                                                 items="${sessionScope.transports}"
@@ -123,8 +122,7 @@
                             <div class="input-group">
                                 <div class="rs-select2 js-select-simple select--no-search">
                                     <select name="to_city">
-                                        <option disabled="disabled"
-                                                selected="selected">TO CITY
+                                        <option disabled="disabled">TO CITY
                                         </option>
                                         <c:forEach
                                                 items="${sessionScope.cities}"
@@ -140,8 +138,7 @@
                             <div class="input-group">
                                 <div class="rs-select2 js-select-simple select--no-search">
                                     <select name="departure_city">
-                                        <option disabled="disabled"
-                                                selected="selected">DEPARTURE
+                                        <option disabled="disabled">DEPARTURE
                                             CITY
                                         </option>
                                         <c:forEach
@@ -163,10 +160,12 @@
                     </div>
 
                     <div class="input-group">
-                        <input type="file" name="image" required="required">
+                        <input type="file" name="image" required="required"
+                               accept="image/*">
                     </div>
 
-                    <button type="submit"
+                    <button type="submit" class="btn btn-info"
+                            aria-label="UnHot"
                             name="command" value="add_tour">Submit
                     </button>
                 </form>
