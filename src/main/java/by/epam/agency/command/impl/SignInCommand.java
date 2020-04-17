@@ -3,6 +3,7 @@ package by.epam.agency.command.impl;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.util.CommandUtil;
 import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
@@ -14,17 +15,6 @@ import javax.servlet.http.HttpSession;
 
 public class SignInCommand implements Command {
 
-    public static void setSessionAttributes(HttpSession session, User user) {
-        session.setAttribute(JspParameterType.LOGIN, user.getLogin());
-        session.setAttribute(JspParameterType.PASSWORD, user.getPassword());
-        session.setAttribute(JspParameterType.ID, user.getId());
-        session.setAttribute(JspParameterType.NAME, user.getName());
-        session.setAttribute(JspParameterType.SURNAME, user.getSurname());
-        session.setAttribute(JspParameterType.DISCOUNT, user.getDiscount());
-        session.setAttribute(JspParameterType.CASH, user.getCash());
-        session.setAttribute(JspParameterType.PHONE, user.getPhone());
-        session.setAttribute(JspParameterType.ROLE, user.getRole());
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -34,7 +24,7 @@ public class SignInCommand implements Command {
         try {
             User user = ServiceFactory.getInstance().getUserService().signIn(login, password);
             if (user != null && !user.getRole().equals(Role.BLOCKED)) {
-                setSessionAttributes(session, user);
+                new CommandUtil().setSessionAttributesForUserAuthorize(session, user);
                 return PageType.HOME_PAGE.getAddress();
             }
         } catch (ServiceException e) {

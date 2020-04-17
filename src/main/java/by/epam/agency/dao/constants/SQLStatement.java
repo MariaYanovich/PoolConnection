@@ -127,10 +127,10 @@ public class SQLStatement {
             "where tour.tour_id =?";
 
     public static final String UPDATE_TOUR_INFO = "UPDATE travel_agency_db.tour\n" +
-            "SET "+
+            "SET " +
             "tour.tour_cost =? , tour.tour_departure_date =?, tour.tour_days =? , \n" +
             "tour.tour_places =? , tour.tour_type_id =? ,tour.tour_city_id =? , tour.tour_departure_city_id =? ,\n" +
-            "tour.tour_transport_id =?  "+
+            "tour.tour_transport_id =?  " +
             "WHERE tour_id = ?";
 
     public static final String SET_HOT_TOUR = "UPDATE `travel_agency_db`.`tour` " +

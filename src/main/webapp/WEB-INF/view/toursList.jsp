@@ -199,22 +199,23 @@
                                                 Delete
                                             </button>
                                             <c:if test="${tour.tourStatus!='ARCHIVAL'}">
-<%--                                                <button type="submit"--%>
-<%--                                                        class="btn btn-default btn-sm"--%>
-<%--                                                        name="command"--%>
-<%--                                                        value="redirect"><i--%>
-<%--                                                        class="fa fa-cog"></i>--%>
-<%--                                                    <input type="hidden"--%>
-<%--                                                           name="address"--%>
-<%--                                                           value="UPDATE_TOUR_PAGE"/>--%>
-<%--                                                    <input type="hidden"--%>
-<%--                                                           name="tour_id"--%>
-<%--                                                           value="${tour.tourId}">--%>
-<%--                                                    Update--%>
-<%--                                                </button>--%>
+                                                <%--                                                <button type="submit"--%>
+                                                <%--                                                        class="btn btn-default btn-sm"--%>
+                                                <%--                                                        name="command"--%>
+                                                <%--                                                        value="redirect"><i--%>
+                                                <%--                                                        class="fa fa-cog"></i>--%>
+                                                <%--                                                    <input type="hidden"--%>
+                                                <%--                                                           name="address"--%>
+                                                <%--                                                           value="UPDATE_TOUR_PAGE"/>--%>
+                                                <%--                                                    <input type="hidden"--%>
+                                                <%--                                                           name="tour_id"--%>
+                                                <%--                                                           value="${tour.tourId}">--%>
+                                                <%--                                                    Update--%>
+                                                <%--                                                </button>--%>
 
                                                 <button class="btn btn-default btn-sm"
-                                                        type="submit" name="command"
+                                                        type="submit"
+                                                        name="command"
                                                         value="get_update_tour_page">
                                                     <input type="hidden"
                                                            name="tour_id"

@@ -24,6 +24,12 @@
           href="${root}/resources/css/news_responsive.css">
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/css/mainPage.css">
+    <link rel="stylesheet"
+          href="${root}/resources/js/chosen_v1.8.7/docsupport/style.css">
+    <link rel="stylesheet"
+          href="${root}/resources/js/chosen_v1.8.7/docsupport/prism.css">
+    <link rel="stylesheet" href="${root}/resources/js/chosen_v1.8.7/chosen.css">
+
 </head>
 <body>
 
@@ -51,24 +57,37 @@
                             <form action="#" class="home_search_form"
                                   id="home_search_form">
                                 <div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-                                    <input type="text"
-                                           class="search_input search_input_1"
-                                           placeholder="City"
-                                           required="required">
-                                    <input type="text"
-                                           class="search_input search_input_2"
-                                           placeholder="Departure"
-                                           required="required">
-                                    <input type="text"
-                                           class="search_input search_input_3"
-                                           placeholder="Arrival"
-                                           required="required">
-                                    <input type="text"
-                                           class="search_input search_input_4"
-                                           placeholder="Budget"
-                                           required="required">
-                                    <button class="home_search_button">search
-                                    </button>
+                                    <div class="input-group">
+                                        <div class="rs-select2 js-select-simple select--no-search">
+                                            <select name="to_city"
+                                                    style="height: 52px">
+                                                <option disabled="disabled">
+                                                    TO CITY
+                                                </option>
+                                                <c:forEach
+                                                        items="${sessionScope.cities}"
+                                                        var="city">
+                                                    <option value="${city.cityId}">${city.city}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <div class="select-dropdown"></div>
+                                        </div>
+                                        <input type="date"
+                                               class="search_input search_input_2"
+                                               placeholder="Departure"
+                                               required="required">
+                                        <input type="text"
+                                               class="search_input search_input_3"
+                                               placeholder="Number of days"
+                                               required="required">
+                                        <input type="text"
+                                               class="search_input search_input_4"
+                                               placeholder="Budget"
+                                               required="required">
+                                        <button class="home_search_button">
+                                            search
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -78,11 +97,7 @@
         </div>
     </div>
 
-    <footer>
-        <div class="copyrights wrapper">
-            <ctg:copyrightTag/>
-        </div>
-    </footer>
+
 </div>
 
 <script src="${root}/resources/js/jquery-3.2.1.min.js"></script>
@@ -92,5 +107,20 @@
 <script src="${root}/resources/plugins/easing/easing.js"></script>
 <script src="${root}/resources/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="${root}/resources/js/news.js"></script>
+<script src="${root}/resources/js/chosen_v1.8.7/docsupport/jquery-3.2.1.min.js"
+        type="text/javascript"></script>
+<script src="${root}/resources/js/chosen_v1.8.7/chosen.jquery.js"
+        type="text/javascript"></script>
+<script src="${root}/resources/js/chosen_v1.8.7/docsupport/prism.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="${root}/resources/js/chosen_v1.8.7/docsupport/init.js"
+        type="text/javascript" charset="utf-8"></script>
+<!-- Main JS-->
+<script src="${root}/resources/js/global.js"></script>
 </body>
+<footer>
+    <div class="copyrights wrapper">
+        <ctg:copyrightTag/>
+    </div>
+</footer>
 </html>

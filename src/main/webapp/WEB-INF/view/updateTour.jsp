@@ -23,9 +23,6 @@
     <c:set var="root" value="${pageContext.request.contextPath}"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Colorlib Templates">
-    <meta name="author" content="Colorlib">
-    <meta name="keywords" content="Colorlib Templates">
     <link rel="stylesheet"
           href="${root}/resources/js/chosen_v1.8.7/docsupport/style.css">
     <link rel="stylesheet"
@@ -62,7 +59,6 @@
 </header>
 <body>
 
-
 <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
     <div class="wrapper wrapper--w680">
         <div class="card card-1">
@@ -91,10 +87,12 @@
                     <div class="row row-space">
                         <div class="col-2">
                             <div class="input-group">
-                                <h4>Previous tour type: ${sessionScope.tour.tourType.type}</h4>
+                                <h4>Previous tour
+                                    type: ${sessionScope.tour.tourType.type}</h4>
                                 <div class="rs-select2 js-select-simple select--no-search">
                                     <select name="tour_type">
-                                        <option disabled="disabled">NEW TOUR TYPE
+                                        <option disabled="disabled">NEW TOUR
+                                            TYPE
                                         </option>
                                         <c:forEach
                                                 items="${sessionScope.tour_types}"
@@ -108,10 +106,12 @@
                         </div>
                         <div class="col-2">
                             <div class="input-group">
-                                <h4>Previous transport: ${sessionScope.tour.transport.type}</h4>
+                                <h4>Previous
+                                    transport: ${sessionScope.tour.transport.type}</h4>
                                 <div class="rs-select2 js-select-simple select--no-search">
                                     <select name="tour_transport">
-                                        <option disabled="disabled">NEW TRANSPORT
+                                        <option disabled="disabled">NEW
+                                            TRANSPORT
                                         </option>
                                         <c:forEach
                                                 items="${sessionScope.transports}"
@@ -127,7 +127,8 @@
                     <div class="row row-space">
                         <div class="col-2">
                             <div class="input-group">
-                                <h4>Previous to city: ${sessionScope.tour.city.city}</h4>
+                                <h4>Previous to
+                                    city: ${sessionScope.tour.city.city}</h4>
                                 <div class="rs-select2 js-select-simple select--no-search">
                                     <select name="to_city">
                                         <option disabled="disabled">NEW TO CITY
@@ -144,10 +145,12 @@
                         </div>
                         <div class="col-2">
                             <div class="input-group">
-                                <h4>Previous departure city: ${sessionScope.tour.departureCity.city}</h4>
+                                <h4>Previous departure
+                                    city: ${sessionScope.tour.departureCity.city}</h4>
                                 <div class="rs-select2 js-select-simple select--no-search">
                                     <select name="departure_city">
-                                        <option disabled="disabled">NEW DEPARTURE
+                                        <option disabled="disabled">NEW
+                                            DEPARTURE
                                             CITY
                                         </option>
                                         <c:forEach
@@ -162,7 +165,8 @@
                         </div>
                     </div>
                     <div class="input-group">
-                        <h4>Previous date: ${sessionScope.tour.departureDate}</h4>
+                        <h4>Previous
+                            date: ${sessionScope.tour.departureDate}</h4>
                         <input class="input--style-1"
                                type="date" required
                                placeholder="NEW DEPARTURE DATE"
@@ -198,12 +202,12 @@
 
 
 <div id="dropDownSelect1"></div>
+</body>
 <footer>
     <div class="copyrights wrapper">
         <ctg:copyrightTag/>
     </div>
 </footer>
-</body>
 </html>
 
 

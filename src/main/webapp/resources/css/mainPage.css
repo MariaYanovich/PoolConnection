@@ -486,7 +486,7 @@ footer {
 footer .copyrights {
     flex: 0 0 auto;
     display: block;
-    text-align: center;
+    text-align: -webkit-center;
     padding: 10px 0;
     color: #fff;
     font-family: "lato-regular", Helvetica, Arial, sans-serif;

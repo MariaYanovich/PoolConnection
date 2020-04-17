@@ -3,6 +3,7 @@ package by.epam.agency.command.impl;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.util.CommandUtil;
 import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
@@ -29,7 +30,7 @@ public class SignUpCommand implements Command {
         String page;
         HttpSession session = request.getSession(true);
         try {
-            SignInCommand.setSessionAttributes(session, initializeSignUpParameters(request));
+            new CommandUtil().setSessionAttributesForUserAuthorize(session, initializeSignUpParameters(request));
             session.setAttribute(JspParameterType.ROLE, Role.CLIENT);
             page = PageType.HOME_PAGE.getAddress();
         } catch (ServiceException e) {
