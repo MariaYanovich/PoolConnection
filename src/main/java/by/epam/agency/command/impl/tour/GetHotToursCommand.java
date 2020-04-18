@@ -1,4 +1,4 @@
-package by.epam.agency.command.impl;
+package by.epam.agency.command.impl.tour;
 
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
@@ -14,15 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetToursByCity implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(GetToursByCity.class.getName());
+public class GetHotToursCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(GetHotToursCommand.class.getName());
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter(JspParameterType.CITY_ID);
         List<Tour> tours = new ArrayList<>();
         try {
-            tours = ServiceFactory.getInstance().getTourService().getToursByCityId(Integer.parseInt(id));
+            tours = ServiceFactory.getInstance().getTourService().getHotTours();
         } catch (ServiceException e) {
             LOGGER.error(e);
         }

@@ -1,4 +1,4 @@
-package by.epam.agency.command.impl;
+package by.epam.agency.command.impl.user;
 
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.CommandType;
@@ -13,16 +13,16 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DeleteTourCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(DeleteTourCommand.class.getName());
+public class DeleteClientCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(DeleteClientCommand.class.getName());
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter(JspParameterType.TOUR_ID);
+        String id = request.getParameter(JspParameterType.ID);
         try {
-            ServiceFactory.getInstance().getTourService().deleteTour(Integer.parseInt(id));
-            Command getToursList = CommandFactory.getInstance().getCommand(CommandType.GET_TOURS_LIST.toString());
-            return getToursList.execute(request, response);
+            ServiceFactory.getInstance().getUserService().deleteClient(Integer.parseInt(id));
+            Command signOut = CommandFactory.getInstance().getCommand(CommandType.SIGN_OUT.toString());
+            return signOut.execute(request, response);
         } catch (ServiceException e) {
             LOGGER.error(e);
         }

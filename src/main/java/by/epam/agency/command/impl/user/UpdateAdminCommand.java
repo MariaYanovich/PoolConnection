@@ -1,4 +1,4 @@
-package by.epam.agency.command.impl;
+package by.epam.agency.command.impl.user;
 
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
@@ -12,10 +12,10 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateClientCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(UpdateClientCommand.class.getName());
+public class UpdateAdminCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(UpdateAdminCommand.class.getName());
 
-    public static void updateClient(HttpServletRequest request) throws ServiceException {
+    public static void updateAdmin(HttpServletRequest request) throws ServiceException {
         User user = new User();
         user.setId(Integer.parseInt(request.getSession().getAttribute(JspParameterType.ID).toString()));
         user.setName(request.getParameter(JspParameterType.NAME));
@@ -24,15 +24,14 @@ public class UpdateClientCommand implements Command {
         request.getSession().setAttribute(JspParameterType.SURNAME, user.getSurname());
         user.setPhone(request.getParameter(JspParameterType.PHONE));
         request.getSession().setAttribute(JspParameterType.PHONE, user.getPhone());
-        user.setCash(Float.parseFloat(request.getParameter(JspParameterType.CASH)));
         request.getSession().setAttribute(JspParameterType.CASH, user.getCash());
-        ServiceFactory.getInstance().getUserService().updateClient(user);
+        ServiceFactory.getInstance().getUserService().updateAdmin(user);
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-            updateClient(request);
+            updateAdmin(request);
             return PageType.USER_INFO_PAGE.getAddress();
         } catch (ServiceException e) {
             LOGGER.error(e);

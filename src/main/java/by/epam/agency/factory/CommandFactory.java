@@ -2,7 +2,10 @@ package by.epam.agency.factory;
 
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.CommandType;
-import by.epam.agency.command.impl.*;
+import by.epam.agency.command.impl.HomeCommand;
+import by.epam.agency.command.impl.RedirectCommand;
+import by.epam.agency.command.impl.tour.*;
+import by.epam.agency.command.impl.user.*;
 
 public class CommandFactory {
 

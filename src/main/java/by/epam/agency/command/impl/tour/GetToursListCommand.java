@@ -1,4 +1,4 @@
-package by.epam.agency.command.impl;
+package by.epam.agency.command.impl.tour;
 
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.PageType;

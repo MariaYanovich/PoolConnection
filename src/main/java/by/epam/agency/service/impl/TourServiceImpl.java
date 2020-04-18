@@ -12,7 +12,7 @@ import by.epam.agency.validator.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class TourServiceImpl implements TourService {
@@ -64,9 +64,11 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public List<Tour> searchToursByParameters(City city, Date departureDate, int days, float cost) throws ServiceException {
+        Validator validator = createSearchParametersValidator(departureDate, days, cost);
         try {
+            validator.validate();
             return tourDAO.searchTourByParameters(city, departureDate, days, cost);
-        } catch (DAOException e) {
+        } catch (DAOException | ValidatorException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
@@ -163,6 +165,15 @@ public class TourServiceImpl implements TourService {
         costValidator.setNext(daysValidator);
         daysValidator.setNext(placesValidator);
         placesValidator.setNext(dateValidator);
+        return costValidator;
+    }
+
+    private Validator createSearchParametersValidator(Date departureDate, int days, float cost) {
+        Validator costValidator = new MoneyValidator(cost);
+        Validator daysValidator = new PositiveIntValidator(days);
+        Validator dateValidator = new TourDateValidator(departureDate);
+        costValidator.setNext(daysValidator);
+        daysValidator.setNext(dateValidator);
         return costValidator;
     }
 

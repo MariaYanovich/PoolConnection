@@ -1,9 +1,11 @@
-package by.epam.agency.command.impl;
+package by.epam.agency.command.impl.tour;
 
 import by.epam.agency.command.Command;
+import by.epam.agency.command.constants.CommandType;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
 import by.epam.agency.exception.ServiceException;
+import by.epam.agency.factory.CommandFactory;
 import by.epam.agency.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,18 +13,19 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class GetUpdateTourPageCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(GetUpdateTourPageCommand.class.getName());
+public class DeleteTourCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(DeleteTourCommand.class.getName());
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter(JspParameterType.TOUR_ID);
-        request.getSession().setAttribute(JspParameterType.TOUR_ID, id);
         try {
-            request.getSession().setAttribute(JspParameterType.TOUR, ServiceFactory.getInstance().getTourService().findTour(Integer.parseInt(id)));
+            ServiceFactory.getInstance().getTourService().deleteTour(Integer.parseInt(id));
+            Command getToursList = CommandFactory.getInstance().getCommand(CommandType.GET_TOURS_LIST.toString());
+            return getToursList.execute(request, response);
         } catch (ServiceException e) {
             LOGGER.error(e);
         }
-        return PageType.UPDATE_TOUR_PAGE.getAddress();
+        return PageType.HOME_PAGE.getAddress();
     }
 }

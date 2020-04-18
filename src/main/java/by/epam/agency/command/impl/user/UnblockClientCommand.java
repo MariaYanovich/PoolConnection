@@ -1,4 +1,4 @@
-package by.epam.agency.command.impl;
+package by.epam.agency.command.impl.user;
 
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.CommandType;
@@ -13,16 +13,17 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UnHotTourCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(UnHotTourCommand.class.getName());
+
+public class UnblockClientCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(UnblockClientCommand.class.getName());
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter(JspParameterType.TOUR_ID);
+        String id = request.getParameter(JspParameterType.ID);
         try {
-            ServiceFactory.getInstance().getTourService().unHotTour(Integer.parseInt(id));
-            Command getToursList = CommandFactory.getInstance().getCommand(CommandType.GET_TOURS_LIST.toString());
-            return getToursList.execute(request, response);
+            ServiceFactory.getInstance().getUserService().unblockClient(Integer.parseInt(id));
+            Command getUsersList = CommandFactory.getInstance().getCommand(CommandType.GET_USERS_LIST.toString());
+            return getUsersList.execute(request, response);
         } catch (ServiceException e) {
             LOGGER.error(e);
         }

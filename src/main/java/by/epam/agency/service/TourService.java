@@ -4,7 +4,7 @@ import by.epam.agency.entity.City;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.ServiceException;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public interface TourService {
