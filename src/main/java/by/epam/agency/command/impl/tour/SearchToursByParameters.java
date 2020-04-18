@@ -26,7 +26,7 @@ public class SearchToursByParameters implements Command {
                     findCityById(Integer.parseInt(request.getParameter(JspParameterType.TO_CITY)));
             Date date = Date.valueOf(request.getParameter(JspParameterType.DEPARTURE_DATE));
             int days = Integer.parseInt(request.getParameter(JspParameterType.DAYS));
-            float cost = Float.parseFloat(request.getParameter(JspParameterType.COST));
+            double cost = Double.parseDouble(request.getParameter(JspParameterType.COST));
             tours = ServiceFactory.getInstance().getTourService().searchToursByParameters(city, date, days, cost);
             request.getSession().setAttribute(JspParameterType.TOURS, tours);
             return PageType.TOURS_LIST_PAGE.getAddress();

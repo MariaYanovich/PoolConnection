@@ -31,7 +31,9 @@ public enum SqlColumn {
     TOUR_STATUS,
     TOUR_STATUS_ID,
     TOUR_IMAGE,
-    ;
+    ORDER_ID,
+    TOUR_NUMBER,
+    PRICE;
 
     @Override
     public String toString() {

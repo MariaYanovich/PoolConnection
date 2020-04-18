@@ -11,7 +11,7 @@ public interface TourService {
 
     void addTour(Tour tour) throws ServiceException;
 
-    List<Tour> searchToursByParameters(City city, Date departureDate, int days, float cost) throws ServiceException;
+    List<Tour> searchToursByParameters(City city, Date departureDate, int days, double cost) throws ServiceException;
 
     List<Tour> getAllTours() throws ServiceException;
 
@@ -30,4 +30,8 @@ public interface TourService {
     void updateTour(Tour tour) throws ServiceException;
 
     Tour findTour(int id) throws ServiceException;
+
+    void buyTour(Tour tour, int amount) throws ServiceException;
+
+    void returnTour(Tour tour, int amount) throws ServiceException;
 }

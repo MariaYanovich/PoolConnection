@@ -34,6 +34,10 @@ public class ServiceFactory {
         return TransportServiceImpl.getInstance();
     }
 
+    public OrderService getOrderService() {
+        return OrderServiceImpl.getInstance();
+    }
+
     private static final class ServiceFactoryHolder {
         private static final ServiceFactory INSTANCE = new ServiceFactory();
     }

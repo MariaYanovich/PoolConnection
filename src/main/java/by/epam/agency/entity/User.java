@@ -11,12 +11,12 @@ public class User implements Serializable {
     private String name;
     private String surname;
     private Discount discount;
-    private float cash;
+    private double cash;
     private String phone;
     private Role role;
 
     public User(String login, char[] password, String name,
-                String surname, float cash, String phone) {
+                String surname, double cash, String phone) {
         this.login = login;
         this.password = password;
         this.name = name;
@@ -93,11 +93,11 @@ public class User implements Serializable {
         this.discount = discount;
     }
 
-    public float getCash() {
+    public double getCash() {
         return cash;
     }
 
-    public void setCash(float cash) {
+    public void setCash(double cash) {
         this.cash = cash;
     }
 
@@ -126,7 +126,7 @@ public class User implements Serializable {
                 ", password=" + Arrays.toString(password) +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", discount=" + discount.getId() +
+                ", discount=" + discount.getDiscountSize() +
                 ", cash=" + cash +
                 ", phone='" + phone + '\'' +
                 ", role='" + role + '\'' +
@@ -139,7 +139,7 @@ public class User implements Serializable {
         if (!(o instanceof User)) return false;
         User user = (User) o;
         return getId() == user.getId() &&
-                Float.compare(user.getCash(), getCash()) == 0 &&
+                Double.compare(user.getCash(), getCash()) == 0 &&
                 getLogin().equals(user.getLogin()) &&
                 Arrays.equals(getPassword(), user.getPassword()) &&
                 getName().equals(user.getName()) &&

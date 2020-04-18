@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <td>ID</td>
-                    <td><c:out value="${sessionScope.id}"/></td>
+                    <td><c:out value="${sessionScope.user_id}"/></td>
                 </tr>
                 <tr>
                     <td>LOGIN</td>
@@ -83,7 +83,7 @@
                 </tr>
                 <tr>
                     <td>ID</td>
-                    <td><c:out value="${sessionScope.id}"/></td>
+                    <td><c:out value="${sessionScope.user_id}"/></td>
                 </tr>
                 <tr>
                     <td>LOGIN</td>
@@ -136,8 +136,8 @@
                         <form method="post">
                             <button class="bot1" type="submit" name="command"
                                     value="DELETE_CLIENT">
-                                <input type="hidden" name="id"
-                                       value="${sessionScope.id}"/>
+                                <input type="hidden" name="user_id"
+                                       value="${sessionScope.user_id}"/>
                                 Delete
                             </button>
                         </form>

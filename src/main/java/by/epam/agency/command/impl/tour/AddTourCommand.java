@@ -23,7 +23,7 @@ public class AddTourCommand implements Command {
     public static void initializeTour(HttpServletRequest request) throws ServiceException {
         Tour tour = new Tour();
         tour.setName(request.getParameter(JspParameterType.TOUR_NAME));
-        tour.setCost(Float.parseFloat(request.getParameter(JspParameterType.COST)));
+        tour.setCost(Double.parseDouble(request.getParameter(JspParameterType.COST)));
         tour.setDays(Integer.parseInt(request.getParameter(JspParameterType.DAYS)));
         tour.setPlaces(Integer.parseInt(request.getParameter(JspParameterType.PLACES)));
         try {

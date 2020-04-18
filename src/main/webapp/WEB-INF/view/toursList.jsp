@@ -197,24 +197,10 @@
                                                 Delete
                                             </button>
                                             <c:if test="${tour.tourStatus!='ARCHIVAL'}">
-                                                <%--                                                <button type="submit"--%>
-                                                <%--                                                        class="btn btn-default btn-sm"--%>
-                                                <%--                                                        name="command"--%>
-                                                <%--                                                        value="redirect"><i--%>
-                                                <%--                                                        class="fa fa-cog"></i>--%>
-                                                <%--                                                    <input type="hidden"--%>
-                                                <%--                                                           name="address"--%>
-                                                <%--                                                           value="UPDATE_TOUR_PAGE"/>--%>
-                                                <%--                                                    <input type="hidden"--%>
-                                                <%--                                                           name="tour_id"--%>
-                                                <%--                                                           value="${tour.tourId}">--%>
-                                                <%--                                                    Update--%>
-                                                <%--                                                </button>--%>
-
                                                 <button class="btn btn-default btn-sm"
                                                         type="submit"
                                                         name="command"
-                                                        value="get_update_tour_page">
+                                                        value="redirect_to_update_tour_page">
                                                     <input type="hidden"
                                                            name="tour_id"
                                                            value="${tour.tourId}"/>
@@ -276,20 +262,14 @@
                                         </div>
                                         <div style="padding-top: 5px">
                                             <c:if test="${sessionScope.role =='CLIENT'}">
-                                                <%--                                        <form method="post">--%>
-                                                <%--                                                <button class="btn btn-info"--%>
-                                                <%--                                                        aria-label="Buy"--%>
-                                                <%--                                                        type="submit" name="command"--%>
-                                                <%--                                                        value="buy_tour">--%>
-                                                <%--                                                    <input type="hidden" name="tour_id"--%>
-                                                <%--                                                           value="${tour.tourId}"/>--%>
-                                                <%--                                                    do not hot--%>
-                                                <%--                                                </button>--%>
-                                                <%--                                        </form>--%>
                                                 <form method="post">
                                                     <button class="btn btn-info"
-                                                            aria-label="Buy"
-                                                            type="submit">
+                                                            type="submit"
+                                                            name="command"
+                                                            value="REDIRECT_TO_INPUT_TOUR_NUMBER_PAGE">
+                                                        <input type="hidden"
+                                                               name="tour_id"
+                                                               value="${tour.tourId}"/>
                                                         Buy
                                                     </button>
                                                 </form>

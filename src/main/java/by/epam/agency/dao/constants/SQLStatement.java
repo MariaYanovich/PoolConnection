@@ -135,16 +135,29 @@ public class SQLStatement {
             "WHERE tour_id = ?";
 
     public static final String SET_HOT_TOUR = "UPDATE `travel_agency_db`.`tour` " +
-            "SET `tour_status_id` = '2' WHERE (`tour_id` = ?)";
+            "SET `tour_status_id` = '2', `tour_cost` = ?  WHERE (`tour_id` = ?)";
 
     public static final String UN_HOT_TOUR = "UPDATE `travel_agency_db`.`tour` " +
-            "SET `tour_status_id` = '1' WHERE (`tour_id` = ?)";
+            "SET `tour_status_id` = '1', `tour_cost` = ? WHERE (`tour_id` = ?)";
 
     public static final String SET_ARCHIVE_TOUR = "UPDATE `travel_agency_db`.`tour` " +
             "SET `tour_status_id` = '3' WHERE (`tour_id` = ?)";
 
     public static final String DELETE_TOUR = "DELETE FROM `travel_agency_db`.`tour`\n" +
             "WHERE tour_id = ?";
+
+    public static final String CREATE_ORDER = "INSERT INTO `travel_agency_db`.`order`\n" +
+            "(`user_id`, `tour_id`, `tour_number`, `price`)\n" +
+            "VALUES (?, ?, ?, ?)";
+
+    public static final String DELETE_ORDER = "DELETE FROM `travel_agency_db`.`order`\n" +
+            "WHERE order_id = ?";
+
+    public static final String UPDATE_USER_CASH = "UPDATE `travel_agency_db`.`user` " +
+            "SET `user_cash` = ?  WHERE (`user_id` = ?)";
+
+    public static final String UPDATE_TOUR_PLACES = "UPDATE `travel_agency_db`.`tour` " +
+            "SET `tour_places` = ? WHERE (`tour_id` = ?)";
 
     private SQLStatement() {
     }

@@ -34,6 +34,8 @@ public class TourDAOImpl implements TourDAO {
     private static final int CREATE_TOUR_IMAGE_INDEX = 10;
     private static final int CITY_ID_QUERY_INDEX = 1;
     private static final int TOUR_ID_INDEX = 1;
+    private static final int TOUR_COST_UPDATE_HOT_INDEX = 1;
+    private static final int TOUR_ID_UPDATE_HOT_INDEX = 2;
     private static final int UPDATE_TOUR_COST_INDEX = 1;
     private static final int UPDATE_DEPARTURE_DATE_INDEX = 2;
     private static final int UPDATE_TOUR_DAYS_INDEX = 3;
@@ -43,6 +45,9 @@ public class TourDAOImpl implements TourDAO {
     private static final int UPDATE_TOUR_DEPARTURE_CITY_INDEX = 7;
     private static final int UPDATE_TOUR_TRANSPORT_INDEX = 8;
     private static final int UPDATE_TOUR_ID_INDEX = 9;
+    private static final double HOT_COEFFICIENT = 0.6;
+    private static final int UPDATE_ID_INDEX = 2;
+    private static final int UPDATE_PLACES_INDEX = 1;
 
     private TourDAOImpl() {
 
@@ -88,7 +93,8 @@ public class TourDAOImpl implements TourDAO {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.UN_HOT_TOUR)) {
-                statement.setInt(TOUR_ID_INDEX, id);
+                statement.setDouble(TOUR_COST_UPDATE_HOT_INDEX, findById(id).getCost() * HOT_COEFFICIENT);
+                statement.setInt(TOUR_ID_UPDATE_HOT_INDEX, id);
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -102,7 +108,8 @@ public class TourDAOImpl implements TourDAO {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.SET_HOT_TOUR)) {
-                statement.setInt(TOUR_ID_INDEX, id);
+                statement.setDouble(TOUR_COST_UPDATE_HOT_INDEX, findById(id).getCost() / HOT_COEFFICIENT);
+                statement.setInt(TOUR_ID_UPDATE_HOT_INDEX, id);
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -203,7 +210,7 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public List<Tour> searchTourByParameters(City city, Date departureDate, int days, float cost) throws DAOException {
+    public List<Tour> searchTourByParameters(City city, Date departureDate, int days, double cost) throws DAOException {
         List<Tour> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_TOURS);
@@ -246,6 +253,7 @@ public class TourDAOImpl implements TourDAO {
         return listToReturn;
     }
 
+
     @Override
     public List<Tour> getToursByTourTypeId(int id) throws DAOException {
         List<Tour> listToReturn = new ArrayList<>();
@@ -268,12 +276,46 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
+    public void buyTour(Tour tour, int amount) throws DAOException {
+        try {
+            int updatedPlaces = tour.getPlaces() - amount;
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_TOUR_PLACES)) {
+                statement.setInt(UPDATE_PLACES_INDEX, updatedPlaces);
+                statement.setInt(UPDATE_ID_INDEX, tour.getTourId());
+                statement.executeUpdate();
+            }
+            tour.setPlaces(updatedPlaces);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public void returnTour(Tour tour, int amount) throws DAOException {
+        try {
+            int updatedPlaces = tour.getPlaces() + amount;
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_TOUR_PLACES)) {
+                statement.setInt(UPDATE_PLACES_INDEX, updatedPlaces);
+                statement.setInt(UPDATE_ID_INDEX, tour.getTourId());
+                statement.executeUpdate();
+            }
+            tour.setPlaces(updatedPlaces);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
     public void delete(Tour item) throws DAOException {
         throw new DAOException(new UnsupportedOperationException());
     }
 
     private void initializeUpdateTourStatement(PreparedStatement statement, Tour tour) throws SQLException {
-        statement.setFloat(UPDATE_TOUR_COST_INDEX, tour.getCost());
+        statement.setDouble(UPDATE_TOUR_COST_INDEX, tour.getCost());
         statement.setDate(UPDATE_DEPARTURE_DATE_INDEX, tour.getDepartureDate());
         statement.setInt(UPDATE_TOUR_DAYS_INDEX, tour.getDays());
         statement.setInt(UPDATE_TOUR_PLACES_INDEX, tour.getPlaces());
@@ -287,7 +329,7 @@ public class TourDAOImpl implements TourDAO {
     private void initializeTour(Tour tour, ResultSet resultSet) throws SQLException, DAOException {
         tour.setTourId(resultSet.getInt(SqlColumn.TOUR_ID.toString()));
         tour.setName(resultSet.getString(SqlColumn.TOUR_NAME.toString()));
-        tour.setCost(resultSet.getFloat(SqlColumn.TOUR_COST.toString()));
+        tour.setCost(resultSet.getDouble(SqlColumn.TOUR_COST.toString()));
         tour.setDepartureDate(resultSet.getDate(SqlColumn.TOUR_DEPARTURE_DATE.toString()));
         tour.setDays(resultSet.getInt(SqlColumn.TOUR_DAYS.toString()));
         tour.setPlaces(resultSet.getInt(SqlColumn.TOUR_PLACES.toString()));
@@ -319,7 +361,7 @@ public class TourDAOImpl implements TourDAO {
 
     private void initializeStatementToCreateTour(PreparedStatement statement, Tour tour) throws SQLException {
         statement.setString(CREATE_TOUR_NAME_INDEX, tour.getName());
-        statement.setFloat(CREATE_TOUR_COST_INDEX, tour.getCost());
+        statement.setDouble(CREATE_TOUR_COST_INDEX, tour.getCost());
         statement.setDate(CREATE_TOUR_DEPARTURE_DATE_INDEX, tour.getDepartureDate());
         statement.setInt(CREATE_TOUR_DAYS_INDEX, tour.getDays());
         statement.setInt(CREATE_TOUR_PLACES_INDEX, tour.getPlaces());

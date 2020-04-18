@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Tour implements Serializable {
     private int tourId;
     private String name;
-    private float cost;
+    private double cost;
     private Date departureDate;
     private int days;
     private int places;
@@ -23,7 +23,7 @@ public class Tour implements Serializable {
     public Tour() {
     }
 
-    public Tour(String name, float cost, Date departureDate,
+    public Tour(String name, double cost, Date departureDate,
                 int days, int places, TourType tourType, City city,
                 City departureCity, TourStatus tourStatus, Transport transport,
                 InputStream image, String imageString) {
@@ -32,7 +32,7 @@ public class Tour implements Serializable {
         this.imageString = imageString;
     }
 
-    public Tour(String name, float cost, Date departureDate,
+    public Tour(String name, double cost, Date departureDate,
                 int days, int places, TourType tourType, City city,
                 City departureCity, TourStatus tourStatus, Transport transport,
                 InputStream image) {
@@ -65,11 +65,11 @@ public class Tour implements Serializable {
         this.name = name;
     }
 
-    public float getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(float cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
@@ -152,7 +152,7 @@ public class Tour implements Serializable {
         if (!(o instanceof Tour)) return false;
         Tour tour = (Tour) o;
         return getTourId() == tour.getTourId() &&
-                Float.compare(tour.getCost(), getCost()) == 0 &&
+                Double.compare(tour.getCost(), getCost()) == 0 &&
                 getDays() == tour.getDays() &&
                 getPlaces() == tour.getPlaces() &&
                 Objects.equals(getName(), tour.getName()) &&

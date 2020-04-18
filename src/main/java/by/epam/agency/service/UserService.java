@@ -8,6 +8,8 @@ import java.util.List;
 public interface UserService {
     User signIn(String login, String password) throws ServiceException;
 
+    User findUserById(int id) throws ServiceException;
+
     User signUp(String login, String password, String name, String surname, String cash, String phone) throws ServiceException;
 
     void createAdmin(String login, String password, String name, String surname, String phone) throws ServiceException;
@@ -23,4 +25,8 @@ public interface UserService {
     void updateClient(User user) throws ServiceException;
 
     List<User> getAllUsers() throws ServiceException;
+
+    void takeMoney(User user, double amount) throws ServiceException;
+
+    void returnMoney(User user, double amount) throws ServiceException;
 }

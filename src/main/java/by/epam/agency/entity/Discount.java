@@ -6,13 +6,13 @@ import java.util.Objects;
 public class Discount implements Serializable {
 
     private int id;
-    private float discountSize;
+    private double discountSize;
 
     public Discount() {
 
     }
 
-    public Discount(int id, float discountSize) {
+    public Discount(int id, double discountSize) {
         this.id = id;
         this.discountSize = discountSize;
     }
@@ -25,11 +25,11 @@ public class Discount implements Serializable {
         this.id = id;
     }
 
-    public float getDiscountSize() {
+    public double getDiscountSize() {
         return discountSize;
     }
 
-    public void setDiscountSize(float discountSize) {
+    public void setDiscountSize(double discountSize) {
         this.discountSize = discountSize;
     }
 
@@ -39,7 +39,7 @@ public class Discount implements Serializable {
         if (!(o instanceof Discount)) return false;
         Discount that = (Discount) o;
         return getId() == that.getId() &&
-                Float.compare(that.getDiscountSize(), getDiscountSize()) == 0;
+                Double.compare(that.getDiscountSize(), getDiscountSize()) == 0;
     }
 
     @Override

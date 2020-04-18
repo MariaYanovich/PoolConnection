@@ -63,6 +63,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserById(int id) throws ServiceException {
+        try {
+            return userDAO.findById(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public User signUp(String login, String password, String name, String surname, String cash, String phone) throws ServiceException {
         Validator validator = createSignUpParametersValidator
                 (login, password, name, surname, Float.parseFloat(cash), phone);
@@ -146,6 +156,26 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void takeMoney(User user, double amount) throws ServiceException {
+        try {
+            userDAO.takeMoney(user, amount);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void returnMoney(User user, double amount) throws ServiceException {
+        try {
+            userDAO.returnMoney(user, amount);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
 
     private Validator createSignInParametersValidator(String login, String password) {
         Validator loginValidator = new LoginValidator(login);
@@ -182,7 +212,7 @@ public class UserServiceImpl implements UserService {
         return loginValidator;
     }
 
-    private Validator createUpdateParametersValidator(String name, String surname, float cash, String phone) {
+    private Validator createUpdateParametersValidator(String name, String surname, double cash, String phone) {
         Validator nameValidator = new ProperNameValidator(name);
         Validator surnameValidator = new ProperNameValidator(surname);
         Validator cashValidator = new MoneyValidator(cash);

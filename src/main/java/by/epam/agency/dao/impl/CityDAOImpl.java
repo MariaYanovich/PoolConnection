@@ -27,7 +27,7 @@ public class CityDAOImpl implements CityDAO {
     }
 
     public static CityDAO getInstance() {
-        return CityDAOImpl.CityDAOImplHolder.INSTANCE;
+        return CityDAOImplHolder.INSTANCE;
     }
 
     @Override

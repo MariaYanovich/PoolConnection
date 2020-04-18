@@ -6,7 +6,7 @@ public class JspParameterType {
     public static final String COMMAND = "command";
     public static final String ERROR = "error";
     public static final String USER = "user";
-    public static final String ID = "id";
+    public static final String USER_ID = "user_id";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
     public static final String NAME = "name";
@@ -37,6 +37,8 @@ public class JspParameterType {
     public static final String TO_CITY = "to_city";
     public static final String DEPARTURE_CITY = "departure_city";
     public static final String TOUR_TYPE = "tour_type";
+    public static final String TOUR_NUMBER = "tour_number";
+
 
     private JspParameterType() {
     }

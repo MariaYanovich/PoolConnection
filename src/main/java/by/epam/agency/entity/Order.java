@@ -3,30 +3,30 @@ package by.epam.agency.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Sale implements Serializable {
-    private int saleId;
+public class Order implements Serializable {
+    private int orderId;
     private User user;
     private Tour tour;
     private int number;
-    private float price;
+    private double price;
 
-    public Sale() {
+    public Order() {
     }
 
-    public Sale(int saleId, User user, Tour tour, int number, float price) {
-        this.saleId = saleId;
+    public Order(int orderId, User user, Tour tour, int number, double price) {
+        this.orderId = orderId;
         this.user = user;
         this.tour = tour;
         this.number = number;
         this.price = price;
     }
 
-    public int getSaleId() {
-        return saleId;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setSaleId(int saleId) {
-        this.saleId = saleId;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public User getUser() {
@@ -53,11 +53,11 @@ public class Sale implements Serializable {
         this.number = number;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -65,24 +65,24 @@ public class Sale implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Sale)) return false;
-        Sale sale = (Sale) o;
-        return getSaleId() == sale.getSaleId() &&
-                getNumber() == sale.getNumber() &&
-                Float.compare(sale.getPrice(), getPrice()) == 0 &&
-                Objects.equals(getUser(), sale.getUser()) &&
-                Objects.equals(getTour(), sale.getTour());
+        if (!(o instanceof Order)) return false;
+        Order order = (Order) o;
+        return getOrderId() == order.getOrderId() &&
+                getNumber() == order.getNumber() &&
+                Double.compare(order.getPrice(), getPrice()) == 0 &&
+                Objects.equals(getUser(), order.getUser()) &&
+                Objects.equals(getTour(), order.getTour());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSaleId(), getUser(), getTour(), getNumber(), getPrice());
+        return Objects.hash(getOrderId(), getUser(), getTour(), getNumber(), getPrice());
     }
 
     @Override
     public String toString() {
         return "Sale{" +
-                "saleId=" + saleId +
+                "saleId=" + orderId +
                 ", user=" + user +
                 ", tour=" + tour +
                 ", number=" + number +

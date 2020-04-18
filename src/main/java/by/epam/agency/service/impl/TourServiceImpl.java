@@ -63,7 +63,7 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> searchToursByParameters(City city, Date departureDate, int days, float cost) throws ServiceException {
+    public List<Tour> searchToursByParameters(City city, Date departureDate, int days, double cost) throws ServiceException {
         Validator validator = createSearchParametersValidator(departureDate, days, cost);
         try {
             validator.validate();
@@ -144,6 +144,26 @@ public class TourServiceImpl implements TourService {
         }
     }
 
+    @Override
+    public void buyTour(Tour tour, int amount) throws ServiceException {
+        try {
+            tourDAO.buyTour(tour, amount);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void returnTour(Tour tour, int amount) throws ServiceException {
+        try {
+            tourDAO.returnTour(tour, amount);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
     private Validator createAddTourParametersValidator(Tour tour) {
         Validator nameValidator = new ProperNameValidator(tour.getName());
         Validator costValidator = new MoneyValidator(tour.getCost());
@@ -168,7 +188,7 @@ public class TourServiceImpl implements TourService {
         return costValidator;
     }
 
-    private Validator createSearchParametersValidator(Date departureDate, int days, float cost) {
+    private Validator createSearchParametersValidator(Date departureDate, int days, double cost) {
         Validator costValidator = new MoneyValidator(cost);
         Validator daysValidator = new PositiveIntValidator(days);
         Validator dateValidator = new TourDateValidator(departureDate);

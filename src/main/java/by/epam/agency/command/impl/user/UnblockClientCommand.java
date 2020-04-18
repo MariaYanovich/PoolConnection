@@ -19,7 +19,7 @@ public class UnblockClientCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter(JspParameterType.ID);
+        String id = request.getParameter(JspParameterType.USER_ID);
         try {
             ServiceFactory.getInstance().getUserService().unblockClient(Integer.parseInt(id));
             Command getUsersList = CommandFactory.getInstance().getCommand(CommandType.GET_USERS_LIST.toString());

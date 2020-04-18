@@ -26,6 +26,10 @@ public class UserDAOImpl implements UserDAO {
     private static final int USER_ID_INDEX = 1;
     private static final int USER_LOGIN_INDEX = 1;
     private static final int USER_PASSWORD_INDEX = 2;
+
+    private static final int UPDATE_CASH_INDEX = 1;
+    private static final int UPDATE_ID_INDEX = 2;
+
     private static final int CREATE_USER_LOGIN_INDEX = 1;
     private static final int CREATE_USER_PASSWORD_INDEX = 2;
     private static final int CREATE_USER_NAME_INDEX = 3;
@@ -50,6 +54,7 @@ public class UserDAOImpl implements UserDAO {
     private static final int UPDATE_CLIENT_PHONE_INDEX = 3;
     private static final int UPDATE_CLIENT_CASH_INDEX = 4;
     private static final int UPDATE_CLIENT_ID_INDEX = 5;
+
 
     private UserDAOImpl() {
 
@@ -235,6 +240,40 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    @Override
+    public void takeMoney(User user, double amount) throws DAOException {
+        try {
+            double updatedCash = user.getCash() - amount;
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_USER_CASH)) {
+                statement.setDouble(UPDATE_CASH_INDEX, updatedCash);
+                statement.setInt(UPDATE_ID_INDEX, user.getId());
+                statement.executeUpdate();
+            }
+            user.setCash(updatedCash);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public void returnMoney(User user, double amount) throws DAOException {
+        try {
+            double updatedCash = user.getCash() + amount;
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_USER_CASH)) {
+                statement.setDouble(UPDATE_CASH_INDEX, updatedCash);
+                statement.setInt(UPDATE_ID_INDEX, user.getId());
+                statement.executeUpdate();
+            }
+            user.setCash(updatedCash);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
+
     private void initializeUser(User user, ResultSet resultSet) throws SQLException {
         user.setId(resultSet.getInt(SqlColumn.USER_ID.toString()));
         user.setLogin(resultSet.getString(SqlColumn.USER_LOGIN.toString()));
@@ -242,8 +281,8 @@ public class UserDAOImpl implements UserDAO {
         user.setName(resultSet.getString(SqlColumn.USER_NAME.toString()));
         user.setSurname(resultSet.getString(SqlColumn.USER_SURNAME.toString()));
         user.setDiscount(new Discount(resultSet.getInt(SqlColumn.USER_DISCOUNT_ID.toString()),
-                resultSet.getInt(SqlColumn.USER_DISCOUNT_SIZE.toString())));
-        user.setCash(resultSet.getFloat(SqlColumn.USER_CASH.toString()));
+                resultSet.getDouble(SqlColumn.USER_DISCOUNT_SIZE.toString())));
+        user.setCash(resultSet.getDouble(SqlColumn.USER_CASH.toString()));
         user.setPhone(resultSet.getString(SqlColumn.USER_PHONE.toString()));
         user.setRole(Role.valueOf(resultSet.getString(SqlColumn.USER_ROLE.toString()).toUpperCase()));
     }
@@ -254,7 +293,7 @@ public class UserDAOImpl implements UserDAO {
         statement.setString(CREATE_USER_PASSWORD_INDEX, String.valueOf(user.getPassword()));
         statement.setString(CREATE_USER_NAME_INDEX, user.getName());
         statement.setString(CREATE_USER_SURNAME_INDEX, user.getSurname());
-        statement.setFloat(CREATE_USER_CASH_INDEX, user.getCash());
+        statement.setDouble(CREATE_USER_CASH_INDEX, user.getCash());
         statement.setString(CREATE_USER_PHONE_INDEX, user.getPhone());
     }
 
@@ -271,7 +310,7 @@ public class UserDAOImpl implements UserDAO {
         statement.setString(UPDATE_CLIENT_NAME_INDEX, user.getName());
         statement.setString(UPDATE_CLIENT_SURNAME_INDEX, user.getSurname());
         statement.setString(UPDATE_CLIENT_PHONE_INDEX, user.getPhone());
-        statement.setFloat(UPDATE_CLIENT_CASH_INDEX, user.getCash());
+        statement.setDouble(UPDATE_CLIENT_CASH_INDEX, user.getCash());
         statement.setInt(UPDATE_CLIENT_ID_INDEX, user.getId());
     }
 

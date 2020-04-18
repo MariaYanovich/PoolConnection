@@ -17,7 +17,7 @@ public class UpdateAdminCommand implements Command {
 
     public static void updateAdmin(HttpServletRequest request) throws ServiceException {
         User user = new User();
-        user.setId(Integer.parseInt(request.getSession().getAttribute(JspParameterType.ID).toString()));
+        user.setId(Integer.parseInt(request.getSession().getAttribute(JspParameterType.USER_ID).toString()));
         user.setName(request.getParameter(JspParameterType.NAME));
         request.getSession().setAttribute(JspParameterType.NAME, user.getName());
         user.setSurname(request.getParameter(JspParameterType.SURNAME));

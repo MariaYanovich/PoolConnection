@@ -24,4 +24,7 @@ public interface UserDAO extends DAO<User> {
     void unblockClient(int id) throws DAOException;
 
 
+    void takeMoney(User user, double amount) throws DAOException;
+
+    void returnMoney(User user, double amount) throws DAOException;
 }

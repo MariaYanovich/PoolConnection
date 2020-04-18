@@ -1,4 +1,4 @@
-package by.epam.agency.command.impl;
+package by.epam.agency.command.impl.redirect;
 
 
 import by.epam.agency.command.Command;
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RedirectCommand implements Command {
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         return PageType.valueOf(request.getParameter(JspParameterType.ADDRESS)).getAddress();

@@ -19,7 +19,7 @@ public class UpdateTourInfoCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(UpdateTourInfoCommand.class.getName());
 
     public static void updateTour(HttpServletRequest request, Tour tour) throws ServiceException {
-        tour.setCost(Float.parseFloat(request.getParameter(JspParameterType.COST)));
+        tour.setCost(Double.parseDouble(request.getParameter(JspParameterType.COST)));
         tour.setDays(Integer.parseInt(request.getParameter(JspParameterType.DAYS)));
         tour.setPlaces(Integer.parseInt(request.getParameter(JspParameterType.PLACES)));
         tour.setDepartureDate(Date.valueOf(request.getParameter(JspParameterType.DEPARTURE_DATE)));

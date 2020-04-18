@@ -18,7 +18,7 @@ public class DeleteClientCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter(JspParameterType.ID);
+        String id = request.getParameter(JspParameterType.USER_ID);
         try {
             ServiceFactory.getInstance().getUserService().deleteClient(Integer.parseInt(id));
             Command signOut = CommandFactory.getInstance().getCommand(CommandType.SIGN_OUT.toString());

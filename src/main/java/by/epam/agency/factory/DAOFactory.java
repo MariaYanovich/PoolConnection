@@ -32,6 +32,10 @@ public class DAOFactory {
         return TransportDAOImpl.getInstance();
     }
 
+    public OrderDAO getOrderDAO() {
+        return OrderDAOImpl.getInstance();
+    }
+
     private static final class DAOFactoryHolder {
         private static final DAOFactory INSTANCE = new DAOFactory();
     }

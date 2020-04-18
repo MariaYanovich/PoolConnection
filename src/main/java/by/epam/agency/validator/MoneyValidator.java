@@ -3,9 +3,9 @@ package by.epam.agency.validator;
 import by.epam.agency.exception.ValidatorException;
 
 public class MoneyValidator extends Validator {
-    private float money;
+    private double money;
 
-    public MoneyValidator(float money) {
+    public MoneyValidator(double money) {
         this.money = money;
     }
 

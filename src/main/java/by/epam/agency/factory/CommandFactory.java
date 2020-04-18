@@ -2,8 +2,13 @@ package by.epam.agency.factory;
 
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.CommandType;
+import by.epam.agency.command.impl.BuyTourCommand;
+import by.epam.agency.command.impl.CancelBuyingTourCommand;
 import by.epam.agency.command.impl.HomeCommand;
-import by.epam.agency.command.impl.RedirectCommand;
+import by.epam.agency.command.impl.redirect.RedirectCommand;
+import by.epam.agency.command.impl.redirect.RedirectToInputTourNumberPageCommand;
+import by.epam.agency.command.impl.redirect.RedirectToSubmitBuyPageCommand;
+import by.epam.agency.command.impl.redirect.RedirectToUpdateTourPageCommand;
 import by.epam.agency.command.impl.tour.*;
 import by.epam.agency.command.impl.user.*;
 
@@ -65,10 +70,18 @@ public class CommandFactory {
                 return new AddTourCommand();
             case UPDATE_TOUR:
                 return new UpdateTourInfoCommand();
-            case GET_UPDATE_TOUR_PAGE:
-                return new GetUpdateTourPageCommand();
+            case REDIRECT_TO_UPDATE_TOUR_PAGE:
+                return new RedirectToUpdateTourPageCommand();
             case SEARCH_TOURS:
                 return new SearchToursByParameters();
+            case REDIRECT_TO_INPUT_TOUR_NUMBER_PAGE:
+                return new RedirectToInputTourNumberPageCommand();
+            case BUY_TOUR:
+                return new BuyTourCommand();
+            case CANCEL_BUYING_TOUR:
+                return new CancelBuyingTourCommand();
+            case REDIRECT_TO_SUBMIT_BUY_PAGE:
+                return new RedirectToSubmitBuyPageCommand();
 //            default:
 //                return new ErrorCommand();
         }
