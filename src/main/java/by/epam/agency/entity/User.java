@@ -37,6 +37,11 @@ public class User implements Serializable {
         this.discount = new Discount();
     }
 
+    public User(int id, String login) {
+        this.id = id;
+        this.login = login;
+    }
+
     public User() {
         discount = new Discount();
     }

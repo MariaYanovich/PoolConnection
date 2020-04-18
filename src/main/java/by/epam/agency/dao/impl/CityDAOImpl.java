@@ -62,7 +62,7 @@ public class CityDAOImpl implements CityDAO {
     public City findById(int id) throws DAOException {
         City city = new City();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_CITY_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_CITY_BY_ID)) {
             statement.setInt(CITY_ID_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -99,7 +99,7 @@ public class CityDAOImpl implements CityDAO {
     public String findCity(String city) throws DAOException {
         String cityToReturn = null;
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.CHECK_CITY)) {
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.CHECK_CITY_EXISTENCE)) {
             statement.setString(CITY_INDEX, city);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

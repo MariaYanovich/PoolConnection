@@ -9,6 +9,8 @@ import by.epam.agency.service.OrderService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = LogManager.getLogger(OrderServiceImpl.class.getName());
 
@@ -36,6 +38,26 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrder(Order order) throws ServiceException {
         try {
             orderDAO.delete(order);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Order findOrderById(int id) throws ServiceException {
+        try {
+            return orderDAO.findById(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Order> getAllOrders() throws ServiceException {
+        try {
+            return orderDAO.getAll();
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

@@ -48,7 +48,7 @@ public class TransportDAOImpl implements TransportDAO {
     public Transport findById(int id) throws DAOException {
         Transport transport = new Transport();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_TRANSPORT_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_TRANSPORT_BY_ID)) {
             statement.setInt(TRANSPORT_ID_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

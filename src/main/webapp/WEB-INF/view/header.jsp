@@ -51,7 +51,6 @@
                 </form>
             </c:if>
 
-
             <c:if test="${sessionScope.role =='CLIENT'}">
                 <form method="post" name="about">
                     <button type="submit" class="just_btn" name="command"
@@ -76,6 +75,14 @@
                             value="redirect">Contact
                     </button>
                     <input type="hidden" name="address" value="CONTACT_PAGE"/>
+                </form>
+            </c:if>
+
+            <c:if test="${sessionScope.role !='GUEST'}">
+                <form method="post" name="tours_list">
+                    <button type="submit" class="just_btn" name="command"
+                            value="GET_ORDERS">Orders
+                    </button>
                 </form>
             </c:if>
 
@@ -120,6 +127,7 @@
                         value="GET_TOURS_LIST">Tours
                 </button>
             </form>
+
             <c:if test="${sessionScope.role=='ADMIN'}">
                 <form method="post">
                     <button type="submit" class="just_btn" name="command"
@@ -130,6 +138,7 @@
                            value="ADD_TOUR_PAGE"/>
                 </form>
             </c:if>
+
             <form method="post" name="home">
                 <button type="submit" class="just_btn" name="command"
                         value="redirect">Home

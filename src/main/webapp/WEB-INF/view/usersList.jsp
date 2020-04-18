@@ -25,7 +25,7 @@
 <header>
     <c:import url="/WEB-INF/view/header.jsp"/>
 </header>
-
+<section class="hero">
 <jsp:useBean id="users" class="java.util.ArrayList" scope="request"/>
 <div class="div-table">
     <table>
@@ -41,33 +41,33 @@
             <th>ROLE</th>
             <th>BLOCK/UNBLOCK</th>
         </tr>
-        <c:forEach items="${users}" var="user">
+        <c:forEach items="${users}" var="order">
             <tr>
-                <td><c:out value="${user.id}"/></td>
-                <td><c:out value="${user.login}"/></td>
-                <td><c:out value="${user.passwordStr}"/></td>
-                <td><c:out value="${user.name}"/></td>
-                <td><c:out value="${user.surname}"/></td>
-                <td><c:out value="${user.discount.discountSize}"/></td>
-                <td><c:out value="${user.cash}"/></td>
-                <td><c:out value="${user.phone}"/></td>
-                <td><c:out value="${user.role}"/></td>
+                <td><c:out value="${order.id}"/></td>
+                <td><c:out value="${order.login}"/></td>
+                <td><c:out value="${order.passwordStr}"/></td>
+                <td><c:out value="${order.name}"/></td>
+                <td><c:out value="${order.surname}"/></td>
+                <td><c:out value="${order.discount.discountSize}"/></td>
+                <td><c:out value="${order.cash}"/></td>
+                <td><c:out value="${order.phone}"/></td>
+                <td><c:out value="${order.role}"/></td>
                 <td>
                     <form method="post">
-                        <c:if test="${user.role =='BLOCKED'}">
+                        <c:if test="${order.role =='BLOCKED'}">
                             <button class="bot1" type="submit" name="command"
                                     value="unblock_client">
                                 <input type="hidden" name="user_id"
-                                       value="${user.id}"/>
+                                       value="${order.id}"/>
                                 unblock
                             </button>
                         </c:if>
 
-                        <c:if test="${user.role =='CLIENT'}">
+                        <c:if test="${order.role =='CLIENT'}">
                             <button class="bot1" type="submit" name="command"
                                     value="block_client">
                                 <input type="hidden" name="user_id"
-                                       value="${user.id}"/>
+                                       value="${order.id}"/>
                                 block
                             </button>
                         </c:if>
@@ -77,7 +77,7 @@
         </c:forEach>
     </table>
 </div>
-
+</section>
 <footer>
     <div class="copyrights wrapper">
         <ctg:copyrightTag/>

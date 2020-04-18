@@ -49,6 +49,11 @@ public class Tour implements Serializable {
         this.image = image;
     }
 
+    public Tour(int tourId, String name){
+        this.tourId = tourId;
+        this.name =name;
+    }
+
     public int getTourId() {
         return tourId;
     }

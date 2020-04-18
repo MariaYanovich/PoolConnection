@@ -2,7 +2,7 @@ package by.epam.agency.dao.constants;
 
 public class SQLStatement {
 
-    public static final String CHECK_LOGIN = "SELECT user_login " +
+    public static final String CHECK_LOGIN_EXISTENCE = "SELECT user_login " +
             "FROM travel_agency_db.user where user_login=?";
 
     public static final String CREATE_CLIENT = "INSERT INTO `travel_agency_db`.`user`" +
@@ -23,7 +23,7 @@ public class SQLStatement {
             "ON travel_agency_db.user.user_role_id=travel_agency_db.user_role.user_role_id " +
             "WHERE user_login=? and user_password=?";
 
-    public static final String GET_USER_BY_ID = "SELECT user_id, user_login, user_password, user_name, user_surname,\n" +
+    public static final String FIND_USER_BY_ID = "SELECT user_id, user_login, user_password, user_name, user_surname,\n" +
             "user_discount.user_discount_id, user_discount.user_discount_size, user_cash, \n" +
             "user_phone, user_role.user_role_id, user_role.user_role\n" +
             "FROM travel_agency_db.user\n" +
@@ -66,12 +66,12 @@ public class SQLStatement {
     public static final String DELETE_CITY = "DELETE FROM `travel_agency_db`.`city`\n" +
             "WHERE city_id = ?";
 
-    public static final String GET_CITY_BY_ID = "SELECT * FROM travel_agency_db.city where city_id=?";
+    public static final String FIND_CITY_BY_ID = "SELECT * FROM travel_agency_db.city where city_id=?";
 
     public static final String GET_ALL_CITIES = "SELECT * FROM travel_agency_db.city"
             + " ORDER by city.city";
 
-    public static final String CHECK_CITY = "SELECT city " +
+    public static final String CHECK_CITY_EXISTENCE = "SELECT city " +
             "FROM travel_agency_db.city where city.city=?";
 
     public static final String CREATE_TOUR = "INSERT INTO `travel_agency_db`.`tour`\n" +
@@ -86,16 +86,16 @@ public class SQLStatement {
     public static final String DELETE_TOUR_TYPE = "DELETE FROM `travel_agency_db`.`tour_type`\n" +
             "WHERE tour_type_id = ?";
 
-    public static final String GET_TOUR_TYPE_BY_ID = "SELECT * FROM travel_agency_db.tour_type " +
+    public static final String FIND_TOUR_TYPE_BY_ID = "SELECT * FROM travel_agency_db.tour_type " +
             "WHERE tour_type_id=?";
 
     public static final String GET_ALL_TOUR_TYPES = "SELECT * FROM travel_agency_db.tour_type " +
             "ORDER by tour_type_id";
 
-    public static final String CHECK_TOUR_TYPE = "SELECT tour_type " +
+    public static final String CHECK_TOUR_TYPE_EXISTENCE = "SELECT tour_type " +
             "FROM travel_agency_db.tour_type where tour_type.tour_type=?";
 
-    public static final String GET_TRANSPORT_BY_ID = "SELECT * FROM travel_agency_db.transport " +
+    public static final String FIND_TRANSPORT_BY_ID = "SELECT * FROM travel_agency_db.transport " +
             "WHERE transport_id=?";
 
     public static final String GET_ALL_TRANSPORT = "SELECT * FROM travel_agency_db.transport " +
@@ -115,7 +115,7 @@ public class SQLStatement {
             " ORDER by tour.tour_departure_date";
 
 
-    public static final String GET_TOUR_BY_ID = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
+    public static final String FIND_TOUR_BY_ID = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
             "tour.tour_places, tour_type.tour_type_id, tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
             "tour_status.tour_status_id,  tour_status. tour_status, transport.transport_id, transport.transport, tour.tour_image \n" +
             "FROM travel_agency_db.tour\n" +
@@ -158,6 +158,24 @@ public class SQLStatement {
 
     public static final String UPDATE_TOUR_PLACES = "UPDATE `travel_agency_db`.`tour` " +
             "SET `tour_places` = ? WHERE (`tour_id` = ?)";
+
+    public static final String GET_ALL_ORDERS = "SELECT order_id, user.user_id," +
+            "user.user_login, tour.tour_id, tour.tour_name, tour_number, price\n" +
+            "FROM travel_agency_db.order \n" +
+            "right join travel_agency_db.user\n" +
+            "ON travel_agency_db.order.user_id = travel_agency_db.user.user_id\n" +
+            "right join travel_agency_db.tour\n" +
+            "ON travel_agency_db.order.tour_id = travel_agency_db.tour.tour_id\n" +
+            "WHERE order_id is not null";
+
+    public static final String FIND_ORDER_BY_ID = "SELECT order_id, user.user_id, " +
+            "user.user_login, tour.tour_id, tour.tour_name, tour_number, price\n" +
+            "FROM travel_agency_db.order \n" +
+            "right join travel_agency_db.user\n" +
+            "ON travel_agency_db.order.user_id = travel_agency_db.user.user_id\n" +
+            "right join travel_agency_db.tour\n" +
+            "ON travel_agency_db.order.tour_id = travel_agency_db.tour.tour_id\n" +
+            "WHERE order_id = ? ";
 
     private SQLStatement() {
     }

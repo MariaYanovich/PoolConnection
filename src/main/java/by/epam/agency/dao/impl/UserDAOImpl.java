@@ -68,7 +68,7 @@ public class UserDAOImpl implements UserDAO {
     public User findById(int id) throws DAOException {
         User user = new User();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_USER_BY_ID)) {
             statement.setInt(USER_ID_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -87,7 +87,7 @@ public class UserDAOImpl implements UserDAO {
     public String findLogin(String userLogin) throws DAOException {
         String login = null;
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.CHECK_LOGIN)) {
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.CHECK_LOGIN_EXISTENCE)) {
             statement.setString(USER_LOGIN_INDEX, userLogin);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

@@ -122,7 +122,7 @@ public class TourDAOImpl implements TourDAO {
     public Tour findById(int id) throws DAOException {
         Tour tour = new Tour();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_TOUR_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_TOUR_BY_ID)) {
             statement.setInt(CITY_ID_QUERY_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -173,7 +173,7 @@ public class TourDAOImpl implements TourDAO {
     private City getCityById(int id) throws DAOException {
         City city = new City();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_CITY_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_CITY_BY_ID)) {
             statement.setInt(CITY_ID_QUERY_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

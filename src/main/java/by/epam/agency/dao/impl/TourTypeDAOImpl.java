@@ -61,7 +61,7 @@ public class TourTypeDAOImpl implements TourTypeDAO {
     public TourType findById(int id) throws DAOException {
         TourType tourType = new TourType();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_TOUR_TYPE_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_TOUR_TYPE_BY_ID)) {
             statement.setInt(TOUR_TYPE_ID_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -98,7 +98,7 @@ public class TourTypeDAOImpl implements TourTypeDAO {
     public String findTourType(String tourType) throws DAOException {
         String type = null;
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.CHECK_TOUR_TYPE)) {
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.CHECK_TOUR_TYPE_EXISTENCE)) {
             statement.setString(TOUR_TYPE_INDEX, tourType);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

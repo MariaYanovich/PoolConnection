@@ -82,6 +82,8 @@ public class CommandFactory {
                 return new CancelBuyingTourCommand();
             case REDIRECT_TO_SUBMIT_BUY_PAGE:
                 return new RedirectToSubmitBuyPageCommand();
+            case GET_ORDERS:
+                return new GetAllOrdersCommand();
 //            default:
 //                return new ErrorCommand();
         }
