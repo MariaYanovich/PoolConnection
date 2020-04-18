@@ -29,7 +29,7 @@ public interface TourService {
 
     void updateTour(Tour tour) throws ServiceException;
 
-    Tour findTour(int id) throws ServiceException;
+    Tour findTourById(int id) throws ServiceException;
 
     void buyTour(Tour tour, int amount) throws ServiceException;
 

@@ -134,7 +134,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     private void initializeCreateOrderStatement(PreparedStatement statement, Order order) throws SQLException {
-        statement.setInt(CREATE_USER_ID_INDEX, order.getUser().getId());
+        statement.setInt(CREATE_USER_ID_INDEX, order.getUser().getUserId());
         statement.setInt(CREATE_TOUR_ID_INDEX, order.getTour().getTourId());
         statement.setInt(CREATE_TOUR_NUMBER_INDEX, order.getNumber());
         statement.setDouble(CREATE_PRICE_INDEX, order.getPrice());

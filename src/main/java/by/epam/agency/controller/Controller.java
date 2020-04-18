@@ -33,19 +33,19 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             handleRequest(request, response);
-        } catch (ServiceException | ServletException | IOException e) {
+        } catch (ServiceException e) {
             LOGGER.error(e);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             handleRequest(request, response);
-        } catch (ServiceException | ServletException | IOException e) {
+        } catch (ServiceException e) {
             LOGGER.error(e);
         }
     }

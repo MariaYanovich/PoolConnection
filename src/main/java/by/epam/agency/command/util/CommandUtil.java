@@ -37,7 +37,7 @@ public class CommandUtil {
     public void setSessionAttributesForUserAuthorize(HttpSession session, User user) {
         session.setAttribute(JspParameterType.LOGIN, user.getLogin());
         session.setAttribute(JspParameterType.PASSWORD, user.getPassword());
-        session.setAttribute(JspParameterType.USER_ID, user.getId());
+        session.setAttribute(JspParameterType.USER_ID, user.getUserId());
         session.setAttribute(JspParameterType.NAME, user.getName());
         session.setAttribute(JspParameterType.SURNAME, user.getSurname());
         session.setAttribute(JspParameterType.DISCOUNT, user.getDiscount());
@@ -51,7 +51,7 @@ public class CommandUtil {
         request.getSession().setAttribute(JspParameterType.TOUR_ID, tourId);
         try {
             request.getSession().setAttribute(JspParameterType.TOUR,
-                    ServiceFactory.getInstance().getTourService().findTour(Integer.parseInt(tourId)));
+                    ServiceFactory.getInstance().getTourService().findTourById(Integer.parseInt(tourId)));
         } catch (ServiceException e) {
             LOGGER.error(e);
         }

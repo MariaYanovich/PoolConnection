@@ -40,13 +40,14 @@ public class User implements Serializable {
     public User(int id, String login) {
         this.id = id;
         this.login = login;
+        discount = new Discount();
     }
 
     public User() {
         discount = new Discount();
     }
 
-    public int getId() {
+    public int getUserId() {
         return id;
     }
 
@@ -143,7 +144,7 @@ public class User implements Serializable {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getId() == user.getId() &&
+        return getUserId() == user.getUserId() &&
                 Double.compare(user.getCash(), getCash()) == 0 &&
                 getLogin().equals(user.getLogin()) &&
                 Arrays.equals(getPassword(), user.getPassword()) &&
@@ -156,7 +157,7 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getId(), getLogin(), getName(), getSurname(), getDiscount(), getCash(), getPhone(), getRole());
+        int result = Objects.hash(getUserId(), getLogin(), getName(), getSurname(), getDiscount(), getCash(), getPhone(), getRole());
         result = 31 * result + Arrays.hashCode(getPassword());
         return result;
     }

@@ -44,7 +44,7 @@
             </tr>
             <c:forEach items="${users}" var="user">
                 <tr>
-                    <td><c:out value="${user.id}"/></td>
+                    <td><c:out value="${user.userId}"/></td>
                     <td><c:out value="${user.login}"/></td>
                     <td><c:out value="${user.passwordStr}"/></td>
                     <td><c:out value="${user.name}"/></td>
@@ -59,7 +59,7 @@
                                     name="command"
                                     value="view_user_orders">
                                 <input type="hidden" name="order_user_id"
-                                       value="${user.id}"/>
+                                       value="${user.userId}"/>
                                 view
                             </button>
                         </form>
@@ -71,7 +71,7 @@
                                         name="command"
                                         value="unblock_client">
                                     <input type="hidden" name="user_id"
-                                           value="${user.id}"/>
+                                           value="${user.userId}"/>
                                     unblock
                                 </button>
                             </c:if>
@@ -81,7 +81,7 @@
                                         name="command"
                                         value="block_client">
                                     <input type="hidden" name="user_id"
-                                           value="${user.id}"/>
+                                           value="${user.userId}"/>
                                     block
                                 </button>
                             </c:if>

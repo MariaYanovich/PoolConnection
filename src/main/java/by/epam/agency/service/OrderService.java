@@ -8,7 +8,7 @@ import java.util.List;
 public interface OrderService {
     void createOrder(Order order) throws ServiceException;
 
-    void deleteOrder(Order order) throws ServiceException;
+    void deleteOrder(int id) throws ServiceException;
 
     Order findOrderById(int id) throws ServiceException;
 

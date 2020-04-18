@@ -41,7 +41,7 @@
                     <th>CANCEL</th>
                 </tr>
                 <c:forEach items="${orders}" var="order">
-                    <c:if test="${order.user.id==sessionScope.user_id}">
+                    <c:if test="${order.user.userId==sessionScope.user_id}">
                         <tr>
                             <td><c:out value="${order.orderId}"/></td>
                             <td><c:out value="${order.tour.tourId}"/></td>
@@ -84,7 +84,7 @@
                 <c:forEach items="${orders}" var="order">
                     <tr>
                         <td><c:out value="${order.orderId}"/></td>
-                        <td><c:out value="${order.user.id}"/></td>
+                        <td><c:out value="${order.user.userId}"/></td>
                         <td><c:out value="${order.user.login}"/></td>
                         <td><c:out value="${order.tour.tourId}"/></td>
                         <td><c:out value="${order.tour.name}"/></td>

@@ -37,7 +37,7 @@ public class UpdateTourInfoCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String id = (String) request.getSession().getAttribute(JspParameterType.TOUR_ID);
         try {
-            Tour tour = ServiceFactory.getInstance().getTourService().findTour(Integer.parseInt(id));
+            Tour tour = ServiceFactory.getInstance().getTourService().findTourById(Integer.parseInt(id));
             tour.setTourId(Integer.parseInt(id));
             updateTour(request, tour);
             ServiceFactory.getInstance().getTourService().updateTour(tour);

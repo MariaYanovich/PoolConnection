@@ -53,7 +53,7 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public Tour findTour(int id) throws ServiceException {
+    public Tour findTourById(int id) throws ServiceException {
         try {
             return tourDAO.findById(id);
         } catch (DAOException e) {

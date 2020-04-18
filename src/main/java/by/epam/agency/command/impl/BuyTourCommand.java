@@ -23,7 +23,7 @@ public class BuyTourCommand implements Command {
         try {
             User user = ServiceFactory.getInstance().getUserService().findUserById(
                     (Integer) request.getSession().getAttribute(JspParameterType.USER_ID));
-            Tour tour = ServiceFactory.getInstance().getTourService().findTour(Integer.parseInt((String) request.getSession().getAttribute(JspParameterType.TOUR_ID)));
+            Tour tour = ServiceFactory.getInstance().getTourService().findTourById(Integer.parseInt((String) request.getSession().getAttribute(JspParameterType.TOUR_ID)));
             int numberOfTours = Integer.parseInt((String) request.getSession().getAttribute(JspParameterType.TOUR_NUMBER));
             order.setUser(user);
             order.setTour(tour);

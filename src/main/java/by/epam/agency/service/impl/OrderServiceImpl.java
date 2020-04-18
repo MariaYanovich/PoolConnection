@@ -35,9 +35,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteOrder(Order order) throws ServiceException {
+    public void deleteOrder(int id) throws ServiceException {
         try {
-            orderDAO.delete(order);
+            orderDAO.delete(id);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

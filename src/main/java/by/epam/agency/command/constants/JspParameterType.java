@@ -39,6 +39,7 @@ public class JspParameterType {
     public static final String TOUR_TYPE = "tour_type";
     public static final String TOUR_NUMBER = "tour_number";
     public static final String ORDERS = "orders";
+    public static final String ORDER_ID = "order_id";
 
     private JspParameterType() {
     }

@@ -359,6 +359,7 @@ public class TourDAOImpl implements TourDAO {
         }
     }
 
+
     private void initializeStatementToCreateTour(PreparedStatement statement, Tour tour) throws SQLException {
         statement.setString(CREATE_TOUR_NAME_INDEX, tour.getName());
         statement.setDouble(CREATE_TOUR_COST_INDEX, tour.getCost());

@@ -23,7 +23,7 @@ public class RedirectToSubmitBuyPageCommand implements Command {
         try {
             new PositiveIntValidator(Integer.parseInt(tourNumber)).validate();
             if (Integer.parseInt(tourNumber) <= ServiceFactory.getInstance().getTourService().
-                    findTour(Integer.parseInt((String) request.getSession().getAttribute(JspParameterType.TOUR_ID))).getPlaces()) {
+                    findTourById(Integer.parseInt((String) request.getSession().getAttribute(JspParameterType.TOUR_ID))).getPlaces()) {
                 return PageType.SUBMIT_BUY_PAGE.getAddress();
             }
         } catch (ServiceException | ValidatorException e) {

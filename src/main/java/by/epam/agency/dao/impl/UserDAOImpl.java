@@ -247,7 +247,7 @@ public class UserDAOImpl implements UserDAO {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_USER_CASH)) {
                 statement.setDouble(UPDATE_CASH_INDEX, updatedCash);
-                statement.setInt(UPDATE_ID_INDEX, user.getId());
+                statement.setInt(UPDATE_ID_INDEX, user.getUserId());
                 statement.executeUpdate();
             }
             user.setCash(updatedCash);
@@ -264,7 +264,7 @@ public class UserDAOImpl implements UserDAO {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
                  PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_USER_CASH)) {
                 statement.setDouble(UPDATE_CASH_INDEX, updatedCash);
-                statement.setInt(UPDATE_ID_INDEX, user.getId());
+                statement.setInt(UPDATE_ID_INDEX, user.getUserId());
                 statement.executeUpdate();
             }
             user.setCash(updatedCash);
@@ -311,14 +311,14 @@ public class UserDAOImpl implements UserDAO {
         statement.setString(UPDATE_CLIENT_SURNAME_INDEX, user.getSurname());
         statement.setString(UPDATE_CLIENT_PHONE_INDEX, user.getPhone());
         statement.setDouble(UPDATE_CLIENT_CASH_INDEX, user.getCash());
-        statement.setInt(UPDATE_CLIENT_ID_INDEX, user.getId());
+        statement.setInt(UPDATE_CLIENT_ID_INDEX, user.getUserId());
     }
 
     private void initializeUpdateAdminStatement(PreparedStatement statement, User user) throws SQLException {
         statement.setString(UPDATE_ADMIN_NAME_INDEX, user.getName());
         statement.setString(UPDATE_ADMIN_SURNAME_INDEX, user.getSurname());
         statement.setString(UPDATE_ADMIN_PHONE_INDEX, user.getPhone());
-        statement.setInt(UPDATE_ADMIN_ID_INDEX, user.getId());
+        statement.setInt(UPDATE_ADMIN_ID_INDEX, user.getUserId());
     }
 
     @Override
