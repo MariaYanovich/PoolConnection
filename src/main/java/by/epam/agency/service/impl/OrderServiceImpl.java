@@ -64,6 +64,16 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public void updateOrdersStatus() throws ServiceException {
+        try {
+            orderDAO.updateOrdersStatus();
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
     private static final class OrderServiceImplHolder {
         private static final OrderServiceImpl INSTANCE = new OrderServiceImpl();
     }

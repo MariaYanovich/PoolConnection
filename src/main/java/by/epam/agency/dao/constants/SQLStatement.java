@@ -159,23 +159,32 @@ public class SQLStatement {
     public static final String UPDATE_TOUR_PLACES = "UPDATE `travel_agency_db`.`tour` " +
             "SET `tour_places` = ? WHERE (`tour_id` = ?)";
 
-    public static final String GET_ALL_ORDERS = "SELECT order_id, user.user_id," +
-            "user.user_login, tour.tour_id, tour.tour_name, tour_number, price\n" +
+    public static final String GET_ALL_ORDERS = "SELECT order_id, user.user_id, " +
+            "user.user_login, tour.tour_id, tour.tour_name, tour.tour_departure_date, " +
+            "tour_number, price, order_status.order_status \n" +
             "FROM travel_agency_db.order \n" +
             "right join travel_agency_db.user\n" +
             "ON travel_agency_db.order.user_id = travel_agency_db.user.user_id\n" +
             "right join travel_agency_db.tour\n" +
             "ON travel_agency_db.order.tour_id = travel_agency_db.tour.tour_id\n" +
+            "right join travel_agency_db.order_status\n" +
+            "ON travel_agency_db.order.order_status_id = travel_agency_db.order_status.order_status_id " +
             "WHERE order_id is not null";
 
     public static final String FIND_ORDER_BY_ID = "SELECT order_id, user.user_id, " +
-            "user.user_login, tour.tour_id, tour.tour_name, tour_number, price\n" +
+            "user.user_login, tour.tour_id, tour.tour_name,tour.tour_departure_date, " +
+            "tour_number, price, order_status.order_status \n" +
             "FROM travel_agency_db.order \n" +
             "right join travel_agency_db.user\n" +
             "ON travel_agency_db.order.user_id = travel_agency_db.user.user_id\n" +
             "right join travel_agency_db.tour\n" +
             "ON travel_agency_db.order.tour_id = travel_agency_db.tour.tour_id\n" +
+            "right join travel_agency_db.order_status\n" +
+            "ON travel_agency_db.order.order_status_id = travel_agency_db.order_status.order_status_id " +
             "WHERE order_id = ? ";
+
+    public static final String SET_BOUGHT_ORDER = "UPDATE `travel_agency_db`.`order` " +
+            "SET `order_status_id` = '2' WHERE (`order_id` = ?)";
 
     private SQLStatement() {
     }

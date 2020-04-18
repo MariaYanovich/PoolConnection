@@ -153,7 +153,6 @@ public class TourDAOImpl implements TourDAO {
             LOGGER.error(e);
             throw new DAOException(e);
         }
-        updateArchiveTours(listToReturn);
         return listToReturn;
     }
 
@@ -228,7 +227,6 @@ public class TourDAOImpl implements TourDAO {
             LOGGER.error(e);
             throw new DAOException(e);
         }
-        updateArchiveTours(listToReturn);
         return listToReturn;
     }
 
@@ -343,7 +341,9 @@ public class TourDAOImpl implements TourDAO {
         tour.setImage(resultSet.getBlob(SqlColumn.TOUR_IMAGE.toString()).getBinaryStream());
     }
 
-    private void updateArchiveTours(List<Tour> tours) throws DAOException {
+    @Override
+    public void updateArchiveTours() throws DAOException {
+        List<Tour> tours = getAll();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.SET_ARCHIVE_TOUR)) {
             for (Tour tour : tours) {

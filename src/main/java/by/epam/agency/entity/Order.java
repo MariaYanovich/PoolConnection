@@ -9,6 +9,7 @@ public class Order implements Serializable {
     private Tour tour;
     private int number;
     private double price;
+    private OrderStatus orderStatus;
 
     public Order() {
     }
@@ -61,6 +62,13 @@ public class Order implements Serializable {
         this.price = price;
     }
 
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -71,22 +79,24 @@ public class Order implements Serializable {
                 getNumber() == order.getNumber() &&
                 Double.compare(order.getPrice(), getPrice()) == 0 &&
                 Objects.equals(getUser(), order.getUser()) &&
-                Objects.equals(getTour(), order.getTour());
+                Objects.equals(getTour(), order.getTour()) &&
+                getOrderStatus() == order.getOrderStatus();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOrderId(), getUser(), getTour(), getNumber(), getPrice());
+        return Objects.hash(getOrderId(), getUser(), getTour(), getNumber(), getPrice(), getOrderStatus());
     }
 
     @Override
     public String toString() {
-        return "Sale{" +
-                "saleId=" + orderId +
+        return "Order{" +
+                "orderId=" + orderId +
                 ", user=" + user +
                 ", tour=" + tour +
                 ", number=" + number +
                 ", price=" + price +
+                ", orderStatus=" + orderStatus +
                 '}';
     }
 }

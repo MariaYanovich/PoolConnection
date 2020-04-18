@@ -164,6 +164,16 @@ public class TourServiceImpl implements TourService {
         }
     }
 
+    @Override
+    public void updateArchivedTours() throws ServiceException {
+        try {
+            tourDAO.updateArchiveTours();
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
     private Validator createAddTourParametersValidator(Tour tour) {
         Validator nameValidator = new ProperNameValidator(tour.getName());
         Validator costValidator = new MoneyValidator(tour.getCost());

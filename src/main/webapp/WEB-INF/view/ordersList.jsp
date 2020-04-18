@@ -27,47 +27,76 @@
 <body>
 <section class="hero">
 
-<jsp:useBean id="orders" class="java.util.ArrayList" scope="request"/>
-<div class="div-table">
-    <table>
-        <tr>
-            <th>ORDER ID</th>
-            <th>USER ID</th>
-            <th>USER LOGIN</th>
-            <th>TOUR ID</th>
-            <th>TOUR NAME</th>
-            <th>TOUR NUMBER</th>
-            <th>PRICE</th>
-            <c:if test="${sessionScope.role=='CLIENT'}">
-                <th>CANCEL</th>
-            </c:if>
-
-        </tr>
-        <c:forEach items="${orders}" var="order">
-            <tr>
-                <td><c:out value="${order.orderId}"/></td>
-                <td><c:out value="${order.user.id}"/></td>
-                <td><c:out value="${order.user.login}"/></td>
-                <td><c:out value="${order.tour.tourId}"/></td>
-                <td><c:out value="${order.tour.name}"/></td>
-                <td><c:out value="${order.number}"/></td>
-                <td><c:out value="${order.price}"/></td>
-                <c:if test="${sessionScope.role=='CLIENT'}">
-                    <td>
-                        <form method="post">
-                            <button class="bot1" type="submit" name="command"
-                                    value="cancel_buying_tour">
-                                <input type="hidden" name="order_id"
-                                       value="${order.orderId}"/>
-                                cancel
-                            </button>
-                        </form>
-                    </td>
-                </c:if>
-            </tr>
-        </c:forEach>
-    </table>
-</div>
+    <jsp:useBean id="orders" class="java.util.ArrayList" scope="request"/>
+    <div class="div-table">
+        <c:if test="${sessionScope.role=='CLIENT'}">
+            <table>
+                <tr>
+                    <th>ORDER ID</th>
+                    <th>TOUR ID</th>
+                    <th>TOUR NAME</th>
+                    <th>DEPARTURE DATE</th>
+                    <th>TOUR NUMBER</th>
+                    <th>PRICE</th>
+                    <th>CANCEL</th>
+                </tr>
+                <c:forEach items="${orders}" var="order">
+                    <c:if test="${order.user.id==sessionScope.user_id}">
+                        <tr>
+                            <td><c:out value="${order.orderId}"/></td>
+                            <td><c:out value="${order.tour.tourId}"/></td>
+                            <td><c:out value="${order.tour.name}"/></td>
+                            <td><c:out
+                                    value="${order.tour.departureDate}"/></td>
+                            <td><c:out value="${order.number}"/></td>
+                            <td><c:out value="${order.price}"/></td>
+                            <td>
+                                <c:if test="${order.orderStatus=='ACTIVE'}">
+                                    <form method="post">
+                                        <button class="bot1" type="submit"
+                                                name="command"
+                                                value="cancel_buying_tour">
+                                            <input type="hidden" name="order_id"
+                                                   value="${order.orderId}"/>
+                                            cancel
+                                        </button>
+                                    </form>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+            </table>
+        </c:if>
+        <c:if test="${sessionScope.role=='ADMIN'}">
+            <table>
+                <tr>
+                    <th>ORDER ID</th>
+                    <th>USER ID</th>
+                    <th>USER LOGIN</th>
+                    <th>TOUR ID</th>
+                    <th>TOUR NAME</th>
+                    <th>DEPARTURE DATE</th>
+                    <th>TOUR NUMBER</th>
+                    <th>PRICE</th>
+                    <th>ORDER STATUS</th>
+                </tr>
+                <c:forEach items="${orders}" var="order">
+                    <tr>
+                        <td><c:out value="${order.orderId}"/></td>
+                        <td><c:out value="${order.user.id}"/></td>
+                        <td><c:out value="${order.user.login}"/></td>
+                        <td><c:out value="${order.tour.tourId}"/></td>
+                        <td><c:out value="${order.tour.name}"/></td>
+                        <td><c:out value="${order.tour.departureDate}"/></td>
+                        <td><c:out value="${order.number}"/></td>
+                        <td><c:out value="${order.price}"/></td>
+                        <td><c:out value="${order.orderStatus}"/></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
+    </div>
 </section>
 </body>
 <footer>

@@ -24,4 +24,6 @@ public interface TourDAO extends DAO<Tour> {
     void buyTour(Tour tour, int amount) throws DAOException;
 
     void returnTour(Tour tour, int amount) throws DAOException;
+
+    void updateArchiveTours() throws DAOException;
 }

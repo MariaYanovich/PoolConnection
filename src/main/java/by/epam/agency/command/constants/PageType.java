@@ -18,7 +18,9 @@ public enum PageType {
     UPDATE_TOUR_PAGE("/WEB-INF/view/updateTour.jsp"),
     INPUT_TOUR_NUMBER_PAGE("/WEB-INF/view/inputTourNumber.jsp"),
     SUBMIT_BUY_PAGE("/WEB-INF/view/submitBuy.jsp"),
-    ORDERS_LIST_PAGE("/WEB-INF/view/ordersList.jsp");
+    ORDERS_LIST_PAGE("/WEB-INF/view/ordersList.jsp"),
+    NO_MONEY_PAGE("/WEB-INF/view/noMoney.jsp")
+    ;
     private String value;
 
     PageType(String value) {

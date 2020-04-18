@@ -32,6 +32,8 @@ public enum SqlColumn {
     TOUR_STATUS_ID,
     TOUR_IMAGE,
     ORDER_ID,
+    ORDER_STATUS,
+    ORDER_STATUS_ID,
     TOUR_NUMBER,
     PRICE;
 

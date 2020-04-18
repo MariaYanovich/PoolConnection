@@ -3,7 +3,9 @@ package by.epam.agency.controller;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.exception.ConnectionPoolException;
+import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.CommandFactory;
+import by.epam.agency.factory.ServiceFactory;
 import by.epam.agency.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,16 +33,26 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        handleRequest(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            handleRequest(request, response);
+        } catch (ServiceException | ServletException | IOException e) {
+            LOGGER.error(e);
+        }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        handleRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            handleRequest(request, response);
+        } catch (ServiceException | ServletException | IOException e) {
+            LOGGER.error(e);
+        }
     }
 
-    private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
+        ServiceFactory.getInstance().getTourService().updateArchivedTours();
+        ServiceFactory.getInstance().getOrderService().updateOrdersStatus();
         Command command = CommandFactory.getInstance().getCommand(request.getParameter(JspParameterType.COMMAND));
         String nextPage = command.execute(request, response);
         request.getSession().setAttribute(JspParameterType.PAGE, nextPage);

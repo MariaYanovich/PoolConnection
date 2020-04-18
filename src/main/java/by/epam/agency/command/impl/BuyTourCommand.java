@@ -34,13 +34,14 @@ public class BuyTourCommand implements Command {
                 ServiceFactory.getInstance().getUserService().takeMoney(user, price);
                 ServiceFactory.getInstance().getTourService().buyTour(tour, numberOfTours);
                 ServiceFactory.getInstance().getOrderService().createOrder(order);
+                request.getSession().setAttribute(JspParameterType.TOUR_NUMBER, tour.getPlaces());
+                request.getSession().setAttribute(JspParameterType.CASH, user.getCash());
+                return PageType.USER_INFO_PAGE.getAddress();
             }
-            request.getSession().setAttribute(JspParameterType.TOUR_NUMBER, tour.getPlaces());
-            request.getSession().setAttribute(JspParameterType.CASH, user.getCash());
         } catch (ServiceException e) {
             LOGGER.error(e);
         }
-        return PageType.USER_INFO_PAGE.getAddress();
+        return PageType.NO_MONEY_PAGE.getAddress();
     }
 
 

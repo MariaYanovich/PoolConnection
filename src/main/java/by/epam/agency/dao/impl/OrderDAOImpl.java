@@ -4,6 +4,7 @@ import by.epam.agency.dao.OrderDAO;
 import by.epam.agency.dao.constants.SQLStatement;
 import by.epam.agency.dao.constants.SqlColumn;
 import by.epam.agency.entity.Order;
+import by.epam.agency.entity.OrderStatus;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.DAOException;
@@ -16,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class OrderDAOImpl implements OrderDAO {
@@ -109,6 +111,24 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
+    public void updateOrdersStatus() throws DAOException {
+        List<Order> orderList = getAll();
+        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.SET_BOUGHT_ORDER)) {
+            for (Order order : orderList) {
+                if (order.getTour().getDepartureDate().before(Calendar.getInstance().getTime())) {
+                    statement.setInt(ORDER_ID_INDEX, order.getOrderId());
+                    order.setOrderStatus(OrderStatus.BOUGHT);
+                    statement.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
     public void update(Order id) throws DAOException {
         throw new DAOException(new UnsupportedOperationException());
     }
@@ -125,9 +145,11 @@ public class OrderDAOImpl implements OrderDAO {
         order.setUser(new User(resultSet.getInt(SqlColumn.USER_ID.toString()),
                 resultSet.getString(SqlColumn.USER_LOGIN.toString())));
         order.setTour(new Tour(resultSet.getInt(SqlColumn.TOUR_ID.toString()),
-                resultSet.getString(SqlColumn.TOUR_NAME.toString())));
+                resultSet.getString(SqlColumn.TOUR_NAME.toString()),
+                resultSet.getDate(SqlColumn.TOUR_DEPARTURE_DATE.toString())));
         order.setNumber(resultSet.getInt(SqlColumn.TOUR_NUMBER.toString()));
         order.setPrice(resultSet.getDouble(SqlColumn.PRICE.toString()));
+        order.setOrderStatus(OrderStatus.valueOf(resultSet.getString(SqlColumn.ORDER_STATUS.toString()).toUpperCase()));
     }
 
     private static final class OrderDAOImplHolder {

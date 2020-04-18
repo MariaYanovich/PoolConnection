@@ -3,7 +3,6 @@ package by.epam.agency.entity;
 import java.io.Serializable;
 
 public enum TourStatus implements Serializable {
-
     ACTUAL(1), HOT(2), ARCHIVAL(3);
     private int id;
 

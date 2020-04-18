@@ -34,4 +34,6 @@ public interface TourService {
     void buyTour(Tour tour, int amount) throws ServiceException;
 
     void returnTour(Tour tour, int amount) throws ServiceException;
+
+    void updateArchivedTours() throws ServiceException;
 }

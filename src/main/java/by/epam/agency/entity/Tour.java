@@ -49,9 +49,10 @@ public class Tour implements Serializable {
         this.image = image;
     }
 
-    public Tour(int tourId, String name){
+    public Tour(int tourId, String name, Date departureDate) {
         this.tourId = tourId;
-        this.name =name;
+        this.name = name;
+        this.departureDate = departureDate;
     }
 
     public int getTourId() {
