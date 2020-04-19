@@ -33,6 +33,6 @@ public class CancelBuyingTourCommand implements Command {
         } catch (ServiceException e) {
             LOGGER.error(e);
         }
-        return PageType.NO_MONEY_PAGE.getAddress();
+        return PageType.HOME_PAGE.getAddress();
     }
 }

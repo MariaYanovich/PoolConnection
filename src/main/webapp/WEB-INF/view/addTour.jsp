@@ -24,30 +24,19 @@
     <link rel="stylesheet"
           href="${root}/resources/js/chosen_v1.8.7/docsupport/prism.css">
     <link rel="stylesheet" href="${root}/resources/js/chosen_v1.8.7/chosen.css">
-
     <meta http-equiv="Content-Security-Policy"
           content="default-src &apos;self&apos;; script-src &apos;self&apos; https://ajax.googleapis.com; style-src &apos;self&apos;; img-src &apos;self&apos; data:">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Title Page-->
     <title>Add tour</title>
-
-    <!-- Icons font CSS-->
     <link href="${root}/resources/vendor/mdi-font/css/material-design-iconic-font.min.css"
           rel="stylesheet" media="all">
     <link href="${root}/resources/vendor/font-awesome-4.7/css/font-awesome.min.css"
           rel="stylesheet" media="all">
-    <!-- Font special for pages-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
           rel="stylesheet">
-
-    <!-- Vendor CSS-->
     <link href="${root}/resources/vendor/select2/select2.min.css"
           rel="stylesheet" media="all">
     <link href="${root}/resources/vendor/datepicker/daterangepicker.css"
           rel="stylesheet" media="all">
-
-    <!-- Main CSS-->
     <link href="${root}/resources/css/addTour.css" rel="stylesheet" media="all">
 </head>
 <header>
@@ -85,7 +74,6 @@
                         <div class="col-2">
                             <div class="input-group">
                                 <div class="rs-select2 js-select-simple select--no-search">
-
                                     <select name="tour_type">
                                         <option disabled="disabled">TOUR TYPE
                                         </option>
@@ -98,7 +86,6 @@
                                     <div class="select-dropdown"></div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-2">
                             <div class="input-group">
@@ -173,10 +160,8 @@
         </div>
     </div>
 </div>
-<!-- Jquery JS-->
-<script src="${root}/resources/vendor/jquery/jquery.min.js"></script>
 
-<!-- Vendor JS-->
+<script src="${root}/resources/vendor/jquery/jquery.min.js"></script>
 <script src="${root}/resources/vendor/select2/select2.min.js"></script>
 <script src="${root}/resources/vendor/datepicker/moment.min.js"></script>
 <script src="${root}/resources/vendor/datepicker/daterangepicker.js"></script>
@@ -188,9 +173,7 @@
         type="text/javascript" charset="utf-8"></script>
 <script src="${root}/resources/js/chosen_v1.8.7/docsupport/init.js"
         type="text/javascript" charset="utf-8"></script>
-<!-- Main JS-->
 <script src="${root}/resources/js/global.js"></script>
-
 
 <div id="dropDownSelect1"></div>
 <footer>

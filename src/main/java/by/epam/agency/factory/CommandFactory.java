@@ -86,11 +86,18 @@ public class CommandFactory {
                 return new GetAllOrdersCommand();
             case GET_ORDERS_BY_USER_ID:
                 return new GetOrdersByUserIdCommand();
+            case DELETE_CITY:
+                return new DeleteCityCommand();
+            case DELETE_TOUR_TYPE:
+                return new DeleteTourTypeCommand();
+            case ADD_CITY:
+                return new AddCityCommand();
+            case ADD_TOUR_TYPE:
+                return new AddTourTypeCommand();
 //            default:
 //                return new ErrorCommand();
         }
         return null;
-
     }
 
     private static class CommandHolder {

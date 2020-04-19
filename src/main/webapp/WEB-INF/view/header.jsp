@@ -23,6 +23,7 @@
     <div class="wrapper">
         <a href="#" class="hamburger"></a>
         <nav>
+
             <c:if test="${sessionScope.role=='GUEST'}">
                 <form method="post" name="sign_in">
                     <button type="submit" class="login_btn" name="command"
@@ -32,7 +33,6 @@
                     <input type="hidden" name="address"
                            value="SIGN_IN_PAGE"/>
                 </form>
-
                 <form method="post" name="sign_up">
                     <button type="submit" class="login_btn" name="command"
                             value="redirect">
@@ -42,25 +42,16 @@
                            value="SIGN_UP_PAGE"/>
                 </form>
             </c:if>
+
             <c:if test="${sessionScope.role!='GUEST'}">
-
                 <form name="sign_out" method="post">
-                    <button type="submit" class="login_btn" name="command"
-                            value="sign_out">Sign out
+                    <button type="submit" class="login_btn"
+                            name="command" value="sign_out">Sign out
                     </button>
                 </form>
             </c:if>
 
-            <c:if test="${sessionScope.role =='CLIENT'}">
-                <form method="post" name="about">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">User info
-                    </button>
-                    <input type="hidden" name="address" value="USER_INFO_PAGE"/>
-                </form>
-            </c:if>
-
-            <c:if test="${sessionScope.role =='ADMIN'}">
+            <c:if test="${sessionScope.role !='GUEST'}">
                 <form method="post" name="about">
                     <button type="submit" class="just_btn" name="command"
                             value="redirect">User info
@@ -137,8 +128,15 @@
                     <input type="hidden" name="address"
                            value="ADD_TOUR_PAGE"/>
                 </form>
+                <form method="post">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect">
+                        Service
+                    </button>
+                    <input type="hidden" name="address"
+                           value="SERVICE_PAGE"/>
+                </form>
             </c:if>
-
             <form method="post" name="home">
                 <button type="submit" class="just_btn" name="command"
                         value="redirect">Home

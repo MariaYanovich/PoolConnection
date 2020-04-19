@@ -5,16 +5,17 @@
   Time: 2:49 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Sign Up</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-
-    <!--===============================================================================================-->
+    <title>Sign up</title>
+    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="ctg" uri="customTags" %>
+    <c:set var="root" value="${pageContext.request.contextPath}"/>
+    <link rel="stylesheet" type="text/css"
+          href="${root}/resources/css/mainPage.css">
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
@@ -25,8 +26,10 @@
           href="${pageContext.request.contextPath}/resources/css/util.css">
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/css/main.css">
-    <!--===============================================================================================-->
 </head>
+<header>
+    <c:import url="/WEB-INF/view/header.jsp"/>
+</header>
 <body>
 <div class="limiter">
     <div class="container-login100"
@@ -65,13 +68,12 @@
                           data-placeholder="&#xf207;"></span>
                 </div>
 
-
                 <div class="wrap-input100 "
                      data-validate="Enter surname">
                     <input class="input100" type="text" name="surname"
                            required placeholder="Surname">
                     <span class="focus-input100"
-                          data-placeholder="&#xf207;"></span>
+                          data-placeholder="&#xf007;"></span>
                 </div>
 
                 <div class="wrap-input100"
@@ -95,17 +97,15 @@
                             name="command" value="sign_up">OK
                     </button>
                 </div>
-
-                <div class="text-center p-t-20">
-                    <a class="txt1"
-                       href="${pageContext.request.contextPath}/">
-                        Back to home </a>
-                </div>
             </form>
         </div>
     </div>
 </div>
-
 <div id="dropDownSelect1"></div>
+<footer>
+    <div class="copyrights wrapper">
+        <ctg:copyrightTag/>
+    </div>
+</footer>
 </body>
 </html>

@@ -233,6 +233,7 @@ iframe {
     width: 500px;
     border-radius: 10px;
     overflow: hidden;
+    margin: 8px;
     padding: 55px 55px 37px 55px;
 
     background: darksalmon;
@@ -290,6 +291,10 @@ iframe {
     margin-bottom: 30px;
 }
 
+.wrap-input100 select{
+    min-width: 200px;
+    min-height: 35px;
+}
 .input100 {
     font-family: Poppins-Regular;
     font-size: 16px;
