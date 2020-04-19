@@ -40,6 +40,7 @@ public class JspParameterType {
     public static final String ORDERS = "orders";
     public static final String ORDER_ID = "order_id";
     public static final String CITY = "city";
+
     private JspParameterType() {
     }
 

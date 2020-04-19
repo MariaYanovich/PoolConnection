@@ -26,7 +26,7 @@
           href="${pageContext.request.contextPath}/resources/css/util.css">
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/css/main.css">
-  </head>
+</head>
 <header>
     <c:import url="/WEB-INF/view/header.jsp"/>
 </header>

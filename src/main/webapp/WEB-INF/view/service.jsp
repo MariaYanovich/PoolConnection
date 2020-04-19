@@ -31,89 +31,99 @@
 </header>
 <body>
 <div class="limiter">
+
     <div class="container-login100"
          style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg');">
-        <div class="wrap-login100">
-            <form class="login100-form validate-form" method="post">
-                <span class="login100-form-title p-b-34 p-t-27">Input new city</span>
-                <div class="wrap-input100"
-                     data-validate="Enter city">
-                    <input class="input100" type="text" name="city"
-                           required placeholder="City">
-                    <span class="focus-input100"></span>
-                </div>
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" type="submit"
-                            name="command" value="add_city">
-                        OK
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div class="wrap-login100">
-            <form class="login100-form validate-form" method="post">
-                <span class="login100-form-title p-b-34 p-t-27">Input new tour type</span>
-                <div class="wrap-input100"
-                     data-validate="Enter type">
-                    <input class="input100" type="text" name="tour_type"
-                           required placeholder="Type">
-                    <span class="focus-input100"></span>
-                </div>
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" type="submit"
-                            name="command" value="add_tour_type">
-                        OK
-                    </button>
-                </div>
-            </form>
-        </div>
+        <form class="login100-form validate-form" method="post">
+            <div class="container-login100-form-btn">
+                <button class="login100-form-btn" type="submit"
+                        name="command" value="redirect">
+                    ADD NEW TOUR
+                </button>
+                <input type="hidden" name="address"
+                       value="ADD_TOUR_PAGE"/>
+            </div>
+        </form>
 
-        <div class="wrap-login100">
-            <form class="login100-form validate-form" method="post">
-                <span class="login100-form-title p-b-34 p-t-27">Delete city</span>
-                <div class="wrap-input100">
-                    <select name="departure_city">
-                        <option disabled="disabled">CITY
-                        </option>
-                        <c:forEach
-                                items="${sessionScope.cities}"
-                                var="city">
-                            <option value="${city.cityId}">${city.city}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" type="submit"
-                            name="command" value="delete_city">
-                        OK
-                    </button>
-                </div>
-            </form>
-        </div>
+        <div class="container-login100"
+             style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg');">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" method="post">
+                    <span class="login100-form-title p-b-34 p-t-27">Input new city</span>
+                    <div class="wrap-input100"
+                         data-validate="Enter city">
+                        <input class="input100" type="text" name="city"
+                               required placeholder="City">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" type="submit"
+                                name="command" value="add_city">
+                            OK
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" method="post">
+                    <span class="login100-form-title p-b-34 p-t-27">Input new tour type</span>
+                    <div class="wrap-input100"
+                         data-validate="Enter type">
+                        <input class="input100" type="text" name="tour_type"
+                               required placeholder="Type">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" type="submit"
+                                name="command" value="add_tour_type">
+                            OK
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-        <div class="wrap-login100">
-            <form class="login100-form validate-form" method="post">
-                <span class="login100-form-title p-b-34 p-t-27">Delete tour type</span>
-                <div class="wrap-input100">
-                    <select name="tour_type">
-                        <option disabled="disabled">TOUR TYPE
-                        </option>
-                        <c:forEach
-                                items="${sessionScope.tour_types}"
-                                var="tourType">
-                            <option value="${tourType.tourTypeId}">${tourType.type}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" type="submit"
-                            name="command" value="delete_tour_type">
-                        OK
-                    </button>
-                </div>
-            </form>
-        </div>
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" method="post">
+                    <span class="login100-form-title p-b-34 p-t-27">Delete city</span>
+                    <div class="wrap-input100">
+                        <select name="city">
+                            <option disabled="disabled">CITY</option>
+                            <c:forEach items="${sessionScope.cities}"
+                                       var="city">
+                                <option value="${city.cityId}">${city.city}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" type="submit"
+                                name="command" value="delete_city">
+                            OK
+                        </button>
+                    </div>
+                </form>
+            </div>
 
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" method="post">
+                    <span class="login100-form-title p-b-34 p-t-27">Delete tour type</span>
+                    <div class="wrap-input100">
+                        <select name="tour_type">
+                            <option disabled="disabled">TOUR TYPE</option>
+                            <c:forEach items="${sessionScope.tour_types}"
+                                       var="tourType">
+                                <option value="${tourType.tourTypeId}">${tourType.type}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" type="submit"
+                                name="command" value="delete_tour_type">
+                            OK
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -69,7 +69,7 @@ public class CommandFactory {
             case ADD_TOUR:
                 return new AddTourCommand();
             case UPDATE_TOUR:
-                return new UpdateTourInfoCommand();
+                return new UpdateTourCommand();
             case REDIRECT_TO_UPDATE_TOUR_PAGE:
                 return new RedirectToUpdateTourPageCommand();
             case SEARCH_TOURS:

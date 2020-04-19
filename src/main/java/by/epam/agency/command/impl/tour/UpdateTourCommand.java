@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 
-public class UpdateTourInfoCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(UpdateTourInfoCommand.class.getName());
+public class UpdateTourCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(UpdateTourCommand.class.getName());
 
     public static void updateTour(HttpServletRequest request, Tour tour) throws ServiceException {
         tour.setCost(Double.parseDouble(request.getParameter(JspParameterType.COST)));

@@ -123,14 +123,6 @@
                 <form method="post">
                     <button type="submit" class="just_btn" name="command"
                             value="redirect">
-                        Add tour
-                    </button>
-                    <input type="hidden" name="address"
-                           value="ADD_TOUR_PAGE"/>
-                </form>
-                <form method="post">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">
                         Service
                     </button>
                     <input type="hidden" name="address"
