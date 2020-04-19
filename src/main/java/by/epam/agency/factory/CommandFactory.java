@@ -84,6 +84,8 @@ public class CommandFactory {
                 return new RedirectToSubmitBuyPageCommand();
             case GET_ORDERS:
                 return new GetAllOrdersCommand();
+            case GET_ORDERS_BY_USER_ID:
+                return new GetOrdersByUserIdCommand();
 //            default:
 //                return new ErrorCommand();
         }

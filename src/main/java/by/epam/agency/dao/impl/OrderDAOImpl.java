@@ -29,6 +29,7 @@ public class OrderDAOImpl implements OrderDAO {
     private static final int CREATE_TOUR_NUMBER_INDEX = 3;
     private static final int CREATE_PRICE_INDEX = 4;
 
+    private static final int USER_ID_INDEX = 1;
     private static final int ORDER_ID_INDEX = 1;
     private static final int DELETE_ORDER_ID_INDEX = 1;
 
@@ -96,6 +97,26 @@ public class OrderDAOImpl implements OrderDAO {
         List<Order> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_ORDERS)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Order order = new Order();
+                    initializeOrder(order, resultSet);
+                    listToReturn.add(order);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+        return listToReturn;
+    }
+
+    @Override
+    public List<Order> getOrdersByUserId(int id) throws DAOException {
+        List<Order> listToReturn = new ArrayList<>();
+        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_ORDERS_BY_USER_ID)) {
+            statement.setInt(USER_ID_INDEX, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Order order = new Order();

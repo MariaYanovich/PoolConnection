@@ -65,6 +65,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getOrdersByUserId(int id) throws ServiceException {
+        try {
+            return orderDAO.getOrdersByUserId(id);
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public void updateOrdersStatus() throws ServiceException {
         try {
             orderDAO.updateOrdersStatus();

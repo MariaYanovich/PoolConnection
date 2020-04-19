@@ -221,7 +221,7 @@
 
 
                     <c:if test="${sessionScope.role !='ADMIN'}">
-                        <c:if test="${tour.tourStatus!='ARCHIVAL'}">
+                        <c:if test="${tour.tourStatus!='ARCHIVAL' && tour.places!=0}">
                             <div class="col-md-6 col-lg-4 ftco-animate">
                                 <div class="project">
                                     <div class="img">

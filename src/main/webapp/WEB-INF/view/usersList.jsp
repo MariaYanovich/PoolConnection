@@ -57,8 +57,8 @@
                         <form method="post">
                             <button class="bot1" type="submit"
                                     name="command"
-                                    value="view_user_orders">
-                                <input type="hidden" name="order_user_id"
+                                    value="get_orders_by_user_id">
+                                <input type="hidden" name="user_id"
                                        value="${user.userId}"/>
                                 view
                             </button>

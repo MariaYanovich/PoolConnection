@@ -86,7 +86,6 @@
                                                placeholder="Budget"
                                                required="required"
                                                name="cost">
-
                                         <button class="home_search_button"
                                                 aria-label="Hot"
                                                 type="submit"
