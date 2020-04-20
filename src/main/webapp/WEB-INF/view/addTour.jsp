@@ -146,12 +146,10 @@
                                placeholder="DEPARTURE DATE"
                                name="departure_date">
                     </div>
-
                     <div class="input-group">
                         <input type="file" name="image" required="required"
                                accept="image/*">
                     </div>
-
                     <button type="submit" class="btn btn-info"
                             aria-label="UnHot"
                             name="command" value="add_tour">Submit

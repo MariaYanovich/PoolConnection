@@ -255,7 +255,6 @@ header nav .login_btn {
     font-family: "lato-regular", Helvetica, Arial, sans-serif;
     font-size: 16px;
     letter-spacing: 1px;
-
 }
 
 header nav .login_btn {
@@ -264,7 +263,6 @@ header nav .login_btn {
     padding: 10px 30px 11px 30px;
     border: 2px solid #ffffff;
     background: transparent;
-
     transition: background .1s linear;
     -webkit-transition: background .1s linear;
     -moz-transition: background .1s linear;
@@ -282,7 +280,6 @@ header nav .just_btn {
     padding: 12px 22px 12px 22px;
     border: transparent;
     background: transparent;
-
     transition: background .1s linear;
     -webkit-transition: background .1s linear;
     -moz-transition: background .1s linear;
@@ -372,7 +369,6 @@ header nav .just_btn:hover {
     font-size: 16px;
     font-weight: bold;
     letter-spacing: 1px;
-
     border-radius: 2px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;

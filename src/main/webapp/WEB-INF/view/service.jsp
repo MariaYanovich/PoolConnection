@@ -33,12 +33,10 @@
          style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg');">
         <form class="login100-form validate-form" method="post">
             <div class="container-login100-form-btn">
-                <button class="login100-form-btn" type="submit"
-                        name="command" value="redirect">
+                <button class="login100-form-btn"
+                        name="address" value="ADD_TOUR_PAGE">
                     ADD NEW TOUR
                 </button>
-                <input type="hidden" name="address"
-                       value="ADD_TOUR_PAGE"/>
             </div>
         </form>
         <div class="container-login100"

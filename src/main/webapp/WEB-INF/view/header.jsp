@@ -22,109 +22,72 @@
 <header>
     <div class="wrapper">
         <a href="#" class="hamburger"></a>
-        <nav>
-            <c:if test="${sessionScope.role=='GUEST'}">
-                <form method="post" name="sign_in">
-                    <button type="submit" class="login_btn" name="command"
-                            value="redirect">
-                        Sign in
+        <form method="post">
+            <nav>
+                <c:if test="${sessionScope.role=='GUEST'}">
+                    <button class="login_btn" name="address"
+                            value="SIGN_IN_PAGE">Sign in
                     </button>
-                    <input type="hidden" name="address"
-                           value="SIGN_IN_PAGE"/>
-                </form>
-                <form method="post" name="sign_up">
-                    <button type="submit" class="login_btn" name="command"
-                            value="redirect">
-                        Sign up
+                    <button class="login_btn" name="address"
+                            value="SIGN_UP_PAGE">Sign up
                     </button>
-                    <input type="hidden" name="address"
-                           value="SIGN_UP_PAGE"/>
-                </form>
-            </c:if>
-            <c:if test="${sessionScope.role!='GUEST'}">
-                <form name="sign_out" method="post">
+                </c:if>
+                <c:if test="${sessionScope.role!='GUEST'}">
                     <button type="submit" class="login_btn"
                             name="command" value="sign_out">Sign out
                     </button>
-                </form>
-            </c:if>
-            <c:if test="${sessionScope.role !='GUEST'}">
-                <form method="post" name="about">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">User info
+                    <button class="just_btn" name="address"
+                            value="USER_INFO_PAGE">User info
                     </button>
-                    <input type="hidden" name="address" value="USER_INFO_PAGE"/>
-                </form>
-            </c:if>
-            <c:if test="${sessionScope.role !='ADMIN'}">
-                <form method="post" name="contact">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">Contact
+                </c:if>
+                <c:if test="${sessionScope.role !='ADMIN'}">
+                    <button class="just_btn" name="address"
+                            value="CONTACT_PAGE">Contact
                     </button>
-                    <input type="hidden" name="address" value="CONTACT_PAGE"/>
-                </form>
-            </c:if>
-            <c:if test="${sessionScope.role !='GUEST'}">
-                <form method="post" name="tours_list">
+                </c:if>
+                <c:if test="${sessionScope.role !='GUEST'}">
                     <button type="submit" class="just_btn" name="command"
                             value="GET_ORDERS">Orders
                     </button>
-                </form>
-            </c:if>
-            <c:if test="${sessionScope.role =='ADMIN'}">
-                <form method="post" name="users_list">
-                    <button type="submit" class="just_btn" name="command"
-                            value="GET_USERS_LIST">List of users
+                </c:if>
+                <c:if test="${sessionScope.role =='ADMIN'}">
+                    <form method="post">
+                        <button type="submit" class="just_btn" name="command"
+                                value="GET_USERS_LIST">List of users
+                        </button>
+                    </form>
+                </c:if>
+                <c:if test="${sessionScope.role !='ADMIN'}">
+                    <button class="just_btn" name="address"
+                            value="ABOUT_PAGE">About
                     </button>
-                </form>
-            </c:if>
-            <c:if test="${sessionScope.role !='ADMIN'}">
-                <form method="post" name="about">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">About
+                </c:if>
+                <c:if test="${sessionScope.role =='ADMIN'}">
+                    <button class="just_btn" name="address"
+                            value="CREATE_ADMIN_PAGE">Create admin
                     </button>
-                    <input type="hidden" name="address" value="ABOUT_PAGE"/>
-                </form>
-            </c:if>
-            <c:if test="${sessionScope.role =='ADMIN'}">
-                <form method="post" name="about">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">Create admin
+                </c:if>
+                <c:if test="${sessionScope.role !='ADMIN'}">
+                    <button class="just_btn" name="address"
+                            value="SEARCH_PAGE">Search
                     </button>
-                    <input type="hidden" name="address"
-                           value="CREATE_ADMIN_PAGE"/>
-                </form>
-            </c:if>
-            <c:if test="${sessionScope.role !='ADMIN'}">
-                <form method="post" name="search">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">Search
-                    </button>
-                    <input type="hidden" name="address" value="SEARCH_PAGE"/>
-                </form>
-            </c:if>
-            <form method="post" name="tours_list">
+                </c:if>
                 <button type="submit" class="just_btn" name="command"
                         value="GET_TOURS_LIST">Tours
                 </button>
-            </form>
-            <c:if test="${sessionScope.role=='ADMIN'}">
-                <form method="post">
-                    <button type="submit" class="just_btn" name="command"
-                            value="redirect">
-                        Service
+                <c:if test="${sessionScope.role=='ADMIN'}">
+                    <button class="just_btn" name="address"
+                            value="SERVICE_PAGE">Service
                     </button>
-                    <input type="hidden" name="address"
-                           value="SERVICE_PAGE"/>
-                </form>
-            </c:if>
-            <form method="post" name="home">
-                <button type="submit" class="just_btn" name="command"
-                        value="redirect">Home
+                </c:if>
+                <button name="language" type="submit" class="just_btn"
+                        value="ru">DE
                 </button>
-                <input type="hidden" name="address" value="HOME_PAGE"/>
-            </form>
-        </nav>
+                <button name="language" type="submit" class="just_btn"
+                        value="en">EN
+                </button>
+            </nav>
+        </form>
     </div>
 </header>
 </html>

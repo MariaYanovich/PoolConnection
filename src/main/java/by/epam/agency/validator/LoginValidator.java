@@ -18,10 +18,9 @@ public class LoginValidator extends Validator {
 
     @Override
     public void validate() throws ValidatorException {
-        if (login == null || login.isEmpty() || !matcher.find()) {
+        if (StringUtils.isNullOrEmpty(login) || !matcher.find()) {
             throw new ValidatorException();
         }
-
         if (hasNext()) {
             next.validate();
         }

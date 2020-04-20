@@ -2,6 +2,7 @@ package by.epam.agency.validator;
 
 import by.epam.agency.exception.ValidatorException;
 import by.epam.agency.validator.constants.ValidatorRegex;
+import com.mysql.cj.util.StringUtils;
 
 import java.util.regex.Pattern;
 
@@ -16,7 +17,7 @@ public class ProperNameValidator extends Validator {
 
     @Override
     public void validate() throws ValidatorException {
-        if (properName == null || properName.isEmpty() || !matcher.find()) {
+        if (StringUtils.isNullOrEmpty(properName) || !matcher.find()) {
             throw new ValidatorException();
         }
         if (hasNext()) {

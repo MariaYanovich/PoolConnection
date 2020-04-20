@@ -6,7 +6,6 @@ import by.epam.agency.command.impl.user.BuyTourCommand;
 import by.epam.agency.command.impl.user.CancelBuyingTourCommand;
 import by.epam.agency.command.impl.ErrorCommand;
 import by.epam.agency.command.impl.HomeCommand;
-import by.epam.agency.command.impl.redirect.RedirectCommand;
 import by.epam.agency.command.impl.redirect.RedirectToInputTourNumberPageCommand;
 import by.epam.agency.command.impl.redirect.RedirectToSubmitBuyPageCommand;
 import by.epam.agency.command.impl.redirect.RedirectToUpdateTourPageCommand;
@@ -32,8 +31,6 @@ public class CommandFactory {
                 return new SignInCommand();
             case SIGN_UP:
                 return new SignUpCommand();
-            case REDIRECT:
-                return new RedirectCommand();
             case SIGN_OUT:
                 return new SignOutCommand();
             case HOME:

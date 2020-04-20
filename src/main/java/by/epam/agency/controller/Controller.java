@@ -61,7 +61,6 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-
         try {
             ConnectionPool.INSTANCE.destroyPool();
         } catch (InterruptedException e) {

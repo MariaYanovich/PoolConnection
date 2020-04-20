@@ -24,7 +24,6 @@ public class JspParameterType {
     public static final String CITY_ID = "city_id";
     public static final String TOUR_TYPE_ID = "tour_type_id";
     public static final String TRANSPORTS = "transports";
-    public static final String TRANSPORT_ID = "transport_id";
     public static final String TOUR_NAME = "tour_name";
     public static final String COST = "cost";
     public static final String DAYS = "days";

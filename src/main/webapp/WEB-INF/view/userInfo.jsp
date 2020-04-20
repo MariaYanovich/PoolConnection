@@ -78,10 +78,6 @@
                     <th>Info</th>
                 </tr>
                 <tr>
-                    <td>ID</td>
-                    <td><c:out value="${sessionScope.user_id}"/></td>
-                </tr>
-                <tr>
                     <td>LOGIN</td>
                     <td><c:out value="${sessionScope.login}"/></td>
                 </tr>
@@ -118,11 +114,9 @@
                     <td>UPDATE INFO</td>
                     <td>
                         <form method="post" name="about">
-                            <button type="submit" class="bot1" name="command"
-                                    value="redirect">Update
+                            <button type="submit" class="bot1" name="address"
+                                    value="UPDATE_USER_PAGE">Update
                             </button>
-                            <input type="hidden" name="address"
-                                   value="UPDATE_USER_PAGE"/>
                         </form>
                     </td>
                 </tr>
