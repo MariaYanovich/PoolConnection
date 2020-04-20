@@ -16,9 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 
 public class UpdateTourCommand implements Command {
+
     private static final Logger LOGGER = LogManager.getLogger(UpdateTourCommand.class.getName());
 
-    public static void updateTour(HttpServletRequest request, Tour tour) throws ServiceException {
+    private static void initializeTour(HttpServletRequest request, Tour tour) throws ServiceException {
         tour.setCost(Double.parseDouble(request.getParameter(JspParameterType.COST)));
         tour.setDays(Integer.parseInt(request.getParameter(JspParameterType.DAYS)));
         tour.setPlaces(Integer.parseInt(request.getParameter(JspParameterType.PLACES)));
@@ -39,7 +40,7 @@ public class UpdateTourCommand implements Command {
         try {
             Tour tour = ServiceFactory.getInstance().getTourService().findTourById(Integer.parseInt(id));
             tour.setTourId(Integer.parseInt(id));
-            updateTour(request, tour);
+            initializeTour(request, tour);
             ServiceFactory.getInstance().getTourService().updateTour(tour);
             Command getToursList = CommandFactory.getInstance().getCommand(CommandType.GET_TOURS_LIST.toString());
             return getToursList.execute(request, response);

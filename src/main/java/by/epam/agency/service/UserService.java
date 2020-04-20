@@ -8,17 +8,17 @@ import java.util.List;
 public interface UserService {
     User signIn(String login, String password) throws ServiceException;
 
-    User findUserById(int id) throws ServiceException;
+    User findUserById(int userId) throws ServiceException;
 
     User signUp(String login, String password, String name, String surname, String cash, String phone) throws ServiceException;
 
     void createAdmin(String login, String password, String name, String surname, String phone) throws ServiceException;
 
-    void deleteClient(int id) throws ServiceException;
+    void deleteClient(int clientId) throws ServiceException;
 
-    void blockClient(int id) throws ServiceException;
+    void blockClient(int clientId) throws ServiceException;
 
-    void unblockClient(int id) throws ServiceException;
+    void unblockClient(int clientId) throws ServiceException;
 
     void updateAdmin(User user) throws ServiceException;
 

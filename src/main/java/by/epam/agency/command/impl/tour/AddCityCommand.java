@@ -17,9 +17,8 @@ public class AddCityCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String cityStr = request.getParameter(JspParameterType.CITY);
         City city = new City();
-        city.setCity(cityStr);
+        city.setCity(request.getParameter(JspParameterType.CITY));
         try {
             ServiceFactory.getInstance().getCityService().create(city);
             request.getSession().setAttribute(JspParameterType.CITIES,

@@ -2,6 +2,7 @@ package by.epam.agency.service.impl;
 
 import by.epam.agency.dao.OrderDAO;
 import by.epam.agency.entity.Order;
+import by.epam.agency.entity.User;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.DAOFactory;
@@ -35,9 +36,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteOrder(int id) throws ServiceException {
+    public void deleteOrder(int orderId) throws ServiceException {
         try {
-            orderDAO.delete(id);
+            orderDAO.delete(orderId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -45,9 +46,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findOrderById(int id) throws ServiceException {
+    public Order findOrderById(int orderId) throws ServiceException {
         try {
-            return orderDAO.findById(id);
+            return orderDAO.findById(orderId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -65,9 +66,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getOrdersByUserId(int id) throws ServiceException {
+    public List<Order> getOrdersByUserId(int userId) throws ServiceException {
         try {
-            return orderDAO.getOrdersByUserId(id);
+            return orderDAO.getOrdersByUserId(userId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -78,6 +79,16 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrdersStatus() throws ServiceException {
         try {
             orderDAO.updateOrdersStatus();
+        } catch (DAOException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateUserDiscount(User user) throws ServiceException {
+        try {
+            orderDAO.updateUserDiscount(user);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

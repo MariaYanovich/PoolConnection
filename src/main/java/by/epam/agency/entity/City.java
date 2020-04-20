@@ -3,6 +3,7 @@ package by.epam.agency.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+
 public class City implements Serializable {
     private int cityId;
     private String city;
@@ -14,7 +15,6 @@ public class City implements Serializable {
     public void setCityId(int cityId) {
         this.cityId = cityId;
     }
-
 
     public String getCity() {
         return city;

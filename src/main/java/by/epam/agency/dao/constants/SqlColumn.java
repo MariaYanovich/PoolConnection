@@ -12,6 +12,7 @@ public enum SqlColumn {
     USER_PHONE,
     USER_ROLE_ID,
     USER_ROLE,
+    USER_SUM,
     TOUR_ID,
     TOUR_NAME,
     TOUR_COST,

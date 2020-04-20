@@ -42,9 +42,9 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public void delete(int id) throws ServiceException {
+    public void delete(int cityId) throws ServiceException {
         try {
-            cityDAO.delete(id);
+            cityDAO.delete(cityId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -52,9 +52,9 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public City findCityById(int id) throws ServiceException {
+    public City findCityById(int cityId) throws ServiceException {
         try {
-            return cityDAO.findById(id);
+            return cityDAO.findById(cityId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

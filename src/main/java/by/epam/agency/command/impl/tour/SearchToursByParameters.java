@@ -20,8 +20,8 @@ public class SearchToursByParameters implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        List<Tour> tours;
         try {
+            List<Tour> tours;
             City city = ServiceFactory.getInstance().getCityService().
                     findCityById(Integer.parseInt(request.getParameter(JspParameterType.TO_CITY)));
             Date date = Date.valueOf(request.getParameter(JspParameterType.DEPARTURE_DATE));

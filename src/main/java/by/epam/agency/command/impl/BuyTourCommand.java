@@ -3,9 +3,8 @@ package by.epam.agency.command.impl;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.util.CommandUtil;
 import by.epam.agency.entity.Order;
-import by.epam.agency.entity.Tour;
-import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
@@ -17,25 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 public class BuyTourCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(BuyTourCommand.class.getName());
 
+    private ServiceFactory serviceFactory = ServiceFactory.getInstance();
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        Order order = new Order();
         try {
-            User user = ServiceFactory.getInstance().getUserService().findUserById(
-                    (Integer) request.getSession().getAttribute(JspParameterType.USER_ID));
-            Tour tour = ServiceFactory.getInstance().getTourService().findTourById(Integer.parseInt((String) request.getSession().getAttribute(JspParameterType.TOUR_ID)));
-            int numberOfTours = Integer.parseInt((String) request.getSession().getAttribute(JspParameterType.TOUR_NUMBER));
-            order.setUser(user);
-            order.setTour(tour);
-            order.setNumber(numberOfTours);
-            double price = countPriceWithDiscount(user, tour, numberOfTours);
-            order.setPrice(price);
-            if (user.getCash() >= price) {
-                ServiceFactory.getInstance().getUserService().takeMoney(user, price);
-                ServiceFactory.getInstance().getTourService().buyTour(tour, numberOfTours);
-                ServiceFactory.getInstance().getOrderService().createOrder(order);
-                request.getSession().setAttribute(JspParameterType.TOUR_NUMBER, tour.getPlaces());
-                request.getSession().setAttribute(JspParameterType.CASH, user.getCash());
+            Order order = new Order();
+            initializeOrder(order, request);
+            if (order.getUser().getCash() >= order.getPrice()) {
+                buyTourActions(order);
+                new CommandUtil().setOrderSessionAttributes(request, order.getUser(), order.getTour());
                 return PageType.USER_INFO_PAGE.getAddress();
             }
         } catch (ServiceException e) {
@@ -44,10 +34,27 @@ public class BuyTourCommand implements Command {
         return PageType.NO_MONEY_PAGE.getAddress();
     }
 
-
-    private double countPriceWithDiscount(User user, Tour tour, int numberOfTours) {
-        return user.getDiscount().getDiscountSize() * tour.getCost() * numberOfTours;
+    private void buyTourActions(Order order) throws ServiceException {
+        serviceFactory.getUserService().takeMoney(order.getUser(), order.getPrice());
+        serviceFactory.getTourService().buyTour(order.getTour(), order.getNumber());
+        serviceFactory.getOrderService().createOrder(order);
+        serviceFactory.getOrderService().updateUserDiscount(order.getUser());
     }
 
+    private double countPriceWithDiscount(Order order) {
+        return order.getUser().getDiscount().getDiscountSize() * order.getTour().getCost() * order.getNumber();
+    }
+
+    private void initializeOrder(Order order, HttpServletRequest request) throws ServiceException {
+        order.setUser(serviceFactory.getUserService().findUserById(
+                (Integer) request.getSession().getAttribute(JspParameterType.USER_ID)));
+        order.setTour(serviceFactory.getTourService().
+                findTourById(Integer.parseInt((String) request.getSession().
+                        getAttribute(JspParameterType.TOUR_ID))));
+        order.setNumber(Integer.parseInt((String) request.getSession().
+                getAttribute(JspParameterType.TOUR_NUMBER)));
+        double price = countPriceWithDiscount(order);
+        order.setPrice(price);
+    }
 }
 

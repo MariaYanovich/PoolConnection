@@ -15,28 +15,29 @@ import javax.servlet.http.HttpServletResponse;
 public class UpdateClientCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(UpdateClientCommand.class.getName());
 
-    public static void updateClient(HttpServletRequest request) throws ServiceException {
-        User user = new User();
-        user.setId(Integer.parseInt(request.getSession().getAttribute(JspParameterType.USER_ID).toString()));
-        user.setName(request.getParameter(JspParameterType.NAME));
-        request.getSession().setAttribute(JspParameterType.NAME, user.getName());
-        user.setSurname(request.getParameter(JspParameterType.SURNAME));
-        request.getSession().setAttribute(JspParameterType.SURNAME, user.getSurname());
-        user.setPhone(request.getParameter(JspParameterType.PHONE));
-        request.getSession().setAttribute(JspParameterType.PHONE, user.getPhone());
-        user.setCash(Float.parseFloat(request.getParameter(JspParameterType.CASH)));
-        request.getSession().setAttribute(JspParameterType.CASH, user.getCash());
-        ServiceFactory.getInstance().getUserService().updateClient(user);
-    }
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        User client = new User();
         try {
-            updateClient(request);
+            initializeClient(request, client);
+            ServiceFactory.getInstance().getUserService().updateClient(client);
             return PageType.USER_INFO_PAGE.getAddress();
         } catch (ServiceException e) {
             LOGGER.error(e);
         }
         return PageType.HOME_PAGE.getAddress();
+    }
+
+    private void initializeClient(HttpServletRequest request, User client) {
+        client.setId(Integer.parseInt(request.getSession().
+                getAttribute(JspParameterType.USER_ID).toString()));
+        client.setName(request.getParameter(JspParameterType.NAME));
+        request.getSession().setAttribute(JspParameterType.NAME, client.getName());
+        client.setSurname(request.getParameter(JspParameterType.SURNAME));
+        request.getSession().setAttribute(JspParameterType.SURNAME, client.getSurname());
+        client.setPhone(request.getParameter(JspParameterType.PHONE));
+        request.getSession().setAttribute(JspParameterType.PHONE, client.getPhone());
+        client.setCash(Float.parseFloat(request.getParameter(JspParameterType.CASH)));
+        request.getSession().setAttribute(JspParameterType.CASH, client.getCash());
     }
 }

@@ -1,6 +1,6 @@
 package by.epam.agency.dao.constants;
 
-public class SQLStatement {
+public class SqlStatement {
 
     public static final String CHECK_LOGIN_EXISTENCE = "SELECT user_login " +
             "FROM travel_agency_db.user where user_login=?";
@@ -33,6 +33,10 @@ public class SQLStatement {
             "ON travel_agency_db.user.user_role_id=travel_agency_db.user_role.user_role_id " +
             "WHERE user_id=?";
 
+    public static final String FIND_DISCOUNT_BY_ID = "SELECT user_discount_id, user_discount_size " +
+            "FROM travel_agency_db.user_discount\n" +
+            "WHERE user_discount_id=?";
+
     public static final String GET_ALL_USERS = "SELECT user_id, user_login, user_password, user_name, user_surname,\n" +
             "user_discount.user_discount_id, user_discount.user_discount_size, user_cash, \n" +
             "user_phone, user_role.user_role_id, user_role.user_role\n" +
@@ -43,10 +47,10 @@ public class SQLStatement {
             "ON travel_agency_db.user.user_role_id=travel_agency_db.user_role.user_role_id " +
             "ORDER by user.user_id";
 
-    public static final String BLOCK_USER = "UPDATE `travel_agency_db`.`user` " +
+    public static final String BLOCK_CLIENT = "UPDATE `travel_agency_db`.`user` " +
             "SET `user_role_id` = '3' WHERE (`user_id` = ?)";
 
-    public static final String UNBLOCK_USER = "UPDATE `travel_agency_db`.`user`" +
+    public static final String UNBLOCK_CLIENT = "UPDATE `travel_agency_db`.`user`" +
             " SET `user_role_id` = '1' WHERE (`user_id` = ?)";
 
     public static final String UPDATE_ADMIN_INFO = "UPDATE travel_agency_db.user\n" +
@@ -59,6 +63,12 @@ public class SQLStatement {
 
     public static final String DELETE_CLIENT = "DELETE FROM `travel_agency_db`.`user`\n" +
             "WHERE user_id = ?";
+
+    public static final String UPDATE_USER_DISCOUNT_ID = "UPDATE `travel_agency_db`.`user` " +
+            "SET `user_discount_id` = ?  WHERE (`user_id` = ?)";
+
+    public static final String UPDATE_USER_CASH = "UPDATE `travel_agency_db`.`user` " +
+            "SET `user_cash` = ?  WHERE (`user_id` = ?)";
 
     public static final String CREATE_CITY = "INSERT INTO `travel_agency_db`.`city`" +
             "(`city`) VALUES (?)";
@@ -114,7 +124,6 @@ public class SQLStatement {
             "WHERE tour_id is not null" +
             " ORDER by tour.tour_departure_date";
 
-
     public static final String FIND_TOUR_BY_ID = "SELECT tour.tour_id, tour.tour_name, tour.tour_cost, tour.tour_departure_date, tour.tour_days, \n" +
             "tour.tour_places, tour_type.tour_type_id, tour_type.tour_type, tour.tour_city_id, tour.tour_departure_city_id,\n" +
             "tour_status.tour_status_id,  tour_status. tour_status, transport.transport_id, transport.transport, tour.tour_image \n" +
@@ -143,9 +152,6 @@ public class SQLStatement {
     public static final String SET_ARCHIVE_TOUR = "UPDATE `travel_agency_db`.`tour` " +
             "SET `tour_status_id` = '3' WHERE (`tour_id` = ?)";
 
-    public static final String SET_SOLD_TOUR = "UPDATE `travel_agency_db`.`tour` " +
-            "SET `tour_status_id` = '4' WHERE (`tour_id` = ?)";
-
     public static final String DELETE_TOUR = "DELETE FROM `travel_agency_db`.`tour`\n" +
             "WHERE tour_id = ?";
 
@@ -155,9 +161,6 @@ public class SQLStatement {
 
     public static final String DELETE_ORDER = "DELETE FROM `travel_agency_db`.`order`\n" +
             "WHERE order_id = ?";
-
-    public static final String UPDATE_USER_CASH = "UPDATE `travel_agency_db`.`user` " +
-            "SET `user_cash` = ?  WHERE (`user_id` = ?)";
 
     public static final String UPDATE_TOUR_PLACES = "UPDATE `travel_agency_db`.`tour` " +
             "SET `tour_places` = ? WHERE (`tour_id` = ?)";
@@ -201,7 +204,11 @@ public class SQLStatement {
     public static final String SET_BOUGHT_ORDER = "UPDATE `travel_agency_db`.`order` " +
             "SET `order_status_id` = '2' WHERE (`order_id` = ?)";
 
-    private SQLStatement() {
+    public static final String SUM_ALL_USER_ORDERS_PRICE = "SELECT " +
+            "SUM(price) AS user_sum FROM travel_agency_db.order WHERE user_id = ?";
+
+
+    private SqlStatement() {
     }
 
 }

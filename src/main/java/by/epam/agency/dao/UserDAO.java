@@ -13,15 +13,15 @@ public interface UserDAO extends DAO<User> {
 
     void createAdmin(User user) throws DAOException;
 
-    void deleteClient(int id) throws DAOException;
+    void deleteClient(int clientId) throws DAOException;
 
     void updateClient(User user) throws DAOException;
 
     void updateAdmin(User user) throws DAOException;
 
-    void blockClient(int id) throws DAOException;
+    void blockClient(int clientId) throws DAOException;
 
-    void unblockClient(int id) throws DAOException;
+    void unblockClient(int clientId) throws DAOException;
 
 
     void takeMoney(User user, double amount) throws DAOException;

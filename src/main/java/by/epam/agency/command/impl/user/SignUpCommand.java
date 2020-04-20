@@ -15,27 +15,28 @@ import javax.servlet.http.HttpSession;
 
 public class SignUpCommand implements Command {
 
-    public static User initializeSignUpParameters(HttpServletRequest request) throws ServiceException {
-        String login = request.getParameter(JspParameterType.LOGIN);
-        String password = request.getParameter(JspParameterType.PASSWORD);
-        String name = request.getParameter(JspParameterType.NAME);
-        String surname = request.getParameter(JspParameterType.SURNAME);
-        String cash = request.getParameter(JspParameterType.CASH);
-        String phone = request.getParameter(JspParameterType.PHONE);
-        return ServiceFactory.getInstance().getUserService().signUp(login, password, name, surname, cash, phone);
-    }
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         HttpSession session = request.getSession(true);
         try {
-            new CommandUtil().setSessionAttributesForUserAuthorize(session, initializeSignUpParameters(request));
+            new CommandUtil().setSessionAttributesForUserAuthorize(session, createClient(request));
             session.setAttribute(JspParameterType.ROLE, Role.CLIENT);
             page = PageType.HOME_PAGE.getAddress();
         } catch (ServiceException e) {
             page = PageType.SIGN_UP_PAGE.getAddress();
         }
         return page;
+    }
+
+    private User createClient(HttpServletRequest request) throws ServiceException {
+        String login = request.getParameter(JspParameterType.LOGIN);
+        String password = request.getParameter(JspParameterType.PASSWORD);
+        String name = request.getParameter(JspParameterType.NAME);
+        String surname = request.getParameter(JspParameterType.SURNAME);
+        String cash = request.getParameter(JspParameterType.CASH);
+        String phone = request.getParameter(JspParameterType.PHONE);
+        return ServiceFactory.getInstance().getUserService().
+                signUp(login, password, name, surname, cash, phone);
     }
 }

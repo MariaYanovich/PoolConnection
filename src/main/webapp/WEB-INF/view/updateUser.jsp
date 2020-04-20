@@ -101,7 +101,7 @@
                         <input class="input100" type="text" name="phone"
                                placeholder="New phone">
                         <span class="focus-input100"
-                              data-placeholder="&#xf095;"></span>
+                              data-placeholder="&#xf207;"></span>
                     </div>
 
                     <div class="wrap-input100"
@@ -109,7 +109,7 @@
                         <input class="input100" type="text" name="cash"
                                required placeholder="Available cash">
                         <span class="focus-input100"
-                              data-placeholder="&#xe227;"></span>
+                              data-placeholder="&#xf207;"></span>
                     </div>
 
                     <div class="container-login100-form-btn">

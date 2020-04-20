@@ -3,6 +3,7 @@ package by.epam.agency.command.impl;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.util.CommandUtil;
 import by.epam.agency.entity.Order;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.entity.User;
@@ -25,14 +26,20 @@ public class CancelBuyingTourCommand implements Command {
             int orderId = Integer.parseInt(request.getParameter(JspParameterType.ORDER_ID));
             Order order = serviceFactory.getOrderService().findOrderById(orderId);
             User user = serviceFactory.getUserService().findUserById(order.getUser().getUserId());
-            serviceFactory.getUserService().returnMoney(user, order.getPrice());
             Tour tour = serviceFactory.getTourService().findTourById(order.getTour().getTourId());
-            serviceFactory.getTourService().returnTour(tour, order.getNumber());
-            serviceFactory.getOrderService().deleteOrder(orderId);
+            cancelTourActions(order, user, tour);
+            new CommandUtil().setOrderSessionAttributes(request, user, tour);
             return PageType.USER_INFO_PAGE.getAddress();
         } catch (ServiceException e) {
             LOGGER.error(e);
         }
         return PageType.HOME_PAGE.getAddress();
+    }
+
+    private void cancelTourActions(Order order, User user, Tour tour) throws ServiceException {
+        serviceFactory.getUserService().returnMoney(user, order.getPrice());
+        serviceFactory.getTourService().returnTour(tour, order.getNumber());
+        serviceFactory.getOrderService().deleteOrder(order.getOrderId());
+        serviceFactory.getOrderService().updateUserDiscount(user);
     }
 }

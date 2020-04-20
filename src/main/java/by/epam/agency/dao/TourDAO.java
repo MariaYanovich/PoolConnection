@@ -9,17 +9,17 @@ import java.util.List;
 
 public interface TourDAO extends DAO<Tour> {
 
-    void unHotTour(int id) throws DAOException;
+    void unHotTour(int tourId) throws DAOException;
 
-    void setHotTour(int id) throws DAOException;
+    void setHotTour(int tourId) throws DAOException;
 
     List<Tour> getHotTours() throws DAOException;
 
     List<Tour> searchTourByParameters(City city, Date departureDate, int days, double cost) throws DAOException;
 
-    List<Tour> getToursByCityId(int id) throws DAOException;
+    List<Tour> getToursByCityId(int cityId) throws DAOException;
 
-    List<Tour> getToursByTourTypeId(int id) throws DAOException;
+    List<Tour> getToursByTourTypeId(int tourTypeId) throws DAOException;
 
     void buyTour(Tour tour, int amount) throws DAOException;
 

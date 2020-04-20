@@ -14,20 +14,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class SignInCommand implements Command {
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
-        String login = request.getParameter(JspParameterType.LOGIN);
-        String password = request.getParameter(JspParameterType.PASSWORD);
         try {
-            User user = ServiceFactory.getInstance().getUserService().signIn(login, password);
+            User user = ServiceFactory.getInstance().getUserService().
+                    signIn(request.getParameter(JspParameterType.LOGIN),
+                            request.getParameter(JspParameterType.PASSWORD));
             if (user != null && !user.getRole().equals(Role.BLOCKED)) {
                 new CommandUtil().setSessionAttributesForUserAuthorize(session, user);
                 return PageType.HOME_PAGE.getAddress();
             }
         } catch (ServiceException e) {
-            session.setAttribute(JspParameterType.ERROR, "User not found. Create your account, please.");
+            session.setAttribute(JspParameterType.ERROR, "User not found. Create new account, please.");
         }
         return PageType.REPEAT_SIGN_IN_PAGE.getAddress();
     }

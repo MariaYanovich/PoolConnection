@@ -1,13 +1,16 @@
 package by.epam.agency.dao;
 
 import by.epam.agency.entity.Order;
+import by.epam.agency.entity.User;
 import by.epam.agency.exception.DAOException;
 
 import java.util.List;
 
 public interface OrderDAO extends DAO<Order> {
 
-    List<Order> getOrdersByUserId(int id) throws DAOException;
+    void updateUserDiscount(User user) throws DAOException;
+
+    List<Order> getOrdersByUserId(int userId) throws DAOException;
 
     void updateOrdersStatus() throws DAOException;
 }

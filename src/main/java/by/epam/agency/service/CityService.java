@@ -8,9 +8,9 @@ import java.util.List;
 public interface CityService {
     void create(City city) throws ServiceException;
 
-    void delete(int id) throws ServiceException;
+    void delete(int cityId) throws ServiceException;
 
-    City findCityById(int id) throws ServiceException;
+    City findCityById(int cityId) throws ServiceException;
 
     List<City> getAllCities() throws ServiceException;
 }

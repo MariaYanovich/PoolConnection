@@ -46,6 +46,12 @@ public class CommandUtil {
         session.setAttribute(JspParameterType.ROLE, user.getRole());
     }
 
+    public void setOrderSessionAttributes(HttpServletRequest request, User user, Tour tour) {
+        request.getSession().setAttribute(JspParameterType.TOUR_NUMBER, tour.getPlaces());
+        request.getSession().setAttribute(JspParameterType.CASH, user.getCash());
+        request.getSession().setAttribute(JspParameterType.DISCOUNT, user.getDiscount());
+    }
+
     public void setTourSessionAttribute(HttpServletRequest request) {
         String tourId = request.getParameter(JspParameterType.TOUR_ID);
         request.getSession().setAttribute(JspParameterType.TOUR_ID, tourId);

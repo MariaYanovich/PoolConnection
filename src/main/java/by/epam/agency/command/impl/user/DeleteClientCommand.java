@@ -18,10 +18,12 @@ public class DeleteClientCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter(JspParameterType.USER_ID);
         try {
-            ServiceFactory.getInstance().getUserService().deleteClient(Integer.parseInt(id));
-            Command signOut = CommandFactory.getInstance().getCommand(CommandType.SIGN_OUT.toString());
+            ServiceFactory.getInstance().getUserService().
+                    deleteClient(Integer.parseInt(request.
+                            getParameter(JspParameterType.USER_ID)));
+            Command signOut = CommandFactory.getInstance().
+                    getCommand(CommandType.SIGN_OUT.toString());
             return signOut.execute(request, response);
         } catch (ServiceException e) {
             LOGGER.error(e);

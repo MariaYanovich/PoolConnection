@@ -17,11 +17,9 @@ import java.sql.Date;
 
 
 public class AddTourCommand implements Command {
-
     private static final Logger LOGGER = LogManager.getLogger(AddTourCommand.class.getName());
 
-    public static void initializeTour(HttpServletRequest request) throws ServiceException {
-        Tour tour = new Tour();
+    private static void initializeTour(HttpServletRequest request, Tour tour) throws ServiceException {
         tour.setName(request.getParameter(JspParameterType.TOUR_NAME));
         tour.setCost(Double.parseDouble(request.getParameter(JspParameterType.COST)));
         tour.setDays(Integer.parseInt(request.getParameter(JspParameterType.DAYS)));
@@ -40,14 +38,16 @@ public class AddTourCommand implements Command {
                 findCityById(Integer.parseInt(request.getParameter(JspParameterType.DEPARTURE_CITY))));
         tour.setTourType(ServiceFactory.getInstance().getTourTypeService().
                 findTourTypeById(Integer.parseInt(request.getParameter(JspParameterType.TOUR_TYPE))));
-        ServiceFactory.getInstance().getTourService().addTour(tour);
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-            initializeTour(request);
-            request.getSession().setAttribute(JspParameterType.TOURS, ServiceFactory.getInstance().getTourService().getAllTours());
+            Tour tour = new Tour();
+            initializeTour(request, tour);
+            ServiceFactory.getInstance().getTourService().addTour(tour);
+            request.getSession().setAttribute(JspParameterType.TOURS,
+                    ServiceFactory.getInstance().getTourService().getAllTours());
         } catch (ServiceException e) {
             LOGGER.error(e);
             return PageType.ADD_TOUR_PAGE.getAddress();

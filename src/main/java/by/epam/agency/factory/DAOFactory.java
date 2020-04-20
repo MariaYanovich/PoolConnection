@@ -4,8 +4,8 @@ import by.epam.agency.dao.*;
 import by.epam.agency.dao.impl.*;
 
 public class DAOFactory {
-    private DAOFactory() {
 
+    private DAOFactory() {
     }
 
     public static DAOFactory getInstance() {

@@ -73,7 +73,7 @@
                     <input class="input100" type="text" name="surname"
                            required placeholder="Surname">
                     <span class="focus-input100"
-                          data-placeholder="&#xf007;"></span>
+                          data-placeholder="&#xf207;"></span>
                 </div>
 
                 <div class="wrap-input100"

@@ -19,10 +19,11 @@ public class GetToursByType implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter(JspParameterType.TOUR_TYPE_ID);
         List<Tour> tours = new ArrayList<>();
         try {
-            tours = ServiceFactory.getInstance().getTourService().getToursByTourTypeId(Integer.parseInt(id));
+            tours = ServiceFactory.getInstance().getTourService().
+                    getToursByTourTypeId(Integer.parseInt(request.
+                            getParameter(JspParameterType.TOUR_TYPE_ID)));
         } catch (ServiceException e) {
             LOGGER.error(e);
         }

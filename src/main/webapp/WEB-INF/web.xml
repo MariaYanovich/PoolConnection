@@ -24,9 +24,10 @@
             <taglib-location>/WEB-INF/tld/copyright.tld</taglib-location>
         </taglib>
     </jsp-config>
-    <!--    <error-page>-->
-    <!--        <location>/WEB-INF/view/error.jsp</location>-->
-    <!--    </error-page>-->
+
+    <error-page>
+        <location>/WEB-INF/view/error.jsp</location>
+    </error-page>
 
 
 </web-app>

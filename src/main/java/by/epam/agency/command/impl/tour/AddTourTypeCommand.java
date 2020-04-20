@@ -17,9 +17,8 @@ public class AddTourTypeCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String tourTypeStr = request.getParameter(JspParameterType.TOUR_TYPE);
         TourType tourType = new TourType();
-        tourType.setType(tourTypeStr);
+        tourType.setType(request.getParameter(JspParameterType.TOUR_TYPE));
         try {
             ServiceFactory.getInstance().getTourTypeService().create(tourType);
             request.getSession().setAttribute(JspParameterType.TOUR_TYPES,

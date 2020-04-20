@@ -63,9 +63,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(int id) throws ServiceException {
+    public User findUserById(int userId) throws ServiceException {
         try {
-            return userDAO.findById(id);
+            return userDAO.findById(userId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -91,18 +91,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteClient(int id) throws ServiceException {
+    public void deleteClient(int clientId) throws ServiceException {
         try {
-            userDAO.deleteClient(id);
+            userDAO.deleteClient(clientId);
         } catch (DAOException e) {
             LOGGER.error(e);
         }
     }
 
     @Override
-    public void blockClient(int id) throws ServiceException {
+    public void blockClient(int clientId) throws ServiceException {
         try {
-            userDAO.blockClient(id);
+            userDAO.blockClient(clientId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -110,9 +110,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void unblockClient(int id) throws ServiceException {
+    public void unblockClient(int clientId) throws ServiceException {
         try {
-            userDAO.unblockClient(id);
+            userDAO.unblockClient(clientId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

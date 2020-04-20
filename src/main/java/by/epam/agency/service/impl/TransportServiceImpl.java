@@ -25,9 +25,9 @@ public class TransportServiceImpl implements TransportService {
     }
 
     @Override
-    public Transport findTransportById(int id) throws ServiceException {
+    public Transport findTransportById(int transportId) throws ServiceException {
         try {
-            return transportDAO.findById(id);
+            return transportDAO.findById(transportId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

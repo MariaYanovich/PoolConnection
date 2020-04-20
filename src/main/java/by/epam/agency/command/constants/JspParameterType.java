@@ -2,7 +2,6 @@ package by.epam.agency.command.constants;
 
 
 public class JspParameterType {
-
     public static final String COMMAND = "command";
     public static final String ERROR = "error";
     public static final String USER_ID = "user_id";

@@ -42,9 +42,9 @@ public class TourTypeServiceImpl implements TourTypeService {
     }
 
     @Override
-    public void delete(int id) throws ServiceException {
+    public void delete(int tourTypeId) throws ServiceException {
         try {
-            tourTypeDAO.delete(id);
+            tourTypeDAO.delete(tourTypeId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -52,9 +52,9 @@ public class TourTypeServiceImpl implements TourTypeService {
     }
 
     @Override
-    public TourType findTourTypeById(int id) throws ServiceException {
+    public TourType findTourTypeById(int tourTypeId) throws ServiceException {
         try {
-            return tourTypeDAO.findById(id);
+            return tourTypeDAO.findById(tourTypeId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

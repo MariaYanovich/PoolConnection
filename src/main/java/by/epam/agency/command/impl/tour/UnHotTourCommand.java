@@ -18,10 +18,12 @@ public class UnHotTourCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter(JspParameterType.TOUR_ID);
         try {
-            ServiceFactory.getInstance().getTourService().unHotTour(Integer.parseInt(id));
-            Command getToursList = CommandFactory.getInstance().getCommand(CommandType.GET_TOURS_LIST.toString());
+            ServiceFactory.getInstance().getTourService().
+                    unHotTour(Integer.parseInt(request.
+                            getParameter(JspParameterType.TOUR_ID)));
+            Command getToursList = CommandFactory.getInstance().
+                    getCommand(CommandType.GET_TOURS_LIST.toString());
             return getToursList.execute(request, response);
         } catch (ServiceException e) {
             LOGGER.error(e);

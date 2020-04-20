@@ -1,8 +1,8 @@
 package by.epam.agency.dao.impl;
 
 import by.epam.agency.dao.CityDAO;
-import by.epam.agency.dao.constants.SQLStatement;
 import by.epam.agency.dao.constants.SqlColumn;
+import by.epam.agency.dao.constants.SqlStatement;
 import by.epam.agency.entity.City;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
@@ -23,7 +23,6 @@ public class CityDAOImpl implements CityDAO {
     private static final int CITY_ID_INDEX = 1;
 
     private CityDAOImpl() {
-
     }
 
     public static CityDAO getInstance() {
@@ -35,7 +34,7 @@ public class CityDAOImpl implements CityDAO {
         try (ProxyConnection connection =
                      new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement =
-                     connection.prepareStatement(SQLStatement.CREATE_CITY)) {
+                     connection.prepareStatement(SqlStatement.CREATE_CITY)) {
             statement.setString(CITY_INDEX, city.getCity());
             statement.execute();
         } catch (SQLException e) {
@@ -45,11 +44,11 @@ public class CityDAOImpl implements CityDAO {
     }
 
     @Override
-    public void delete(int id) throws DAOException {
+    public void delete(int cityId) throws DAOException {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-                 PreparedStatement statement = connection.prepareStatement(SQLStatement.DELETE_CITY)) {
-                statement.setInt(CITY_ID_INDEX, id);
+                 PreparedStatement statement = connection.prepareStatement(SqlStatement.DELETE_CITY)) {
+                statement.setInt(CITY_ID_INDEX, cityId);
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -59,11 +58,11 @@ public class CityDAOImpl implements CityDAO {
     }
 
     @Override
-    public City findById(int id) throws DAOException {
+    public City findById(int cityId) throws DAOException {
         City city = new City();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_CITY_BY_ID)) {
-            statement.setInt(CITY_ID_INDEX, id);
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.FIND_CITY_BY_ID)) {
+            statement.setInt(CITY_ID_INDEX, cityId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     initializeCity(city, resultSet);
@@ -80,7 +79,7 @@ public class CityDAOImpl implements CityDAO {
     public List<City> getAll() throws DAOException {
         List<City> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_CITIES)) {
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.GET_ALL_CITIES)) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     City city = new City();
@@ -99,7 +98,7 @@ public class CityDAOImpl implements CityDAO {
     public String findCity(String city) throws DAOException {
         String cityToReturn = null;
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.CHECK_CITY_EXISTENCE)) {
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.CHECK_CITY_EXISTENCE)) {
             statement.setString(CITY_INDEX, city);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

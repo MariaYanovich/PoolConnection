@@ -1,8 +1,8 @@
 package by.epam.agency.dao.impl;
 
 import by.epam.agency.dao.TransportDAO;
-import by.epam.agency.dao.constants.SQLStatement;
 import by.epam.agency.dao.constants.SqlColumn;
+import by.epam.agency.dao.constants.SqlStatement;
 import by.epam.agency.entity.Transport;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
@@ -22,7 +22,6 @@ public class TransportDAOImpl implements TransportDAO {
     private static final int TRANSPORT_ID_INDEX = 1;
 
     private TransportDAOImpl() {
-
     }
 
     public static TransportDAO getInstance() {
@@ -30,26 +29,11 @@ public class TransportDAOImpl implements TransportDAO {
     }
 
     @Override
-    public void create(Transport item) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
-    }
-
-    @Override
-    public void delete(Transport item) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
-    }
-
-    @Override
-    public void delete(int id) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
-    }
-
-    @Override
-    public Transport findById(int id) throws DAOException {
+    public Transport findById(int transportId) throws DAOException {
         Transport transport = new Transport();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_TRANSPORT_BY_ID)) {
-            statement.setInt(TRANSPORT_ID_INDEX, id);
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.FIND_TRANSPORT_BY_ID)) {
+            statement.setInt(TRANSPORT_ID_INDEX, transportId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     initializeTransport(transport, resultSet);
@@ -66,7 +50,7 @@ public class TransportDAOImpl implements TransportDAO {
     public List<Transport> getAll() throws DAOException {
         List<Transport> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_TRANSPORT)) {
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.GET_ALL_TRANSPORT)) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Transport transport = new Transport();
@@ -87,7 +71,22 @@ public class TransportDAOImpl implements TransportDAO {
     }
 
     @Override
-    public void update(Transport id) throws DAOException {
+    public void update(Transport transportId) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException());
+    }
+
+    @Override
+    public void create(Transport transport) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException());
+    }
+
+    @Override
+    public void delete(Transport transport) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException());
+    }
+
+    @Override
+    public void delete(int transportId) throws DAOException {
         throw new DAOException(new UnsupportedOperationException());
     }
 

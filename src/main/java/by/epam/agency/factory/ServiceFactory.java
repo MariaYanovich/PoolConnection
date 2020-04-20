@@ -7,7 +7,6 @@ import by.epam.agency.service.impl.*;
 public class ServiceFactory {
 
     private ServiceFactory() {
-
     }
 
     public static ServiceFactory getInstance() {
@@ -41,6 +40,5 @@ public class ServiceFactory {
     private static final class ServiceFactoryHolder {
         private static final ServiceFactory INSTANCE = new ServiceFactory();
     }
-
 
 }

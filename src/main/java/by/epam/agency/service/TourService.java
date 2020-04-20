@@ -17,19 +17,19 @@ public interface TourService {
 
     List<Tour> getHotTours() throws ServiceException;
 
-    List<Tour> getToursByCityId(int id) throws ServiceException;
+    List<Tour> getToursByCityId(int cityId) throws ServiceException;
 
-    List<Tour> getToursByTourTypeId(int id) throws ServiceException;
+    List<Tour> getToursByTourTypeId(int tourTypeId) throws ServiceException;
 
-    void unHotTour(int id) throws ServiceException;
+    void unHotTour(int tourId) throws ServiceException;
 
-    void deleteTour(int id) throws ServiceException;
+    void deleteTour(int tourId) throws ServiceException;
 
-    void setHotTour(int id) throws ServiceException;
+    void setHotTour(int tourId) throws ServiceException;
 
     void updateTour(Tour tour) throws ServiceException;
 
-    Tour findTourById(int id) throws ServiceException;
+    Tour findTourById(int tourId) throws ServiceException;
 
     void buyTour(Tour tour, int amount) throws ServiceException;
 

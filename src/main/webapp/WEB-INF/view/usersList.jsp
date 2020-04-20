@@ -92,9 +92,4 @@
         </table>
     </div>
 </section>
-<footer>
-    <div class="copyrights wrapper">
-        <ctg:copyrightTag/>
-    </div>
-</footer>
 </html>

@@ -5,21 +5,24 @@ import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateAdminCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(CreateAdminCommand.class.getName());
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page;
         try {
             createAdmin(request);
-            page = PageType.HOME_PAGE.getAddress();
+            return PageType.HOME_PAGE.getAddress();
         } catch (ServiceException e) {
-            page = PageType.CREATE_ADMIN_PAGE.getAddress();
+            LOGGER.error(e);
         }
-        return page;
+        return PageType.CREATE_ADMIN_PAGE.getAddress();
     }
 
     private void createAdmin(HttpServletRequest request) throws ServiceException {

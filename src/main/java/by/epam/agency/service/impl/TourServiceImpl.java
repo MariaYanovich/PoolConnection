@@ -53,9 +53,9 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public Tour findTourById(int id) throws ServiceException {
+    public Tour findTourById(int tourId) throws ServiceException {
         try {
-            return tourDAO.findById(id);
+            return tourDAO.findById(tourId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -95,9 +95,9 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> getToursByCityId(int id) throws ServiceException {
+    public List<Tour> getToursByCityId(int cityId) throws ServiceException {
         try {
-            return tourDAO.getToursByCityId(id);
+            return tourDAO.getToursByCityId(cityId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -105,9 +105,9 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> getToursByTourTypeId(int id) throws ServiceException {
+    public List<Tour> getToursByTourTypeId(int tourTypeId) throws ServiceException {
         try {
-            return tourDAO.getToursByTourTypeId(id);
+            return tourDAO.getToursByTourTypeId(tourTypeId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -115,9 +115,9 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public void unHotTour(int id) throws ServiceException {
+    public void unHotTour(int tourId) throws ServiceException {
         try {
-            tourDAO.unHotTour(id);
+            tourDAO.unHotTour(tourId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -125,9 +125,9 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public void deleteTour(int id) throws ServiceException {
+    public void deleteTour(int tourId) throws ServiceException {
         try {
-            tourDAO.delete(id);
+            tourDAO.delete(tourId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -135,9 +135,9 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public void setHotTour(int id) throws ServiceException {
+    public void setHotTour(int tourId) throws ServiceException {
         try {
-            tourDAO.setHotTour(id);
+            tourDAO.setHotTour(tourId);
         } catch (DAOException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

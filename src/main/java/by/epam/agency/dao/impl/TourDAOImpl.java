@@ -1,8 +1,8 @@
 package by.epam.agency.dao.impl;
 
 import by.epam.agency.dao.TourDAO;
-import by.epam.agency.dao.constants.SQLStatement;
 import by.epam.agency.dao.constants.SqlColumn;
+import by.epam.agency.dao.constants.SqlStatement;
 import by.epam.agency.entity.*;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
@@ -19,7 +19,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class TourDAOImpl implements TourDAO {
-
     private static final Logger LOGGER = LogManager.getLogger(TourDAOImpl.class.getName());
 
     private static final int CREATE_TOUR_NAME_INDEX = 1;
@@ -50,20 +49,18 @@ public class TourDAOImpl implements TourDAO {
     private static final int UPDATE_PLACES_INDEX = 1;
 
     private TourDAOImpl() {
-
     }
 
     public static TourDAO getInstance() {
         return TourDAOImplHolder.INSTANCE;
     }
 
-
     @Override
-    public void delete(int id) throws DAOException {
+    public void delete(int tourId) throws DAOException {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-                 PreparedStatement statement = connection.prepareStatement(SQLStatement.DELETE_TOUR)) {
-                statement.setInt(TOUR_ID_INDEX, id);
+                 PreparedStatement statement = connection.prepareStatement(SqlStatement.DELETE_TOUR)) {
+                statement.setInt(TOUR_ID_INDEX, tourId);
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -72,12 +69,11 @@ public class TourDAOImpl implements TourDAO {
         }
     }
 
-
     @Override
     public void update(Tour tour) throws DAOException {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_TOUR_INFO)) {
+                 PreparedStatement statement = connection.prepareStatement(SqlStatement.UPDATE_TOUR_INFO)) {
                 initializeUpdateTourStatement(statement, tour);
                 statement.executeUpdate();
             }
@@ -87,14 +83,14 @@ public class TourDAOImpl implements TourDAO {
         }
     }
 
-
     @Override
-    public void unHotTour(int id) throws DAOException {
+    public void unHotTour(int tourId) throws DAOException {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UN_HOT_TOUR)) {
-                statement.setDouble(TOUR_COST_UPDATE_HOT_INDEX, findById(id).getCost() * HOT_COEFFICIENT);
-                statement.setInt(TOUR_ID_UPDATE_HOT_INDEX, id);
+                 PreparedStatement statement = connection.prepareStatement(SqlStatement.UN_HOT_TOUR)) {
+                statement.setDouble(TOUR_COST_UPDATE_HOT_INDEX,
+                        findById(tourId).getCost() * HOT_COEFFICIENT);
+                statement.setInt(TOUR_ID_UPDATE_HOT_INDEX, tourId);
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -104,12 +100,13 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public void setHotTour(int id) throws DAOException {
+    public void setHotTour(int tourId) throws DAOException {
         try {
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-                 PreparedStatement statement = connection.prepareStatement(SQLStatement.SET_HOT_TOUR)) {
-                statement.setDouble(TOUR_COST_UPDATE_HOT_INDEX, findById(id).getCost() / HOT_COEFFICIENT);
-                statement.setInt(TOUR_ID_UPDATE_HOT_INDEX, id);
+                 PreparedStatement statement = connection.prepareStatement(SqlStatement.SET_HOT_TOUR)) {
+                statement.setDouble(TOUR_COST_UPDATE_HOT_INDEX,
+                        findById(tourId).getCost() / HOT_COEFFICIENT);
+                statement.setInt(TOUR_ID_UPDATE_HOT_INDEX, tourId);
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -119,11 +116,11 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public Tour findById(int id) throws DAOException {
+    public Tour findById(int tourId) throws DAOException {
         Tour tour = new Tour();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_TOUR_BY_ID)) {
-            statement.setInt(CITY_ID_QUERY_INDEX, id);
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.FIND_TOUR_BY_ID)) {
+            statement.setInt(CITY_ID_QUERY_INDEX, tourId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     initializeTour(tour, resultSet);
@@ -141,7 +138,7 @@ public class TourDAOImpl implements TourDAO {
     public List<Tour> getAll() throws DAOException {
         List<Tour> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_TOURS);
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.GET_ALL_TOURS);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Tour tour = new Tour();
@@ -160,7 +157,7 @@ public class TourDAOImpl implements TourDAO {
     @Override
     public void create(Tour tour) throws DAOException {
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.CREATE_TOUR)) {
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.CREATE_TOUR)) {
             initializeStatementToCreateTour(statement, tour);
             statement.execute();
         } catch (SQLException e) {
@@ -169,29 +166,11 @@ public class TourDAOImpl implements TourDAO {
         }
     }
 
-    private City getCityById(int id) throws DAOException {
-        City city = new City();
-        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_CITY_BY_ID)) {
-            statement.setInt(CITY_ID_QUERY_INDEX, id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    city.setCityId(resultSet.getInt(SqlColumn.CITY_ID.toString()));
-                    city.setCity(resultSet.getString(SqlColumn.CITY.toString()));
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
-        }
-        return city;
-    }
-
     @Override
     public List<Tour> getHotTours() throws DAOException {
         List<Tour> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_TOURS);
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.GET_ALL_TOURS);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Tour tour = new Tour();
@@ -212,7 +191,7 @@ public class TourDAOImpl implements TourDAO {
     public List<Tour> searchTourByParameters(City city, Date departureDate, int days, double cost) throws DAOException {
         List<Tour> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_TOURS);
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.GET_ALL_TOURS);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Tour tour = new Tour();
@@ -231,16 +210,16 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public List<Tour> getToursByCityId(int id) throws DAOException {
+    public List<Tour> getToursByCityId(int cityId) throws DAOException {
         List<Tour> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_TOURS);
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.GET_ALL_TOURS);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Tour tour = new Tour();
                 initializeTour(tour, resultSet);
                 tour.setImageString(getImage(tour.getImage()));
-                if (tour.getCity().getCityId() == id) {
+                if (tour.getCity().getCityId() == cityId) {
                     listToReturn.add(tour);
                 }
             }
@@ -253,16 +232,16 @@ public class TourDAOImpl implements TourDAO {
 
 
     @Override
-    public List<Tour> getToursByTourTypeId(int id) throws DAOException {
+    public List<Tour> getToursByTourTypeId(int tourTypeId) throws DAOException {
         List<Tour> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_TOURS);
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.GET_ALL_TOURS);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Tour tour = new Tour();
                 initializeTour(tour, resultSet);
                 tour.setImageString(getImage(tour.getImage()));
-                if (tour.getTourType().getTourTypeId() == id) {
+                if (tour.getTourType().getTourTypeId() == tourTypeId) {
                     listToReturn.add(tour);
                 }
             }
@@ -278,7 +257,7 @@ public class TourDAOImpl implements TourDAO {
         try {
             int updatedPlaces = tour.getPlaces() - amount;
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_TOUR_PLACES)) {
+                 PreparedStatement statement = connection.prepareStatement(SqlStatement.UPDATE_TOUR_PLACES)) {
                 statement.setInt(UPDATE_PLACES_INDEX, updatedPlaces);
                 statement.setInt(UPDATE_ID_INDEX, tour.getTourId());
                 statement.executeUpdate();
@@ -295,7 +274,7 @@ public class TourDAOImpl implements TourDAO {
         try {
             int updatedPlaces = tour.getPlaces() + amount;
             try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-                 PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_TOUR_PLACES)) {
+                 PreparedStatement statement = connection.prepareStatement(SqlStatement.UPDATE_TOUR_PLACES)) {
                 statement.setInt(UPDATE_PLACES_INDEX, updatedPlaces);
                 statement.setInt(UPDATE_ID_INDEX, tour.getTourId());
                 statement.executeUpdate();
@@ -308,8 +287,44 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
+    public void updateArchiveTours() throws DAOException {
+        List<Tour> tours = getAll();
+        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.SET_ARCHIVE_TOUR)) {
+            for (Tour tour : tours) {
+                if (tour.getDepartureDate().before(Calendar.getInstance().getTime())) {
+                    statement.setInt(TOUR_ID_INDEX, tour.getTourId());
+                    tour.setTourStatus(TourStatus.ARCHIVAL);
+                    statement.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
     public void delete(Tour item) throws DAOException {
         throw new DAOException(new UnsupportedOperationException());
+    }
+
+    private City getCityById(int cityId) throws DAOException {
+        City city = new City();
+        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement = connection.prepareStatement(SqlStatement.FIND_CITY_BY_ID)) {
+            statement.setInt(CITY_ID_QUERY_INDEX, cityId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    city.setCityId(resultSet.getInt(SqlColumn.CITY_ID.toString()));
+                    city.setCity(resultSet.getString(SqlColumn.CITY.toString()));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+        return city;
     }
 
     private void initializeUpdateTourStatement(PreparedStatement statement, Tour tour) throws SQLException {
@@ -340,25 +355,6 @@ public class TourDAOImpl implements TourDAO {
                 resultSet.getString(SqlColumn.TRANSPORT.toString())));
         tour.setImage(resultSet.getBlob(SqlColumn.TOUR_IMAGE.toString()).getBinaryStream());
     }
-
-    @Override
-    public void updateArchiveTours() throws DAOException {
-        List<Tour> tours = getAll();
-        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.SET_ARCHIVE_TOUR)) {
-            for (Tour tour : tours) {
-                if (tour.getDepartureDate().before(Calendar.getInstance().getTime())) {
-                    statement.setInt(TOUR_ID_INDEX, tour.getTourId());
-                    tour.setTourStatus(TourStatus.ARCHIVAL);
-                    statement.executeUpdate();
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
-        }
-    }
-
 
     private void initializeStatementToCreateTour(PreparedStatement statement, Tour tour) throws SQLException {
         statement.setString(CREATE_TOUR_NAME_INDEX, tour.getName());

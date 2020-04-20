@@ -21,6 +21,7 @@ public enum PageType {
     ORDERS_LIST_PAGE("/WEB-INF/view/ordersList.jsp"),
     NO_MONEY_PAGE("/WEB-INF/view/noMoney.jsp"),
     SERVICE_PAGE("/WEB-INF/view/service.jsp");
+
     private String value;
 
     PageType(String value) {

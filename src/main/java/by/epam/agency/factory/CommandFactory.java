@@ -4,6 +4,7 @@ import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.CommandType;
 import by.epam.agency.command.impl.BuyTourCommand;
 import by.epam.agency.command.impl.CancelBuyingTourCommand;
+import by.epam.agency.command.impl.ErrorCommand;
 import by.epam.agency.command.impl.HomeCommand;
 import by.epam.agency.command.impl.redirect.RedirectCommand;
 import by.epam.agency.command.impl.redirect.RedirectToInputTourNumberPageCommand;
@@ -15,7 +16,6 @@ import by.epam.agency.command.impl.user.*;
 public class CommandFactory {
 
     private CommandFactory() {
-
     }
 
     public static CommandFactory getInstance() {
@@ -94,10 +94,9 @@ public class CommandFactory {
                 return new AddCityCommand();
             case ADD_TOUR_TYPE:
                 return new AddTourTypeCommand();
-//            default:
-//                return new ErrorCommand();
+            default:
+                return new ErrorCommand();
         }
-        return null;
     }
 
     private static class CommandHolder {

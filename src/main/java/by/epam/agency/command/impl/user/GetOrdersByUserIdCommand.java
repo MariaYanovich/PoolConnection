@@ -19,10 +19,11 @@ public class GetOrdersByUserIdCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter(JspParameterType.USER_ID);
         List<Order> listResults = new ArrayList<>();
         try {
-            listResults = ServiceFactory.getInstance().getOrderService().getOrdersByUserId(Integer.parseInt(id));
+            listResults = ServiceFactory.getInstance().getOrderService().
+                    getOrdersByUserId(Integer.parseInt(request.
+                            getParameter(JspParameterType.USER_ID)));
         } catch (ServiceException e) {
             LOGGER.error(e);
         }

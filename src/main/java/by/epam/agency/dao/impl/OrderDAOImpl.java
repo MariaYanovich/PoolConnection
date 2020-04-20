@@ -1,12 +1,9 @@
 package by.epam.agency.dao.impl;
 
 import by.epam.agency.dao.OrderDAO;
-import by.epam.agency.dao.constants.SQLStatement;
 import by.epam.agency.dao.constants.SqlColumn;
-import by.epam.agency.entity.Order;
-import by.epam.agency.entity.OrderStatus;
-import by.epam.agency.entity.Tour;
-import by.epam.agency.entity.User;
+import by.epam.agency.dao.constants.SqlStatement;
+import by.epam.agency.entity.*;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
 import by.epam.agency.pool.ProxyConnection;
@@ -21,20 +18,27 @@ import java.util.Calendar;
 import java.util.List;
 
 public class OrderDAOImpl implements OrderDAO {
-
     private static final Logger LOGGER = LogManager.getLogger(OrderDAOImpl.class.getName());
 
     private static final int CREATE_USER_ID_INDEX = 1;
     private static final int CREATE_TOUR_ID_INDEX = 2;
     private static final int CREATE_TOUR_NUMBER_INDEX = 3;
     private static final int CREATE_PRICE_INDEX = 4;
-
     private static final int USER_ID_INDEX = 1;
     private static final int ORDER_ID_INDEX = 1;
+    private static final int DISCOUNT_ID_INDEX = 1;
     private static final int DELETE_ORDER_ID_INDEX = 1;
+    private static final int UPDATE_USER_DISCOUNT_ID_INDEX = 1;
+    private static final int UPDATE_USER_ID_INDEX = 2;
+    private static final double MIN_EXPENDITURE_SUM = 1000;
+    private static final double MIDDLE_EXPENDITURE_SUM = 5000;
+    private static final double MAX_EXPENDITURE_SUM = 10000;
+    private static final int DISCOUNT_STATUS_START = 4;
+    private static final int DISCOUNT_STATUS_MIN = 3;
+    private static final int DISCOUNT_STATUS_MIDDLE = 2;
+    private static final int DISCOUNT_STATUS_MAX = 1;
 
     private OrderDAOImpl() {
-
     }
 
     public static OrderDAO getInstance() {
@@ -46,7 +50,7 @@ public class OrderDAOImpl implements OrderDAO {
         try (ProxyConnection connection =
                      new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement =
-                     connection.prepareStatement(SQLStatement.CREATE_ORDER)) {
+                     connection.prepareStatement(SqlStatement.CREATE_ORDER)) {
             initializeCreateOrderStatement(statement, order);
             statement.execute();
         } catch (SQLException e) {
@@ -56,16 +60,13 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void delete(Order order) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
-    }
-
-    @Override
-    public void delete(int id) throws DAOException {
+    public void delete(int orderId) throws DAOException {
         try {
-            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-                 PreparedStatement statement = connection.prepareStatement(SQLStatement.DELETE_ORDER)) {
-                statement.setInt(DELETE_ORDER_ID_INDEX, id);
+            try (ProxyConnection connection =
+                         new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement =
+                         connection.prepareStatement(SqlStatement.DELETE_ORDER)) {
+                statement.setInt(DELETE_ORDER_ID_INDEX, orderId);
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -74,12 +75,52 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+    public double getAllUserExpendituresSum(int id) throws DAOException {
+        double sum = 0;
+        try {
+            try (ProxyConnection connection =
+                         new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement =
+                         connection.prepareStatement(SqlStatement.SUM_ALL_USER_ORDERS_PRICE)) {
+                statement.setInt(USER_ID_INDEX, id);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        sum = resultSet.getDouble(SqlColumn.USER_SUM.toString());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+        return sum;
+    }
+
     @Override
-    public Order findById(int id) throws DAOException {
+    public void updateUserDiscount(User user) throws DAOException {
+        try {
+            int updatedDiscountId = calculateUserDiscountId(user.getUserId());
+            try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement = connection.prepareStatement(SqlStatement.UPDATE_USER_DISCOUNT_ID)) {
+                statement.setInt(UPDATE_USER_DISCOUNT_ID_INDEX, updatedDiscountId);
+                statement.setInt(UPDATE_USER_ID_INDEX, user.getUserId());
+                statement.executeUpdate();
+            }
+            user.setDiscount(findDiscountById(updatedDiscountId));
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public Order findById(int orderId) throws DAOException {
         Order order = new Order();
-        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.FIND_ORDER_BY_ID)) {
-            statement.setInt(ORDER_ID_INDEX, id);
+        try (ProxyConnection connection =
+                     new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement =
+                     connection.prepareStatement(SqlStatement.FIND_ORDER_BY_ID)) {
+            statement.setInt(ORDER_ID_INDEX, orderId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     initializeOrder(order, resultSet);
@@ -95,8 +136,10 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public List<Order> getAll() throws DAOException {
         List<Order> listToReturn = new ArrayList<>();
-        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_ORDERS)) {
+        try (ProxyConnection connection =
+                     new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement =
+                     connection.prepareStatement(SqlStatement.GET_ALL_ORDERS)) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Order order = new Order();
@@ -112,11 +155,13 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<Order> getOrdersByUserId(int id) throws DAOException {
+    public List<Order> getOrdersByUserId(int userId) throws DAOException {
         List<Order> listToReturn = new ArrayList<>();
-        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ALL_ORDERS_BY_USER_ID)) {
-            statement.setInt(USER_ID_INDEX, id);
+        try (ProxyConnection connection =
+                     new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement =
+                     connection.prepareStatement(SqlStatement.GET_ALL_ORDERS_BY_USER_ID)) {
+            statement.setInt(USER_ID_INDEX, userId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Order order = new Order();
@@ -134,10 +179,13 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public void updateOrdersStatus() throws DAOException {
         List<Order> orderList = getAll();
-        try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SQLStatement.SET_BOUGHT_ORDER)) {
+        try (ProxyConnection connection =
+                     new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement =
+                     connection.prepareStatement(SqlStatement.SET_BOUGHT_ORDER)) {
             for (Order order : orderList) {
-                if (order.getTour().getDepartureDate().before(Calendar.getInstance().getTime())) {
+                if (order.getTour().getDepartureDate().
+                        before(Calendar.getInstance().getTime())) {
                     statement.setInt(ORDER_ID_INDEX, order.getOrderId());
                     order.setOrderStatus(OrderStatus.BOUGHT);
                     statement.executeUpdate();
@@ -149,12 +197,52 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+
     @Override
     public void update(Order id) throws DAOException {
         throw new DAOException(new UnsupportedOperationException());
     }
 
-    private void initializeCreateOrderStatement(PreparedStatement statement, Order order) throws SQLException {
+    @Override
+    public void delete(Order order) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException());
+    }
+
+    private Discount findDiscountById(int discountId) throws DAOException {
+        Discount discount = new Discount();
+        try (ProxyConnection connection =
+                     new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+             PreparedStatement statement =
+                     connection.prepareStatement(SqlStatement.FIND_DISCOUNT_BY_ID)) {
+            statement.setInt(DISCOUNT_ID_INDEX, discountId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    discount.setId(resultSet.getInt(SqlColumn.USER_DISCOUNT_ID.toString()));
+                    discount.setDiscountSize(resultSet.getDouble(SqlColumn.USER_DISCOUNT_SIZE.toString()));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DAOException(e);
+        }
+        return discount;
+    }
+
+    private int calculateUserDiscountId(int userId) throws DAOException {
+        double userExpenditure = getAllUserExpendituresSum(userId);
+        if (userExpenditure < MIN_EXPENDITURE_SUM) {
+            return DISCOUNT_STATUS_START;
+        } else if (userExpenditure < MIDDLE_EXPENDITURE_SUM) {
+            return DISCOUNT_STATUS_MIN;
+        } else if (userExpenditure < MAX_EXPENDITURE_SUM) {
+            return DISCOUNT_STATUS_MIDDLE;
+        } else {
+            return DISCOUNT_STATUS_MAX;
+        }
+    }
+
+    private void initializeCreateOrderStatement(PreparedStatement statement,
+                                                Order order) throws SQLException {
         statement.setInt(CREATE_USER_ID_INDEX, order.getUser().getUserId());
         statement.setInt(CREATE_TOUR_ID_INDEX, order.getTour().getTourId());
         statement.setInt(CREATE_TOUR_NUMBER_INDEX, order.getNumber());
@@ -170,7 +258,8 @@ public class OrderDAOImpl implements OrderDAO {
                 resultSet.getDate(SqlColumn.TOUR_DEPARTURE_DATE.toString())));
         order.setNumber(resultSet.getInt(SqlColumn.TOUR_NUMBER.toString()));
         order.setPrice(resultSet.getDouble(SqlColumn.PRICE.toString()));
-        order.setOrderStatus(OrderStatus.valueOf(resultSet.getString(SqlColumn.ORDER_STATUS.toString()).toUpperCase()));
+        order.setOrderStatus(OrderStatus.valueOf(resultSet.
+                getString(SqlColumn.ORDER_STATUS.toString()).toUpperCase()));
     }
 
     private static final class OrderDAOImplHolder {
