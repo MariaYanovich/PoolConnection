@@ -31,8 +31,6 @@
     <link rel="stylesheet" href="${root}/resources/css/flaticon.css">
     <link rel="stylesheet" href="${root}/resources/css/icomoon.css">
     <link rel="stylesheet" href="${root}/resources/css/style.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/css/navigation.css">
 </head>
@@ -87,7 +85,6 @@
                     </ul>
                 </li>
             </ul>
-
             <form method="post" name="hotTours">
                 <button class="btn btn-info btn-lg"
                         aria-label="Hot"
@@ -101,13 +98,11 @@
 </c:if>
 <jsp:useBean id="tours" class="java.util.ArrayList"
              scope="session"/>
-
 <c:if test="${empty tours}">
     <section class="hero">
         <h1 class="caption">No such tours</h1>
     </section>
 </c:if>
-
 <c:if test="${not empty tours}">
     <section class="ftco-section">
         <div class="container">
@@ -153,7 +148,6 @@
                                         </div>
                                     </div>
                                     <div style="padding-top: 5px">
-
                                         <form method="post">
                                             <c:if test="${tour.tourStatus=='HOT'}">
                                                 <button class="btn btn-info"
@@ -218,8 +212,6 @@
                             </div>
                         </div>
                     </c:if>
-
-
                     <c:if test="${sessionScope.role !='ADMIN'}">
                         <c:if test="${tour.tourStatus!='ARCHIVAL' && tour.places!=0}">
                             <div class="col-md-6 col-lg-4 ftco-animate">
@@ -289,17 +281,15 @@
         </div>
     </section>
 </c:if>
-<!-- loader -->
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">
         <circle class="path-bg" cx="24" cy="24" r="22" fill="none"
-                stroke-width="4" stroke="#eeeeee"/>
+                stroke-width="4" stroke="#eeeeee"></circle>
         <circle class="path" cx="24" cy="24" r="22" fill="none"
                 stroke-width="4"
-                stroke-miterlimit="10" stroke="#F96D00"/>
+                stroke-miterlimit="10" stroke="#F96D00"></circle>
     </svg>
 </div>
-
 
 <script src="${root}/resources/js/jquery.min.js"></script>
 <script src="${root}/resources/js/jquery-migrate-3.0.1.min.js"></script>
@@ -315,7 +305,6 @@
 <script src="${root}/resources/js/scrollax.min.js"></script>
 <script src="${root}/resources/js/main.js"></script>
 <script src="${root}/resources/js/nav.js"></script>
-
 <footer>
     <div class="copyrights wrapper">
         <ctg:copyrightTag/>

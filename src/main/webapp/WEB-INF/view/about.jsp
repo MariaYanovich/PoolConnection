@@ -7,7 +7,6 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="ctg" uri="customTags" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css"
@@ -26,7 +25,6 @@
           href="${root}/resources/css/about_responsive.css">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
-
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/css/mainPage.css">
 </head>
@@ -34,13 +32,9 @@
 
 <div class="super_container">
     <c:import url="/WEB-INF/view/header.jsp"/>
-    <!-- Milestones -->
-
     <div class="milestones">
         <div class="container">
             <div class="row">
-
-                <!-- Milestone -->
                 <div class="col-lg-3 milestone_col">
                     <div class="milestone text-center">
                         <div class="milestone_icon"><img
@@ -51,8 +45,6 @@
                         <div class="milestone_text">Online Courses</div>
                     </div>
                 </div>
-
-                <!-- Milestone -->
                 <div class="col-lg-3 milestone_col">
                     <div class="milestone text-center">
                         <div class="milestone_icon"><img
@@ -63,8 +55,6 @@
                         <div class="milestone_text">Students</div>
                     </div>
                 </div>
-
-                <!-- Milestone -->
                 <div class="col-lg-3 milestone_col">
                     <div class="milestone text-center">
                         <div class="milestone_icon"><img
@@ -76,8 +66,6 @@
                         <div class="milestone_text">Clients</div>
                     </div>
                 </div>
-
-                <!-- Milestone -->
                 <div class="col-lg-3 milestone_col">
                     <div class="milestone text-center">
                         <div class="milestone_icon"><img
@@ -88,30 +76,22 @@
                         <div class="milestone_text">Countries</div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!-- Why Choose Us -->
-
     <div class="row">
         <div class="col text-center">
-            <div class="section_title"><h2>Why choose
-                us?</h2></div>
+            <div class="section_title"><h2>Why choose us?</h2></div>
         </div>
     </div>
     <div class="why">
-
         <div class="parallax_background parallax-window"
              data-parallax="scroll"
              data-image-src="${root}/resources/img/why.jpg"
              data-speed="0.8"></div>
         <div class="container">
-
             <div class="row why_row">
-
-                <!-- Why item -->
                 <div class="col-lg-4 why_col">
                     <div class="why_item">
                         <div class="why_image">
@@ -123,19 +103,15 @@
                             </div>
                         </div>
                         <div class="why_content text-center">
-                            <div class="why_title">Fast Services
-                            </div>
+                            <div class="why_title">Fast Services</div>
                             <div class="why_text">
-                                <p>Pellentesque sit amet elementum
-                                    ccumsan sit
-                                    amet mattis eget, tristique at
-                                    leo.</p>
+                                <p>Pellentesque sit amet elementum ccumsan sit
+                                    amet mattis eget, tristique at leo.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Why item -->
                 <div class="col-lg-4 why_col">
                     <div class="why_item">
                         <div class="why_image">
@@ -150,15 +126,13 @@
                             <div class="why_title">Great Team</div>
                             <div class="why_text">
                                 <p>Pellentesque sit amet elementum
-                                    ccumsan sit
-                                    amet mattis eget, tristique at
+                                    ccumsan sit amet mattis eget, tristique at
                                     leo.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Why item -->
                 <div class="col-lg-4 why_col">
                     <div class="why_item">
                         <div class="why_image">
@@ -173,23 +147,15 @@
                             <div class="why_title">Best Deals</div>
                             <div class="why_text">
                                 <p>Pellentesque sit amet elementum
-                                    ccumsan sit
-                                    amet mattis eget, tristique at
+                                    ccumsan sit amet mattis eget, tristique at
                                     leo.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="copyrights wrapper">
-            <ctg:copyrightTag/>
-        </div>
-    </footer>
 </div>
 
 <script src="${root}/resources/js/jquery-3.2.1.min.js"></script>
@@ -205,4 +171,9 @@
 <script src="${root}/resources/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="${root}/resources/js/about.js"></script>
 </body>
+<footer>
+    <div class="copyrights wrapper">
+        <ctg:copyrightTag/>
+    </div>
+</footer>
 </html>

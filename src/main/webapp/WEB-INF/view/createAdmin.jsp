@@ -36,51 +36,50 @@
          style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg')">
         <div class="wrap-login100">
             <form class="login100-form validate-form" method="post">
-					<span class="login100-form-logo">
+                <span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
-					</span>
+                </span>
 
                 <span class="login100-form-title p-b-34 p-t-27">
 						Create admin
                 </span>
 
-                <div class="wrap-input100"
-                     data-validate="Enter login">
+                <div class="wrap-input100">
                     <input class="input100" type="text" name="login"
-                           required placeholder="Login">
+                           required placeholder="Login"
+                           pattern="[A-Za-z0-9_]+">
                     <span class="focus-input100"
                           data-placeholder="&#xf207;"></span>
                 </div>
 
-                <div class="wrap-input100"
-                     data-validate="Enter password">
+                <div class="wrap-input100">
                     <input class="input100" type="password" name="password"
-                           required placeholder="Password">
+                           required placeholder="Password"
+                           pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{8,}$">
                     <span class="focus-input100"
                           data-placeholder="&#xf191;"></span>
                 </div>
 
-                <div class="wrap-input100"
-                     data-validate="Enter name">
+                <div class="wrap-input100">
                     <input class="input100" type="text" name="name"
-                           required placeholder="Name">
+                           required placeholder="Name"
+                           pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                     <span class="focus-input100"
                           data-placeholder="&#xf207;"></span>
                 </div>
 
-
-                <div class="wrap-input100 "
-                     data-validate="Enter surname">
+                <div class="wrap-input100">
                     <input class="input100" type="text" name="surname"
-                           required placeholder="Surname">
+                           required placeholder="Surname"
+                           pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                     <span class="focus-input100"
                           data-placeholder="&#xf207;"></span>
                 </div>
 
-                <div class="wrap-input100"
-                     data-validate="Enter phone">
+                <div class="wrap-input100">
                     <input class="input100" type="text" name="phone"
-                           placeholder="Phone">
+                           placeholder="Phone"
+                           pattern="[0-9*#+() -]*">
                     <span class="focus-input100"
                           data-placeholder="&#xf207;"></span>
                 </div>

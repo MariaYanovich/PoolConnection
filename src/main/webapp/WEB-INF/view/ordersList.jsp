@@ -18,15 +18,12 @@
           href="${root}/resources/css/table.css">
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/css/mainPage.css">
-
 </head>
-
 <header>
     <c:import url="/WEB-INF/view/header.jsp"/>
 </header>
 <body>
 <section class="hero">
-
     <jsp:useBean id="orders" class="java.util.ArrayList" scope="request"/>
     <div class="div-table">
         <c:if test="${sessionScope.role=='CLIENT'}">

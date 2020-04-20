@@ -18,9 +18,7 @@
           href="${root}/resources/css/table.css">
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/css/mainPage.css">
-
 </head>
-
 <header>
     <c:import url="/WEB-INF/view/header.jsp"/>
 </header>
@@ -61,7 +59,6 @@
                     <td>ROLE</td>
                     <td><c:out value="${sessionScope.role}"/></td>
                 </tr>
-
                 <tr>
                     <td>UPDATE INFO</td>
                     <td>
@@ -75,7 +72,6 @@
                     </td>
                 </tr>
             </c:if>
-
             <c:if test="${sessionScope.role =='CLIENT'}">
                 <tr>
                     <th>Parameter</th>

@@ -5,13 +5,7 @@
   Time: 3:32 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%--
-  Created by IntelliJ IDEA.
-  User: yanov
-  Date: 4/16/2020
-  Time: 4:51 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,37 +22,26 @@
     <link rel="stylesheet"
           href="${root}/resources/js/chosen_v1.8.7/docsupport/prism.css">
     <link rel="stylesheet" href="${root}/resources/js/chosen_v1.8.7/chosen.css">
-
     <meta http-equiv="Content-Security-Policy"
           content="default-src &apos;self&apos;; script-src &apos;self&apos; https://ajax.googleapis.com; style-src &apos;self&apos;; img-src &apos;self&apos; data:">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Title Page-->
-    <title>Add tour</title>
-
-    <!-- Icons font CSS-->
     <link href="${root}/resources/vendor/mdi-font/css/material-design-iconic-font.min.css"
           rel="stylesheet" media="all">
     <link href="${root}/resources/vendor/font-awesome-4.7/css/font-awesome.min.css"
           rel="stylesheet" media="all">
-    <!-- Font special for pages-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
           rel="stylesheet">
-
-    <!-- Vendor CSS-->
     <link href="${root}/resources/vendor/select2/select2.min.css"
           rel="stylesheet" media="all">
     <link href="${root}/resources/vendor/datepicker/daterangepicker.css"
           rel="stylesheet" media="all">
-
-    <!-- Main CSS-->
     <link href="${root}/resources/css/addTour.css" rel="stylesheet" media="all">
 </head>
+
 <header>
     <c:import url="/WEB-INF/view/header.jsp"/>
 </header>
-<body>
 
+<body>
 <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
     <div class="wrapper wrapper--w680">
         <div class="card card-1">
@@ -67,22 +50,24 @@
                 <h2 class="title">Update tour info:</h2>
                 <form method="post" name="update_tour"
                       enctype="multipart/form-data">
-
                     <div class="input-group">
                         <h4>Previous cost: ${sessionScope.tour.cost}</h4>
                         <input class="input--style-1" type="text" required
-                               placeholder="NEW COST" name="cost">
+                               placeholder="NEW COST" name="cost"
+                               pattern="^(\d*\.)?\d+$">
                     </div>
                     <div class="input-group">
                         <h4>Previous days: ${sessionScope.tour.days}</h4>
                         <input class="input--style-1" type="text" required
-                               placeholder="NEW DAYS" name="days">
+                               placeholder="NEW DAYS" name="days"
+                               pattern="^[0-9]+$">
                     </div>
 
                     <div class="input-group">
                         <h4>Previous places: ${sessionScope.tour.places}</h4>
                         <input class="input--style-1" type="text" required
-                               placeholder="NEW PLACES" name="places">
+                               placeholder="NEW PLACES" name="places"
+                               pattern="^[0-9]+$">
                     </div>
                     <div class="row row-space">
                         <div class="col-2">
@@ -182,10 +167,8 @@
         </div>
     </div>
 </div>
-<!-- Jquery JS-->
-<script src="${root}/resources/vendor/jquery/jquery.min.js"></script>
 
-<!-- Vendor JS-->
+<script src="${root}/resources/vendor/jquery/jquery.min.js"></script>
 <script src="${root}/resources/vendor/select2/select2.min.js"></script>
 <script src="${root}/resources/vendor/datepicker/moment.min.js"></script>
 <script src="${root}/resources/vendor/datepicker/daterangepicker.js"></script>
@@ -197,9 +180,7 @@
         type="text/javascript" charset="utf-8"></script>
 <script src="${root}/resources/js/chosen_v1.8.7/docsupport/init.js"
         type="text/javascript" charset="utf-8"></script>
-<!-- Main JS-->
 <script src="${root}/resources/js/global.js"></script>
-
 
 <div id="dropDownSelect1"></div>
 </body>

@@ -23,7 +23,6 @@
     <div class="wrapper">
         <a href="#" class="hamburger"></a>
         <nav>
-
             <c:if test="${sessionScope.role=='GUEST'}">
                 <form method="post" name="sign_in">
                     <button type="submit" class="login_btn" name="command"
@@ -42,7 +41,6 @@
                            value="SIGN_UP_PAGE"/>
                 </form>
             </c:if>
-
             <c:if test="${sessionScope.role!='GUEST'}">
                 <form name="sign_out" method="post">
                     <button type="submit" class="login_btn"
@@ -50,7 +48,6 @@
                     </button>
                 </form>
             </c:if>
-
             <c:if test="${sessionScope.role !='GUEST'}">
                 <form method="post" name="about">
                     <button type="submit" class="just_btn" name="command"
@@ -59,7 +56,6 @@
                     <input type="hidden" name="address" value="USER_INFO_PAGE"/>
                 </form>
             </c:if>
-
             <c:if test="${sessionScope.role !='ADMIN'}">
                 <form method="post" name="contact">
                     <button type="submit" class="just_btn" name="command"
@@ -68,7 +64,6 @@
                     <input type="hidden" name="address" value="CONTACT_PAGE"/>
                 </form>
             </c:if>
-
             <c:if test="${sessionScope.role !='GUEST'}">
                 <form method="post" name="tours_list">
                     <button type="submit" class="just_btn" name="command"
@@ -76,7 +71,6 @@
                     </button>
                 </form>
             </c:if>
-
             <c:if test="${sessionScope.role =='ADMIN'}">
                 <form method="post" name="users_list">
                     <button type="submit" class="just_btn" name="command"
@@ -84,7 +78,6 @@
                     </button>
                 </form>
             </c:if>
-
             <c:if test="${sessionScope.role !='ADMIN'}">
                 <form method="post" name="about">
                     <button type="submit" class="just_btn" name="command"
@@ -93,7 +86,6 @@
                     <input type="hidden" name="address" value="ABOUT_PAGE"/>
                 </form>
             </c:if>
-
             <c:if test="${sessionScope.role =='ADMIN'}">
                 <form method="post" name="about">
                     <button type="submit" class="just_btn" name="command"
@@ -103,7 +95,6 @@
                            value="CREATE_ADMIN_PAGE"/>
                 </form>
             </c:if>
-
             <c:if test="${sessionScope.role !='ADMIN'}">
                 <form method="post" name="search">
                     <button type="submit" class="just_btn" name="command"
@@ -112,13 +103,11 @@
                     <input type="hidden" name="address" value="SEARCH_PAGE"/>
                 </form>
             </c:if>
-
             <form method="post" name="tours_list">
                 <button type="submit" class="just_btn" name="command"
                         value="GET_TOURS_LIST">Tours
                 </button>
             </form>
-
             <c:if test="${sessionScope.role=='ADMIN'}">
                 <form method="post">
                     <button type="submit" class="just_btn" name="command"

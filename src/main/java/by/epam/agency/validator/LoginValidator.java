@@ -3,6 +3,7 @@ package by.epam.agency.validator;
 
 import by.epam.agency.exception.ValidatorException;
 import by.epam.agency.validator.constants.ValidatorRegex;
+import com.mysql.cj.util.StringUtils;
 
 import java.util.regex.Pattern;
 

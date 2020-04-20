@@ -2,8 +2,8 @@ package by.epam.agency.factory;
 
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.CommandType;
-import by.epam.agency.command.impl.BuyTourCommand;
-import by.epam.agency.command.impl.CancelBuyingTourCommand;
+import by.epam.agency.command.impl.user.BuyTourCommand;
+import by.epam.agency.command.impl.user.CancelBuyingTourCommand;
 import by.epam.agency.command.impl.ErrorCommand;
 import by.epam.agency.command.impl.HomeCommand;
 import by.epam.agency.command.impl.redirect.RedirectCommand;

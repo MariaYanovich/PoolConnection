@@ -43,8 +43,6 @@
     <c:import url="/WEB-INF/view/header.jsp"/>
 </header>
 <body>
-
-
 <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
     <div class="wrapper wrapper--w680">
         <div class="card card-1">
@@ -55,20 +53,23 @@
                       enctype="multipart/form-data">
                     <div class="input-group">
                         <input class="input--style-1" type="text" required
-                               placeholder="NAME" name="tour_name">
+                               placeholder="NAME" name="tour_name"
+                               pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                     </div>
                     <div class="input-group">
                         <input class="input--style-1" type="text" required
-                               placeholder="COST" name="cost">
+                               placeholder="COST" name="cost"
+                               pattern="^(\d*\.)?\d+$">
                     </div>
                     <div class="input-group">
                         <input class="input--style-1" type="text" required
-                               placeholder="DAYS" name="days">
+                               placeholder="DAYS" name="days"
+                               pattern="^[0-9]+$">
                     </div>
-
                     <div class="input-group">
                         <input class="input--style-1" type="text" required
-                               placeholder="PLACES" name="places">
+                               placeholder="PLACES" name="places"
+                               pattern="^[0-9]+$">
                     </div>
                     <div class="row row-space">
                         <div class="col-2">

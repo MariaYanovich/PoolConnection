@@ -44,50 +44,49 @@
 						Sign up
                 </span>
 
-                <div class="wrap-input100"
-                     data-validate="Enter login">
+                <div class="wrap-input100">
                     <input class="input100" type="text" name="login"
-                           required placeholder="Login">
+                           required placeholder="Login"
+                           pattern="[A-Za-z0-9_]+">
                     <span class="focus-input100"
                           data-placeholder="&#xf207;"></span>
                 </div>
 
-                <div class="wrap-input100"
-                     data-validate="Enter password">
+                <div class="wrap-input100">
                     <input class="input100" type="password" name="password"
-                           required placeholder="Password">
+                           required placeholder="Password"
+                           pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{8,}$">
                     <span class="focus-input100"
                           data-placeholder="&#xf191;"></span>
                 </div>
 
-                <div class="wrap-input100"
-                     data-validate="Enter name">
+                <div class="wrap-input100">
                     <input class="input100" type="text" name="name"
-                           required placeholder="Name">
+                           required placeholder="Name"
+                           pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                     <span class="focus-input100"
                           data-placeholder="&#xf207;"></span>
                 </div>
 
-                <div class="wrap-input100 "
-                     data-validate="Enter surname">
+                <div class="wrap-input100 ">
                     <input class="input100" type="text" name="surname"
-                           required placeholder="Surname">
+                           required placeholder="Surname"
+                           pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                     <span class="focus-input100"
                           data-placeholder="&#xf207;"></span>
                 </div>
 
-                <div class="wrap-input100"
-                     data-validate="Enter available cash">
+                <div class="wrap-input100">
                     <input class="input100" type="text" name="cash"
-                           required placeholder="Cash">
+                           required placeholder="Cash" pattern="^(\d*\.)?\d+$">
                     <span class="focus-input100"
                           data-placeholder="&#xf207;"></span>
                 </div>
 
-                <div class="wrap-input100"
-                     data-validate="Enter phone">
+                <div class="wrap-input100">
                     <input class="input100" type="text" name="phone"
-                           placeholder="Phone">
+                           placeholder="Phone"
+                           pattern="[0-9*#+() -]*">
                     <span class="focus-input100"
                           data-placeholder="&#xf207;"></span>
                 </div>

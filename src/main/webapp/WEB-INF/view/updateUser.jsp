@@ -46,27 +46,26 @@
                  </span>
 
                 <c:if test="${sessionScope.role =='ADMIN'}">
-
-                    <div class="wrap-input100"
-                         data-validate="Enter name">
+                    <div class="wrap-input100">
                         <input class="input100" type="text" name="name"
-                               required placeholder="New name">
+                               required placeholder="New name"
+                               pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
                     </div>
 
-                    <div class="wrap-input100 "
-                         data-validate="Enter surname">
+                    <div class="wrap-input100">
                         <input class="input100" type="text" name="surname"
-                               required placeholder="New surname">
+                               required placeholder="New surname"
+                               pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
                     </div>
 
-                    <div class="wrap-input100"
-                         data-validate="Enter phone">
+                    <div class="wrap-input100">
                         <input class="input100" type="text" name="phone"
-                               placeholder="New phone">
+                               placeholder="New phone"
+                               pattern="[0-9*#+() -]*">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
                     </div>
@@ -79,35 +78,34 @@
                 </c:if>
 
                 <c:if test="${sessionScope.role =='CLIENT'}">
-
-                    <div class="wrap-input100"
-                         data-validate="Enter new name">
+                    <div class="wrap-input100">
                         <input class="input100" type="text" name="name"
-                               required placeholder="New name">
+                               required placeholder="New name"
+                               pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
                     </div>
 
-                    <div class="wrap-input100 "
-                         data-validate="Enter new surname">
+                    <div class="wrap-input100">
                         <input class="input100" type="text" name="surname"
-                               required placeholder="New surname">
+                               required placeholder="New surname"
+                               pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
                     </div>
 
-                    <div class="wrap-input100"
-                         data-validate="Enter new phone">
-                        <input class="input100" type="text" name="phone"
-                               placeholder="New phone">
-                        <span class="focus-input100"
-                              data-placeholder="&#xf207;"></span>
-                    </div>
-
-                    <div class="wrap-input100"
-                         data-validate="Enter available cash">
+                    <div class="wrap-input100">
                         <input class="input100" type="text" name="cash"
-                               required placeholder="Available cash">
+                               required placeholder="Available cash"
+                               pattern="^(\d*\.)?\d+$">
+                        <span class="focus-input100"
+                              data-placeholder="&#xf207;"></span>
+                    </div>
+
+                    <div class="wrap-input100">
+                        <input class="input100" type="text" name="phone"
+                               placeholder="New phone"
+                               pattern="[0-9*#+() -]*">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
                     </div>

@@ -23,7 +23,6 @@
 </head>
 <body>
 <section class="hero">
-
     <c:import url="/WEB-INF/view/header.jsp"/>
     <c:if test="${sessionScope.role =='ADMIN'}">
         <h1 align="center">Hello, ${sessionScope.name}!</h1>
@@ -31,17 +30,14 @@
     <c:if test="${sessionScope.role =='CLIENT'}">
         <h2 align="center">Hello, ${sessionScope.name}!</h2>
     </c:if>
-
     <section class="caption">
         <h2 class="caption">Find Your Dream Tour</h2>
     </section>
-
 </section>
-
+</body>
 <footer>
     <div class="copyrights wrapper">
         <ctg:copyrightTag/>
     </div>
 </footer>
-</body>
 </html>

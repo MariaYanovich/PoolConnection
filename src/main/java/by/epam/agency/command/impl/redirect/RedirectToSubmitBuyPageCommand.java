@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RedirectToSubmitBuyPageCommand implements Command {
-
     private static final Logger LOGGER = LogManager.getLogger(RedirectToSubmitBuyPageCommand.class.getName());
 
     @Override

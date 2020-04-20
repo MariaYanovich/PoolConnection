@@ -32,20 +32,12 @@
 
 </head>
 <body>
-
 <div class="super_container">
-
     <c:import url="/WEB-INF/view/header.jsp"/>
-
-    <!-- Home -->
-
     <div class="home">
         <div class="background_image"
              style="background-image:url(${root}/resources/img/news.jpg)"></div>
     </div>
-
-    <!-- Search -->
-
     <div class="home_search">
         <div class="container">
             <div class="row">
@@ -101,8 +93,6 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
 <script src="${root}/resources/js/jquery-3.2.1.min.js"></script>
@@ -120,7 +110,6 @@
         type="text/javascript" charset="utf-8"></script>
 <script src="${root}/resources/js/chosen_v1.8.7/docsupport/init.js"
         type="text/javascript" charset="utf-8"></script>
-<!-- Main JS-->
 <script src="${root}/resources/js/global.js"></script>
 </body>
 <footer>

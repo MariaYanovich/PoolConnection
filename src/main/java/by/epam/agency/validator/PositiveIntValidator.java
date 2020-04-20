@@ -11,7 +11,7 @@ public class PositiveIntValidator extends Validator {
 
     @Override
     public void validate() throws ValidatorException {
-        if (number < 0) {
+        if (number <= 0) {
             throw new ValidatorException();
         }
         if (hasNext()) {
