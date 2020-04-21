@@ -1,7 +1,7 @@
 package by.epam.agency.filter;
 
 
-import by.epam.agency.command.constants.JspParameterType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,9 +25,9 @@ public class RoleFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpSession httpSession = httpServletRequest.getSession();
-        Object userRoleObject = httpSession.getAttribute(JspParameterType.ROLE);
+        Object userRoleObject = httpSession.getAttribute(SessionAttribute.ROLE);
         if (userRoleObject == null) {
-            httpSession.setAttribute(JspParameterType.ROLE, Role.GUEST);
+            httpSession.setAttribute(SessionAttribute.ROLE, Role.GUEST);
             LOGGER.debug("Set guest role to user");
         }
         filterChain.doFilter(request, response);

@@ -3,6 +3,7 @@ package by.epam.agency.command.impl.user;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
@@ -17,11 +18,11 @@ public class UpdateAdminCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        User admin = new User();
+        User admin = (User) request.getSession().getAttribute(SessionAttribute.USER);
         try {
-            initializeAdmin(request, admin);
+            initializeAdminWithNewParameters(request, admin);
             ServiceFactory.getInstance().getUserService().updateAdmin(admin);
-            request.getSession().setAttribute(JspParameterType.USER, admin);
+            request.getSession().setAttribute(SessionAttribute.USER, admin);
             return PageType.USER_INFO_PAGE.getAddress();
         } catch (ServiceException e) {
             LOGGER.error(e);
@@ -29,9 +30,7 @@ public class UpdateAdminCommand implements Command {
         return PageType.HOME_PAGE.getAddress();
     }
 
-    private void initializeAdmin(HttpServletRequest request, User admin) {
-        User user = (User) request.getSession().getAttribute(JspParameterType.USER);
-        admin.setId(user.getUserId());
+    private void initializeAdminWithNewParameters(HttpServletRequest request, User admin) {
         admin.setName(request.getParameter(JspParameterType.NAME));
         admin.setSurname(request.getParameter(JspParameterType.SURNAME));
         admin.setPhone(request.getParameter(JspParameterType.PHONE));

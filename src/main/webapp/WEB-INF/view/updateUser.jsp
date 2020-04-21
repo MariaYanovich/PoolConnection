@@ -6,22 +6,22 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<fmt:setLocale value="${locale}"/>
+<fmt:bundle basename="locale">
+    <%@ taglib prefix="ctg" uri="customTags" %>
 <html lang="en">
 <head>
-    <title>Update user</title>
-    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="ctg" uri="customTags" %>
+    <title><fmt:message key="updateUser.title"/></title>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/css/mainPage.css">
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/fonts/iconic/css/material-design-iconic-font.min.css">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/css/util.css">
     <link rel="stylesheet" type="text/css"
@@ -41,14 +41,14 @@
                 </span>
 
                 <span class="login100-form-title p-b-34 p-t-27">
-                    <c:if test="${sessionScope.role =='CLIENT'}">Update client</c:if>
-                    <c:if test="${sessionScope.role =='ADMIN'}">Update admin</c:if>
+                    <c:if test="${sessionScope.role =='CLIENT'}"><fmt:message key="updateUser.admin"/></c:if>
+                    <c:if test="${sessionScope.role =='ADMIN'}"><fmt:message key="updateUser.client"/></c:if>
                  </span>
 
                 <c:if test="${sessionScope.role =='ADMIN'}">
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="name"
-                               required placeholder="New name"
+                               required placeholder="<fmt:message key="updateUser.newName"/>"
                                pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
@@ -56,7 +56,7 @@
 
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="surname"
-                               required placeholder="New surname"
+                               required placeholder="<fmt:message key="updateUser.newSurname"/>"
                                pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
@@ -64,7 +64,7 @@
 
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="phone"
-                               placeholder="New phone"
+                               placeholder="<fmt:message key="updateUser.newPhone"/>"
                                pattern="[0-9*#+() -]*">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
@@ -80,7 +80,7 @@
                 <c:if test="${sessionScope.role =='CLIENT'}">
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="name"
-                               required placeholder="New name"
+                               required placeholder="<fmt:message key="updateUser.newName"/>"
                                pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
@@ -88,7 +88,7 @@
 
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="surname"
-                               required placeholder="New surname"
+                               required placeholder="<fmt:message key="updateUser.newSurname"/>"
                                pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
@@ -96,7 +96,7 @@
 
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="cash"
-                               required placeholder="Available cash"
+                               required placeholder="<fmt:message key="updateUser.newCash"/>"
                                pattern="^(\d*\.)?\d+$">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
@@ -104,7 +104,7 @@
 
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="phone"
-                               placeholder="New phone"
+                               placeholder="<fmt:message key="updateUser.newPhone"/>"
                                pattern="[0-9*#+() -]*">
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
@@ -120,7 +120,6 @@
         </div>
     </div>
 </div>
-
 <div id="dropDownSelect1"></div>
 <footer>
     <div class="copyrights wrapper">
@@ -129,4 +128,4 @@
 </footer>
 </body>
 </html>
-
+</fmt:bundle>

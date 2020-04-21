@@ -3,6 +3,7 @@ package by.epam.agency.command.impl.tour;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +20,7 @@ public class DeleteCityCommand implements Command {
         try {
             ServiceFactory.getInstance().getCityService().
                     delete(Integer.parseInt(request.getParameter(JspParameterType.CITY)));
-            request.getSession().setAttribute(JspParameterType.CITIES,
+            request.getSession().setAttribute(SessionAttribute.CITIES,
                     ServiceFactory.getInstance().getCityService().getAllCities());
         } catch (ServiceException e) {
             LOGGER.error(e);

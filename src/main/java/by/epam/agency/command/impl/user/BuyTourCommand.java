@@ -1,8 +1,8 @@
 package by.epam.agency.command.impl.user;
 
 import by.epam.agency.command.Command;
-import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.command.util.CommandUtil;
 import by.epam.agency.entity.Order;
 import by.epam.agency.entity.User;
@@ -27,7 +27,7 @@ public class BuyTourCommand implements Command {
             if (order.getUser().getCash() >= order.getPrice()) {
                 buyTourActions(order);
                 new CommandUtil().setOrderSessionAttributes(request, order.getUser(), order.getTour());
-                return PageType.ORDERS_LIST_PAGE.getAddress();
+                return new GetAllOrdersCommand().execute(request, response);
             }
         } catch (ServiceException e) {
             LOGGER.error(e);
@@ -37,12 +37,12 @@ public class BuyTourCommand implements Command {
 
     private void initializeOrder(Order order, HttpServletRequest request) throws ServiceException {
         order.setUser(serviceFactory.getUserService().findUserById(((User) request.getSession().
-                getAttribute(JspParameterType.USER)).getUserId()));
+                getAttribute(SessionAttribute.USER)).getUserId()));
         order.setTour(serviceFactory.getTourService().
                 findTourById(Integer.parseInt((String) request.getSession().
-                        getAttribute(JspParameterType.TOUR_ID))));
+                        getAttribute(SessionAttribute.TOUR_ID))));
         order.setNumber(Integer.parseInt((String) request.getSession().
-                getAttribute(JspParameterType.TOUR_NUMBER)));
+                getAttribute(SessionAttribute.TOUR_NUMBER)));
         double price = countPriceWithDiscount(order);
         order.setPrice(price);
     }

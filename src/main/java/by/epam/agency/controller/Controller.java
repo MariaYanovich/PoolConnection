@@ -2,6 +2,7 @@ package by.epam.agency.controller;
 
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.exception.ConnectionPoolException;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.CommandFactory;
@@ -55,7 +56,7 @@ public class Controller extends HttpServlet {
         ServiceFactory.getInstance().getOrderService().updateOrdersStatus();
         Command command = CommandFactory.getInstance().getCommand(request.getParameter(JspParameterType.COMMAND));
         String nextPage = command.execute(request, response);
-        request.getSession().setAttribute(JspParameterType.PAGE, nextPage);
+        request.getSession().setAttribute(SessionAttribute.PAGE, nextPage);
         request.getRequestDispatcher(nextPage).forward(request, response);
     }
 

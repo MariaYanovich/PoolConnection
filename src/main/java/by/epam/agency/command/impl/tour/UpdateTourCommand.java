@@ -4,6 +4,7 @@ import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.CommandType;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.CommandFactory;
@@ -36,7 +37,7 @@ public class UpdateTourCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String id = (String) request.getSession().getAttribute(JspParameterType.TOUR_ID);
+        String id = (String) request.getSession().getAttribute(SessionAttribute.TOUR_ID);
         try {
             Tour tour = ServiceFactory.getInstance().getTourService().findTourById(Integer.parseInt(id));
             tour.setTourId(Integer.parseInt(id));

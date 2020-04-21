@@ -3,6 +3,7 @@ package by.epam.agency.command.impl.redirect;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.exception.ValidatorException;
 import by.epam.agency.factory.ServiceFactory;
@@ -19,12 +20,12 @@ public class RedirectToSubmitBuyPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String tourNumber = request.getParameter(JspParameterType.TOUR_NUMBER);
-        request.getSession().setAttribute(JspParameterType.TOUR_NUMBER, tourNumber);
+        request.getSession().setAttribute(SessionAttribute.TOUR_NUMBER, tourNumber);
         try {
             new PositiveIntValidator(Integer.parseInt(tourNumber)).validate();
             if (Integer.parseInt(tourNumber) <= ServiceFactory.getInstance().getTourService().
                     findTourById(Integer.parseInt((String) request.getSession().
-                            getAttribute(JspParameterType.TOUR_ID))).getPlaces()) {
+                            getAttribute(SessionAttribute.TOUR_ID))).getPlaces()) {
                 return PageType.SUBMIT_BUY_PAGE.getAddress();
             }
         } catch (ServiceException | ValidatorException e) {

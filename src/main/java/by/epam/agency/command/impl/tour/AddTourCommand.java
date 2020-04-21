@@ -3,6 +3,7 @@ package by.epam.agency.command.impl.tour;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
@@ -46,7 +47,7 @@ public class AddTourCommand implements Command {
             Tour tour = new Tour();
             initializeTour(request, tour);
             ServiceFactory.getInstance().getTourService().addTour(tour);
-            request.getSession().setAttribute(JspParameterType.TOURS,
+            request.getSession().setAttribute(SessionAttribute.TOURS,
                     ServiceFactory.getInstance().getTourService().getAllTours());
         } catch (ServiceException e) {
             LOGGER.error(e);

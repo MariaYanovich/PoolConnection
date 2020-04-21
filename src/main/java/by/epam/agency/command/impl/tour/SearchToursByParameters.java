@@ -3,6 +3,7 @@ package by.epam.agency.command.impl.tour;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.City;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.ServiceException;
@@ -28,7 +29,7 @@ public class SearchToursByParameters implements Command {
             int days = Integer.parseInt(request.getParameter(JspParameterType.DAYS));
             double cost = Double.parseDouble(request.getParameter(JspParameterType.COST));
             tours = ServiceFactory.getInstance().getTourService().searchToursByParameters(city, date, days, cost);
-            request.getSession().setAttribute(JspParameterType.TOURS, tours);
+            request.getSession().setAttribute(SessionAttribute.TOURS, tours);
             return PageType.TOURS_LIST_PAGE.getAddress();
         } catch (ServiceException e) {
             LOGGER.error(e);

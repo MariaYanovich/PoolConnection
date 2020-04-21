@@ -3,6 +3,7 @@ package by.epam.agency.command.impl.tour;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +20,7 @@ public class DeleteTourTypeCommand implements Command {
         try {
             ServiceFactory.getInstance().getTourTypeService().
                     delete(Integer.parseInt(request.getParameter(JspParameterType.TOUR_TYPE)));
-            request.getSession().setAttribute(JspParameterType.TOUR_TYPES,
+            request.getSession().setAttribute(SessionAttribute.TOUR_TYPES,
                     ServiceFactory.getInstance().getTourTypeService().getAllTourTypes());
         } catch (ServiceException e) {
             LOGGER.error(e);

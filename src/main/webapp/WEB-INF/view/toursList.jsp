@@ -1,12 +1,14 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ctg" uri="customTags" %>
+<fmt:setLocale value="${locale}"/>
+<fmt:bundle basename="locale">
 <html lang="en">
 <head>
-    <title>Tours</title>
-    <meta charset="utf-8">
-    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="ctg" uri="customTags" %>
+    <title><fmt:message key="tours.title"/></title>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -42,7 +44,7 @@
     <div class="nanvnav">
         <nav>
             <ul class="dropdown">
-                <li class="drop"><a>Cities</a>
+                <li class="drop"><a><fmt:message key="tour.cities"/></a>
                     <ul class="sub_menu">
                         <li>
                             <jsp:useBean id="cities" scope="session"
@@ -63,7 +65,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="drop"><a>Types</a>
+                <li class="drop"><a><fmt:message key="tour.types"/></a>
                     <ul class="sub_menu">
                         <li>
                             <jsp:useBean id="tour_types" scope="session"
@@ -90,7 +92,7 @@
                         aria-label="Hot"
                         type="submit"
                         name="command"
-                        value="GET_HOT_TOURS">Hot tours
+                        value="GET_HOT_TOURS"><fmt:message key="tour.hot"/>
                 </button>
             </form>
         </nav>
@@ -100,7 +102,7 @@
              scope="session"/>
 <c:if test="${empty tours}">
     <section class="hero">
-        <h1 class="caption">No such tours</h1>
+        <h1 class="caption"><fmt:message key="tour.no"/></h1>
     </section>
 </c:if>
 <c:if test="${not empty tours}">
@@ -120,7 +122,7 @@
                                     <h4 class="price"><c:out
                                             value="${tour.cost}$"/></h4>
                                     <span><c:out
-                                            value="${tour.days}"/> days</span>
+                                            value="${tour.days}"/> <fmt:message key="tour.days"/></span>
                                     <h3><c:out
                                             value="${tour.name} to ${tour.city.city}"/>
                                     </h3>
@@ -158,8 +160,7 @@
                                                     <input type="hidden"
                                                            name="tour_id"
                                                            value="${tour.tourId}"/>
-                                                    do not hot
-                                                </button>
+                                                    <fmt:message key="tour.doNotHot"/>                                                </button>
                                             </c:if>
                                             <c:if test="${tour.tourStatus!='HOT'}">
                                                 <c:if test="${tour.tourStatus!='ARCHIVAL'}">
@@ -171,14 +172,13 @@
                                                         <input type="hidden"
                                                                name="tour_id"
                                                                value="${tour.tourId}"/>
-                                                        do hot
-                                                    </button>
+                                                        <fmt:message key="tour.doHot"/>                                                    </button>
                                                 </c:if>
                                             </c:if>
                                             <c:if test="${tour.tourStatus=='ARCHIVAL'}">
                                                 <button type="button"
                                                         class="btn btn-lg btn-primary"
-                                                        disabled>ARCHIVAL
+                                                        disabled> <fmt:message key="tour.archival"/>
                                                 </button>
                                             </c:if>
                                             <button class="btn btn-danger"
@@ -188,7 +188,7 @@
                                                        name="tour_id"
                                                        value="${tour.tourId}"/>
                                                 <i class="fa fa-trash-o fa-lg"></i>
-                                                Delete
+                                                <fmt:message key="tour.delete"/>
                                             </button>
                                             <c:if test="${tour.tourStatus!='ARCHIVAL'}">
                                                 <button class="btn btn-default btn-sm"
@@ -199,7 +199,7 @@
                                                            name="tour_id"
                                                            value="${tour.tourId}"/>
                                                     <i class="fa fa-cog"></i>
-                                                    Update
+                                                    <fmt:message key="tour.update"/>
                                                 </button>
                                             </c:if>
                                         </form>
@@ -225,7 +225,7 @@
                                         <h4 class="price"><c:out
                                                 value="${tour.cost}$"/></h4>
                                         <span><c:out
-                                                value="${tour.days}"/> days</span>
+                                                value="${tour.days}"/> <fmt:message key="tour.days"/></span>
                                         <h3><c:out
                                                 value="${tour.name} to ${tour.city.city}"/>
                                         </h3>
@@ -262,7 +262,7 @@
                                                         <input type="hidden"
                                                                name="tour_id"
                                                                value="${tour.tourId}"/>
-                                                        Buy
+                                                        <fmt:message key="tour.buy"/>
                                                     </button>
                                                 </form>
                                             </c:if>
@@ -312,3 +312,4 @@
 </footer>
 </body>
 </html>
+</fmt:bundle>

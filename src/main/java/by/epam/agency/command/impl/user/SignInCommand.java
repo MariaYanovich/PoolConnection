@@ -3,6 +3,7 @@ package by.epam.agency.command.impl.user;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
@@ -21,12 +22,12 @@ public class SignInCommand implements Command {
                     signIn(request.getParameter(JspParameterType.LOGIN),
                             request.getParameter(JspParameterType.PASSWORD));
             if (user != null && !user.getRole().equals(Role.BLOCKED)) {
-                session.setAttribute(JspParameterType.USER, user);
-                session.setAttribute(JspParameterType.ROLE, user.getRole());
+                session.setAttribute(SessionAttribute.USER, user);
+                session.setAttribute(SessionAttribute.ROLE, user.getRole());
                 return PageType.HOME_PAGE.getAddress();
             }
         } catch (ServiceException e) {
-            session.setAttribute(JspParameterType.ERROR, "User not found. Create new account, please.");
+            session.setAttribute(SessionAttribute.ERROR, "User not found. Create new account, please.");
         }
         return PageType.REPEAT_SIGN_IN_PAGE.getAddress();
     }

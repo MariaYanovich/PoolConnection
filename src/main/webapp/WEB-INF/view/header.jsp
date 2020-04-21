@@ -16,78 +16,137 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
+    <fmt:setLocale value="${locale}"/>
     <link rel="stylesheet" type="text/css"
           href="${root}/resources/css/mainPage.css">
 </head>
-<header>
-    <div class="wrapper">
-        <a href="#" class="hamburger"></a>
-        <form method="post">
+<fmt:bundle basename="locale">
+    <header>
+        <div class="wrapper">
             <nav>
-                <c:if test="${sessionScope.role=='GUEST'}">
-                    <button class="login_btn" name="address"
-                            value="SIGN_IN_PAGE">Sign in
+                <form method="post">
+                    <c:if test="${sessionScope.role=='GUEST'}">
+                    <button class="login_btn" name="command"
+                            value="redirect"><fmt:message key="button.signIn"/>
+                        <input type="hidden" name="address"
+                               value="SIGN_IN_PAGE"/>
                     </button>
-                    <button class="login_btn" name="address"
-                            value="SIGN_UP_PAGE">Sign up
+                </form>
+                <form method="post">
+                    <button class="login_btn" name="command"
+                            value="redirect"><fmt:message key="button.signUp"/>
+                        <input type="hidden" name="address"
+                               value="SIGN_UP_PAGE"/>
                     </button>
+                </form>
                 </c:if>
                 <c:if test="${sessionScope.role!='GUEST'}">
-                    <button type="submit" class="login_btn"
-                            name="command" value="sign_out">Sign out
-                    </button>
-                    <button class="just_btn" name="address"
-                            value="USER_INFO_PAGE">User info
-                    </button>
-                </c:if>
-                <c:if test="${sessionScope.role !='ADMIN'}">
-                    <button class="just_btn" name="address"
-                            value="CONTACT_PAGE">Contact
-                    </button>
-                </c:if>
-                <c:if test="${sessionScope.role !='GUEST'}">
-                    <button type="submit" class="just_btn" name="command"
-                            value="GET_ORDERS">Orders
-                    </button>
-                </c:if>
-                <c:if test="${sessionScope.role =='ADMIN'}">
                     <form method="post">
-                        <button type="submit" class="just_btn" name="command"
-                                value="GET_USERS_LIST">List of users
+                        <button type="submit" class="login_btn"
+                                name="command" value="sign_out"><fmt:message
+                                key="button.signOut"/>
+                        </button>
+                    </form>
+                    <form method="post">
+                        <button class="just_btn" name="command"
+                                value="redirect"><fmt:message
+                                key="button.userInfo"/>
+                            <input type="hidden" name="address"
+                                   value="USER_INFO_PAGE"/>
                         </button>
                     </form>
                 </c:if>
                 <c:if test="${sessionScope.role !='ADMIN'}">
-                    <button class="just_btn" name="address"
-                            value="ABOUT_PAGE">About
-                    </button>
+                    <form method="post">
+                        <button class="just_btn" name="command"
+                                value="redirect"><fmt:message
+                                key="button.contact"/>
+                            <input type="hidden" name="address"
+                                   value="CONTACT_PAGE"/>
+                        </button>
+                    </form>
+                </c:if>
+                <c:if test="${sessionScope.role !='GUEST'}">
+                    <form method="post">
+                        <button type="submit" class="just_btn" name="command"
+                                value="GET_ORDERS"><fmt:message
+                                key="button.orders"/>
+                        </button>
+                    </form>
                 </c:if>
                 <c:if test="${sessionScope.role =='ADMIN'}">
-                    <button class="just_btn" name="address"
-                            value="CREATE_ADMIN_PAGE">Create admin
-                    </button>
+                    <form method="post">
+                        <button type="submit" class="just_btn" name="command"
+                                value="GET_USERS_LIST"><fmt:message
+                                key="button.listOfUsers"/>
+                        </button>
+                    </form>
                 </c:if>
                 <c:if test="${sessionScope.role !='ADMIN'}">
-                    <button class="just_btn" name="address"
-                            value="SEARCH_PAGE">Search
-                    </button>
+                    <form method="post">
+                        <button class="just_btn" name="command"
+                                value="redirect"><fmt:message
+                                key="button.about"/>
+                            <input type="hidden" name="address"
+                                   value="ABOUT_PAGE"/>
+                        </button>
+                    </form>
                 </c:if>
-                <button type="submit" class="just_btn" name="command"
-                        value="GET_TOURS_LIST">Tours
-                </button>
+                <c:if test="${sessionScope.role =='ADMIN'}">
+                    <form method="post">
+                        <button class="just_btn" name="command"
+                                value="redirect"><fmt:message
+                                key="button.createAdmin"/>
+                        </button>
+                        <input type="hidden" name="address"
+                               value="CREATE_ADMIN_PAGE"/>
+                    </form>
+                </c:if>
+                <c:if test="${sessionScope.role !='ADMIN'}">
+                    <form method="post">
+                        <button class="just_btn" name="command"
+                                value="redirect"><fmt:message
+                                key="button.search"/>
+                        </button>
+                        <input type="hidden" name="address"
+                               value="SEARCH_PAGE"/>
+                    </form>
+                </c:if>
+                <form method="post">
+                    <button type="submit" class="just_btn" name="command"
+                            value="GET_TOURS_LIST"><fmt:message
+                            key="button.tours"/>
+                    </button>
+                </form>
                 <c:if test="${sessionScope.role=='ADMIN'}">
-                    <button class="just_btn" name="address"
-                            value="SERVICE_PAGE">Service
+                <form method="post">
+                    <button class="just_btn" name="command"
+                            value="redirect"><fmt:message key="button.service"/>
+                        <input type="hidden" name="address"
+                               value="SERVICE_PAGE"/>
                     </button>
-                </c:if>
-                <button name="language" type="submit" class="just_btn"
-                        value="ru">DE
-                </button>
-                <button name="language" type="submit" class="just_btn"
-                        value="en">EN
-                </button>
+                    </c:if>
+                </form>
+                <form method="post">
+                    <button type="submit" class="just_btn" name="command"
+                            value="redirect"><fmt:message key="button.home"/>
+                        <input type="hidden" name="address" value="HOME_PAGE"/>
+                    </button>
+                </form>
+                <form method="post">
+                    <button name="language" type="submit" class="just_btn"
+                            value="en" style="padding: 12px 0 0 0;float: left;">
+                        EN |
+                    </button>
+                </form>
+                <form method="post">
+                    <button name="language" type="submit" class="just_btn"
+                            value="de"
+                            style="padding: 12px 0 0 3px;float: left;">DE
+                    </button>
+                </form>
             </nav>
-        </form>
-    </div>
-</header>
-</html>
+        </div>
+    </header>
+    </html>
+</fmt:bundle>

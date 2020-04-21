@@ -1,8 +1,8 @@
 package by.epam.agency.command.impl.tour;
 
 import by.epam.agency.command.Command;
-import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
@@ -25,7 +25,7 @@ public class GetHotToursCommand implements Command {
         } catch (ServiceException e) {
             LOGGER.error(e);
         }
-        request.getSession().setAttribute(JspParameterType.TOURS, tours);
+        request.getSession().setAttribute(SessionAttribute.TOURS, tours);
         return PageType.TOURS_LIST_PAGE.getAddress();
     }
 }
