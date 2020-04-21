@@ -4,6 +4,7 @@ import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.CommandType;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.CommandFactory;
 import by.epam.agency.factory.ServiceFactory;

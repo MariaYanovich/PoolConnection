@@ -21,6 +21,7 @@ public class UpdateClientCommand implements Command {
         try {
             initializeClient(request, client);
             ServiceFactory.getInstance().getUserService().updateClient(client);
+            request.getSession().setAttribute(JspParameterType.USER, client);
             return PageType.USER_INFO_PAGE.getAddress();
         } catch (ServiceException e) {
             LOGGER.error(e);
@@ -29,15 +30,11 @@ public class UpdateClientCommand implements Command {
     }
 
     private void initializeClient(HttpServletRequest request, User client) {
-        client.setId(Integer.parseInt(request.getSession().
-                getAttribute(JspParameterType.USER_ID).toString()));
+        User user = (User) request.getSession().getAttribute(JspParameterType.USER);
+        client.setId(user.getUserId());
         client.setName(request.getParameter(JspParameterType.NAME));
-        request.getSession().setAttribute(JspParameterType.NAME, client.getName());
         client.setSurname(request.getParameter(JspParameterType.SURNAME));
-        request.getSession().setAttribute(JspParameterType.SURNAME, client.getSurname());
         client.setPhone(request.getParameter(JspParameterType.PHONE));
-        request.getSession().setAttribute(JspParameterType.PHONE, client.getPhone());
         client.setCash(Float.parseFloat(request.getParameter(JspParameterType.CASH)));
-        request.getSession().setAttribute(JspParameterType.CASH, client.getCash());
     }
 }

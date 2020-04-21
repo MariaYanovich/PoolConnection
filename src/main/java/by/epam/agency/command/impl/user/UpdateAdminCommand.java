@@ -21,6 +21,7 @@ public class UpdateAdminCommand implements Command {
         try {
             initializeAdmin(request, admin);
             ServiceFactory.getInstance().getUserService().updateAdmin(admin);
+            request.getSession().setAttribute(JspParameterType.USER, admin);
             return PageType.USER_INFO_PAGE.getAddress();
         } catch (ServiceException e) {
             LOGGER.error(e);
@@ -29,14 +30,10 @@ public class UpdateAdminCommand implements Command {
     }
 
     private void initializeAdmin(HttpServletRequest request, User admin) {
-        admin.setId(Integer.parseInt(request.getSession().
-                getAttribute(JspParameterType.USER_ID).toString()));
+        User user = (User) request.getSession().getAttribute(JspParameterType.USER);
+        admin.setId(user.getUserId());
         admin.setName(request.getParameter(JspParameterType.NAME));
-        request.getSession().setAttribute(JspParameterType.NAME, admin.getName());
         admin.setSurname(request.getParameter(JspParameterType.SURNAME));
-        request.getSession().setAttribute(JspParameterType.SURNAME, admin.getSurname());
         admin.setPhone(request.getParameter(JspParameterType.PHONE));
-        request.getSession().setAttribute(JspParameterType.PHONE, admin.getPhone());
-        request.getSession().setAttribute(JspParameterType.CASH, admin.getCash());
     }
 }

@@ -33,27 +33,27 @@
                 </tr>
                 <tr>
                     <td>ID</td>
-                    <td><c:out value="${sessionScope.user_id}"/></td>
+                    <td><c:out value="${sessionScope.user.userId}"/></td>
                 </tr>
                 <tr>
                     <td>LOGIN</td>
-                    <td><c:out value="${sessionScope.login}"/></td>
+                    <td><c:out value="${sessionScope.user.login}"/></td>
                 </tr>
                 <tr>
                     <td>PASSWORD</td>
-                    <td><c:out value="${sessionScope.password}"/></td>
+                    <td><c:out value="${sessionScope.user.password}"/></td>
                 </tr>
                 <tr>
                     <td>NAME</td>
-                    <td><c:out value="${sessionScope.name}"/></td>
+                    <td><c:out value="${sessionScope.user.name}"/></td>
                 </tr>
                 <tr>
                     <td>SURNAME</td>
-                    <td><c:out value="${sessionScope.surname}"/></td>
+                    <td><c:out value="${sessionScope.user.surname}"/></td>
                 </tr>
                 <tr>
                     <td>PHONE</td>
-                    <td><c:out value="${sessionScope.phone}"/></td>
+                    <td><c:out value="${sessionScope.user.phone}"/></td>
                 </tr>
                 <tr>
                     <td>ROLE</td>
@@ -79,32 +79,32 @@
                 </tr>
                 <tr>
                     <td>LOGIN</td>
-                    <td><c:out value="${sessionScope.login}"/></td>
+                    <td><c:out value="${sessionScope.user.login}"/></td>
                 </tr>
                 <tr>
                     <td>PASSWORD</td>
-                    <td><c:out value="${sessionScope.password}"/></td>
+                    <td><c:out value="${sessionScope.user.password}"/></td>
                 </tr>
                 <tr>
                     <td>NAME</td>
-                    <td><c:out value="${sessionScope.name}"/></td>
+                    <td><c:out value="${sessionScope.user.name}"/></td>
                 </tr>
                 <tr>
                     <td>SURNAME</td>
-                    <td><c:out value="${sessionScope.surname}"/></td>
+                    <td><c:out value="${sessionScope.user.surname}"/></td>
                 </tr>
                 <tr>
                     <td>DISCOUNT</td>
                     <td><c:out
-                            value="${sessionScope.discount.discountSize}"/></td>
+                            value="${sessionScope.user.discount.discountSize}"/></td>
                 </tr>
                 <tr>
                     <td>CASH</td>
-                    <td><c:out value="${sessionScope.cash}"/></td>
+                    <td><c:out value="${sessionScope.user.cash}"/></td>
                 </tr>
                 <tr>
                     <td>PHONE</td>
-                    <td><c:out value="${sessionScope.phone}"/></td>
+                    <td><c:out value="${sessionScope.user.phone}"/></td>
                 </tr>
                 <tr>
                     <td>ROLE</td>
@@ -126,8 +126,6 @@
                         <form method="post">
                             <button class="bot1" type="submit" name="command"
                                     value="DELETE_CLIENT">
-                                <input type="hidden" name="user_id"
-                                       value="${sessionScope.user_id}"/>
                                 Delete
                             </button>
                         </form>

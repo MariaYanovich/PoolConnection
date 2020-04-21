@@ -20,7 +20,7 @@ public class SignUpCommand implements Command {
         String page;
         HttpSession session = request.getSession(true);
         try {
-            new CommandUtil().setSessionAttributesForUserAuthorize(session, createClient(request));
+            session.setAttribute(JspParameterType.USER, createClient(request));
             session.setAttribute(JspParameterType.ROLE, Role.CLIENT);
             page = PageType.HOME_PAGE.getAddress();
         } catch (ServiceException e) {

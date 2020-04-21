@@ -41,7 +41,7 @@
                 <div class="wrap-input100"
                      data-validate="Enter login">
                     <h4>Total
-                        price: ${sessionScope.tour.cost * sessionScope.tour_number * sessionScope.discount.discountSize}</h4>
+                        price: ${sessionScope.tour.cost * sessionScope.tour_number * sessionScope.user.discount.discountSize}</h4>
                 </div>
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn" type="submit"

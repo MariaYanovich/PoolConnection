@@ -3,7 +3,6 @@ package by.epam.agency.command.impl.user;
 import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
-import by.epam.agency.command.util.CommandUtil;
 import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
@@ -22,7 +21,8 @@ public class SignInCommand implements Command {
                     signIn(request.getParameter(JspParameterType.LOGIN),
                             request.getParameter(JspParameterType.PASSWORD));
             if (user != null && !user.getRole().equals(Role.BLOCKED)) {
-                new CommandUtil().setSessionAttributesForUserAuthorize(session, user);
+                session.setAttribute(JspParameterType.USER, user);
+                session.setAttribute(JspParameterType.ROLE, user.getRole());
                 return PageType.HOME_PAGE.getAddress();
             }
         } catch (ServiceException e) {

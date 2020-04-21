@@ -4,6 +4,7 @@ import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.CommandType;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
+import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.CommandFactory;
 import by.epam.agency.factory.ServiceFactory;
@@ -20,8 +21,7 @@ public class DeleteClientCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             ServiceFactory.getInstance().getUserService().
-                    deleteClient(Integer.parseInt(request.
-                            getParameter(JspParameterType.USER_ID)));
+                    deleteClient(((User) request.getSession().getAttribute(JspParameterType.USER)).getUserId());
             Command signOut = CommandFactory.getInstance().
                     getCommand(CommandType.SIGN_OUT.toString());
             return signOut.execute(request, response);

@@ -34,22 +34,10 @@ public class CommandUtil {
         request.getSession().setAttribute(JspParameterType.TOUR_TYPES, tourTypes);
     }
 
-    public void setSessionAttributesForUserAuthorize(HttpSession session, User user) {
-        session.setAttribute(JspParameterType.LOGIN, user.getLogin());
-        session.setAttribute(JspParameterType.PASSWORD, user.getPassword());
-        session.setAttribute(JspParameterType.USER_ID, user.getUserId());
-        session.setAttribute(JspParameterType.NAME, user.getName());
-        session.setAttribute(JspParameterType.SURNAME, user.getSurname());
-        session.setAttribute(JspParameterType.DISCOUNT, user.getDiscount());
-        session.setAttribute(JspParameterType.CASH, user.getCash());
-        session.setAttribute(JspParameterType.PHONE, user.getPhone());
-        session.setAttribute(JspParameterType.ROLE, user.getRole());
-    }
 
     public void setOrderSessionAttributes(HttpServletRequest request, User user, Tour tour) {
         request.getSession().setAttribute(JspParameterType.TOUR_NUMBER, tour.getPlaces());
-        request.getSession().setAttribute(JspParameterType.CASH, user.getCash());
-        request.getSession().setAttribute(JspParameterType.DISCOUNT, user.getDiscount());
+        request.getSession().setAttribute(JspParameterType.USER, user);
     }
 
     public void setTourSessionAttribute(HttpServletRequest request) {

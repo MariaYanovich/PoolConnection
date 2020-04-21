@@ -25,10 +25,10 @@
 <section class="hero">
     <c:import url="/WEB-INF/view/header.jsp"/>
     <c:if test="${sessionScope.role =='ADMIN'}">
-        <h1 align="center">Hello, ${sessionScope.name}!</h1>
+        <h1 align="center">Hello, ${sessionScope.user.name}!</h1>
     </c:if>
     <c:if test="${sessionScope.role =='CLIENT'}">
-        <h2 align="center">Hello, ${sessionScope.name}!</h2>
+        <h2 align="center">Hello, ${sessionScope.user.name}!</h2>
     </c:if>
     <section class="caption">
         <h2 class="caption">Find Your Dream Tour</h2>

@@ -5,6 +5,7 @@ import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
 import by.epam.agency.command.util.CommandUtil;
 import by.epam.agency.entity.Order;
+import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
@@ -26,7 +27,7 @@ public class BuyTourCommand implements Command {
             if (order.getUser().getCash() >= order.getPrice()) {
                 buyTourActions(order);
                 new CommandUtil().setOrderSessionAttributes(request, order.getUser(), order.getTour());
-                return PageType.USER_INFO_PAGE.getAddress();
+                return PageType.ORDERS_LIST_PAGE.getAddress();
             }
         } catch (ServiceException e) {
             LOGGER.error(e);
@@ -34,20 +35,9 @@ public class BuyTourCommand implements Command {
         return PageType.NO_MONEY_PAGE.getAddress();
     }
 
-    private void buyTourActions(Order order) throws ServiceException {
-        serviceFactory.getUserService().takeMoney(order.getUser(), order.getPrice());
-        serviceFactory.getTourService().buyTour(order.getTour(), order.getNumber());
-        serviceFactory.getOrderService().createOrder(order);
-        serviceFactory.getOrderService().updateUserDiscount(order.getUser());
-    }
-
-    private double countPriceWithDiscount(Order order) {
-        return order.getUser().getDiscount().getDiscountSize() * order.getTour().getCost() * order.getNumber();
-    }
-
     private void initializeOrder(Order order, HttpServletRequest request) throws ServiceException {
-        order.setUser(serviceFactory.getUserService().findUserById(
-                (Integer) request.getSession().getAttribute(JspParameterType.USER_ID)));
+        order.setUser(serviceFactory.getUserService().findUserById(((User) request.getSession().
+                getAttribute(JspParameterType.USER)).getUserId()));
         order.setTour(serviceFactory.getTourService().
                 findTourById(Integer.parseInt((String) request.getSession().
                         getAttribute(JspParameterType.TOUR_ID))));
@@ -55,6 +45,17 @@ public class BuyTourCommand implements Command {
                 getAttribute(JspParameterType.TOUR_NUMBER)));
         double price = countPriceWithDiscount(order);
         order.setPrice(price);
+    }
+
+    private double countPriceWithDiscount(Order order) {
+        return order.getUser().getDiscount().getDiscountSize() * order.getTour().getCost() * order.getNumber();
+    }
+
+    private void buyTourActions(Order order) throws ServiceException {
+        serviceFactory.getUserService().takeMoney(order.getUser(), order.getPrice());
+        serviceFactory.getTourService().buyTour(order.getTour(), order.getNumber());
+        serviceFactory.getOrderService().createOrder(order);
+        serviceFactory.getOrderService().updateUserDiscount(order.getUser());
     }
 }
 

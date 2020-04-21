@@ -29,7 +29,7 @@ public class CancelBuyingTourCommand implements Command {
             Tour tour = serviceFactory.getTourService().findTourById(order.getTour().getTourId());
             cancelTourActions(order, user, tour);
             new CommandUtil().setOrderSessionAttributes(request, user, tour);
-            return PageType.USER_INFO_PAGE.getAddress();
+            return PageType.ORDERS_LIST_PAGE.getAddress();
         } catch (ServiceException e) {
             LOGGER.error(e);
         }
