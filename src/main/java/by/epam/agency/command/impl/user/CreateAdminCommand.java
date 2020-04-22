@@ -5,6 +5,7 @@ import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +21,7 @@ public class CreateAdminCommand implements Command {
             createAdmin(request);
             return PageType.HOME_PAGE.getAddress();
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.CREATE_ADMIN_COMMAND_ERROR, e);
         }
         return PageType.CREATE_ADMIN_PAGE.getAddress();
     }

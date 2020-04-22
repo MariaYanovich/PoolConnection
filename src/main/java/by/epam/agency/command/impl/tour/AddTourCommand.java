@@ -7,6 +7,7 @@ import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +29,7 @@ public class AddTourCommand implements Command {
         try {
             tour.setImage(request.getPart(JspParameterType.IMAGE).getInputStream());
         } catch (IOException | ServletException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.ADD_TOUR_COMMAND_ERROR, e);
         }
         tour.setDepartureDate(Date.valueOf(request.getParameter(JspParameterType.DEPARTURE_DATE)));
         tour.setTransport(ServiceFactory.getInstance().getTransportService().
@@ -46,7 +47,7 @@ public class AddTourCommand implements Command {
         try {
             Tour tour = new Tour();
             initializeTour(request, tour);
-            ServiceFactory.getInstance().getTourService().addTour(tour);
+            ServiceFactory.getInstance().getTourService().createTour(tour);
             request.getSession().setAttribute(SessionAttribute.TOURS,
                     ServiceFactory.getInstance().getTourService().getAllTours());
         } catch (ServiceException e) {

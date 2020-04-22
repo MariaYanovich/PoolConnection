@@ -15,8 +15,7 @@ public class LanguageFilter implements Filter {
     private static final String ENGLISH = "en";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override
@@ -41,6 +40,5 @@ public class LanguageFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

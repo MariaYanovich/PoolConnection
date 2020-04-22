@@ -1,7 +1,7 @@
 package by.epam.agency.validator;
 
 import by.epam.agency.exception.ValidatorException;
-import by.epam.agency.util.Messages;
+import by.epam.agency.util.Message;
 import by.epam.agency.validator.constants.ValidatorRegex;
 import com.mysql.cj.util.StringUtils;
 
@@ -25,10 +25,10 @@ public class PasswordValidator extends Validator {
             pattern = Pattern.compile(ValidatorRegex.PASSWORD);
             matcher = pattern.matcher(password);
         } catch (NullPointerException e) {
-            throw new ValidatorException(Messages.NULL_PASSWORD_MESSAGE, e);
+            throw new ValidatorException(Message.NULL_PASSWORD, e);
         }
         if (StringUtils.isNullOrEmpty(password) || !matcher.find()) {
-            throw new ValidatorException(Messages.INCORRECT_PASSWORD_MESSAGE);
+            throw new ValidatorException(Message.INCORRECT_PASSWORD);
         }
         if (hasNext()) {
             next.validate();

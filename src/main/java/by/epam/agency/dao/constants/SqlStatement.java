@@ -207,7 +207,6 @@ public class SqlStatement {
     public static final String SUM_ALL_USER_ORDERS_PRICE = "SELECT " +
             "SUM(price) AS user_sum FROM travel_agency_db.order WHERE user_id = ?";
 
-
     private SqlStatement() {
     }
 

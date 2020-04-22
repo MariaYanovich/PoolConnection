@@ -4,7 +4,6 @@ import by.epam.agency.entity.User;
 import by.epam.agency.exception.DAOException;
 
 public interface UserDAO extends DAO<User> {
-
     String findLogin(String login) throws DAOException;
 
     User findUserByLoginAndPassword(String login, String password) throws DAOException;
@@ -22,7 +21,6 @@ public interface UserDAO extends DAO<User> {
     void blockClient(int clientId) throws DAOException;
 
     void unblockClient(int clientId) throws DAOException;
-
 
     void takeMoney(User user, double amount) throws DAOException;
 

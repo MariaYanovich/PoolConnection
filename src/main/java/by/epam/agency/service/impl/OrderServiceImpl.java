@@ -7,6 +7,7 @@ import by.epam.agency.exception.DAOException;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.DAOFactory;
 import by.epam.agency.service.OrderService;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +19,6 @@ public class OrderServiceImpl implements OrderService {
     private OrderDAO orderDAO = DAOFactory.getInstance().getOrderDAO();
 
     private OrderServiceImpl() {
-
     }
 
     public static OrderService getInstance() {
@@ -30,8 +30,8 @@ public class OrderServiceImpl implements OrderService {
         try {
             orderDAO.create(order);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.CREATE_ORDER_ERROR);
+            throw new ServiceException(Message.CREATE_ORDER_ERROR, e);
         }
     }
 
@@ -40,8 +40,8 @@ public class OrderServiceImpl implements OrderService {
         try {
             orderDAO.delete(orderId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.DELETE_ORDER_ERROR);
+            throw new ServiceException(Message.DELETE_ORDER_ERROR, e);
         }
     }
 
@@ -50,8 +50,8 @@ public class OrderServiceImpl implements OrderService {
         try {
             return orderDAO.findById(orderId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.FIND_ORDER_BY_ID_ERROR);
+            throw new ServiceException(Message.FIND_ORDER_BY_ID_ERROR, e);
         }
     }
 
@@ -60,18 +60,18 @@ public class OrderServiceImpl implements OrderService {
         try {
             return orderDAO.getAll();
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.GET_ALL_ORDERS_ERROR);
+            throw new ServiceException(Message.GET_ALL_ORDERS_ERROR, e);
         }
     }
 
     @Override
-    public List<Order> getOrdersByUserId(int userId) throws ServiceException {
+    public List<Order> findOrdersByUserId(int userId) throws ServiceException {
         try {
-            return orderDAO.getOrdersByUserId(userId);
+            return orderDAO.findOrdersByUserId(userId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.FIND_ORDERS_BY_USER_ID_ERROR);
+            throw new ServiceException(Message.FIND_ORDERS_BY_USER_ID_ERROR, e);
         }
     }
 
@@ -80,8 +80,8 @@ public class OrderServiceImpl implements OrderService {
         try {
             orderDAO.updateOrdersStatus();
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.UPDATE_ORDERS_STATUS_ERROR);
+            throw new ServiceException(Message.UPDATE_ORDERS_STATUS_ERROR, e);
         }
     }
 
@@ -90,8 +90,8 @@ public class OrderServiceImpl implements OrderService {
         try {
             orderDAO.updateUserDiscount(user);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.UPDATE_USER_DISCOUNT_ERROR);
+            throw new ServiceException(Message.UPDATE_USER_DISCOUNT_ERROR, e);
         }
     }
 

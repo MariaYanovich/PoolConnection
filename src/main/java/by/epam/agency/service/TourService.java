@@ -8,8 +8,7 @@ import java.sql.Date;
 import java.util.List;
 
 public interface TourService {
-
-    void addTour(Tour tour) throws ServiceException;
+    void createTour(Tour tour) throws ServiceException;
 
     List<Tour> searchToursByParameters(City city, Date departureDate, int days, double cost) throws ServiceException;
 

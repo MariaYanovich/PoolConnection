@@ -1,6 +1,7 @@
 package by.epam.agency.pool;
 
 import by.epam.agency.exception.ConnectionPoolException;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,8 +53,8 @@ public enum ConnectionPool {
                 }
                 isPoolInitiated.set(true);
             } catch (ClassNotFoundException | IOException | SQLException e) {
-                LOGGER.error(e);
-                throw new ConnectionPoolException("Can't initialize connection by.epam.agency.pool", e);
+                LOGGER.error(Message.INITIALIZE_CONNECTION_POOL_ERROR);
+                throw new ConnectionPoolException(Message.INITIALIZE_CONNECTION_POOL_ERROR, e);
             }
         }
     }
@@ -64,7 +65,7 @@ public enum ConnectionPool {
             connection = freeConnections.take();
             usedConnections.add(connection);
         } catch (InterruptedException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.GET_CONNECTION_ERROR);
             Thread.currentThread().interrupt();
         }
         return connection;
@@ -75,7 +76,7 @@ public enum ConnectionPool {
             usedConnections.remove(connection);
             boolean tmp = freeConnections.add(connection);
             if (!tmp) {
-                LOGGER.info("Can't add connection");
+                LOGGER.info(Message.RELEASE_CONNECTION_ERROR);
             }
         }
     }
@@ -95,7 +96,7 @@ public enum ConnectionPool {
             try {
                 DriverManager.deregisterDriver(drivers.nextElement());
             } catch (SQLException e) {
-                LOGGER.error(e);
+                LOGGER.error(Message.DEREGISTER_DRIVERS_ERROR);
             }
         }
     }

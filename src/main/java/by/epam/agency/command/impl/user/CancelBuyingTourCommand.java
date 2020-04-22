@@ -9,6 +9,7 @@ import by.epam.agency.entity.Tour;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,7 +32,7 @@ public class CancelBuyingTourCommand implements Command {
             new CommandUtil().setOrderSessionAttributes(request, user, tour);
             return new GetAllOrdersCommand().execute(request, response);
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.CANCEL_BUYING_TOUR_COMMAND_ERROR, e);
         }
         return PageType.HOME_PAGE.getAddress();
     }

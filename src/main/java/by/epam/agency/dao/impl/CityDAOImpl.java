@@ -7,6 +7,7 @@ import by.epam.agency.entity.City;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
 import by.epam.agency.pool.ProxyConnection;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,8 +39,8 @@ public class CityDAOImpl implements CityDAO {
             statement.setString(CITY_INDEX, city.getCity());
             statement.execute();
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.CREATE_CITY_ERROR);
+            throw new DAOException(Message.CREATE_CITY_ERROR, e);
         }
     }
 
@@ -52,8 +53,8 @@ public class CityDAOImpl implements CityDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.DELETE_CITY_ERROR);
+            throw new DAOException(Message.DELETE_CITY_ERROR, e);
         }
     }
 
@@ -69,8 +70,8 @@ public class CityDAOImpl implements CityDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_CITY_BY_ID_ERROR);
+            throw new DAOException(Message.FIND_CITY_BY_ID_ERROR, e);
         }
         return city;
     }
@@ -88,8 +89,8 @@ public class CityDAOImpl implements CityDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.GET_ALL_CITIES_ERROR);
+            throw new DAOException(Message.GET_ALL_CITIES_ERROR, e);
         }
         return listToReturn;
     }
@@ -106,8 +107,8 @@ public class CityDAOImpl implements CityDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_CITY_ERROR);
+            throw new DAOException(Message.FIND_CITY_ERROR, e);
         }
         return cityToReturn;
     }
@@ -118,13 +119,15 @@ public class CityDAOImpl implements CityDAO {
     }
 
     @Override
-    public void update(City id) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+    public void update(City cityId) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     @Override
-    public void delete(City item) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+    public void delete(City city) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     private static final class CityDAOImplHolder {

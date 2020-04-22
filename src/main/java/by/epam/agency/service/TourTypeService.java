@@ -6,9 +6,9 @@ import by.epam.agency.exception.ServiceException;
 import java.util.List;
 
 public interface TourTypeService {
-    void create(TourType tourType) throws ServiceException;
+    void createTourType(TourType tourType) throws ServiceException;
 
-    void delete(int tourTypeId) throws ServiceException;
+    void deleteTourTypeById(int tourTypeId) throws ServiceException;
 
     TourType findTourTypeById(int tourTypeId) throws ServiceException;
 

@@ -10,6 +10,7 @@ import by.epam.agency.entity.User;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
 import by.epam.agency.pool.ProxyConnection;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -69,12 +70,11 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_USER_BY_ID_ERROR);
+            throw new DAOException(Message.FIND_USER_BY_ID_ERROR, e);
         }
         return user;
     }
-
 
     @Override
     public String findLogin(String userLogin) throws DAOException {
@@ -88,8 +88,8 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_LOGIN_ERROR);
+            throw new DAOException(Message.FIND_LOGIN_ERROR, e);
         }
         return login;
     }
@@ -110,8 +110,8 @@ public class UserDAOImpl implements UserDAO {
                 throw new DAOException();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_USER_BY_LOGIN_AND_PASSWORD_ERROR);
+            throw new DAOException(Message.FIND_USER_BY_LOGIN_AND_PASSWORD_ERROR, e);
         }
         return user;
     }
@@ -123,8 +123,8 @@ public class UserDAOImpl implements UserDAO {
             initializeCreateClientStatement(statement, user);
             statement.execute();
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.CREATE_CLIENT_ERROR);
+            throw new DAOException(Message.CREATE_CLIENT_ERROR, e);
         }
         return findUserByLoginAndPassword(user.getLogin(), String.valueOf(user.getPassword()));
     }
@@ -136,8 +136,8 @@ public class UserDAOImpl implements UserDAO {
             initializeCreateAdminStatement(statement, user);
             statement.execute();
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.CREATE_ADMIN_ERROR);
+            throw new DAOException(Message.CREATE_ADMIN_ERROR, e);
         }
     }
 
@@ -150,8 +150,8 @@ public class UserDAOImpl implements UserDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.DELETE_CLIENT_ERROR);
+            throw new DAOException(Message.DELETE_CLIENT_ERROR, e);
         }
     }
 
@@ -168,8 +168,8 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.GET_ALL_USERS_ERROR);
+            throw new DAOException(Message.GET_ALL_USERS_ERROR, e);
         }
         return listToReturn;
     }
@@ -183,8 +183,8 @@ public class UserDAOImpl implements UserDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.UPDATE_CLIENT_ERROR);
+            throw new DAOException(Message.UPDATE_CLIENT_ERROR, e);
         }
     }
 
@@ -197,8 +197,8 @@ public class UserDAOImpl implements UserDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.UPDATE_ADMIN_ERROR);
+            throw new DAOException(Message.UPDATE_ADMIN_ERROR, e);
         }
     }
 
@@ -211,8 +211,8 @@ public class UserDAOImpl implements UserDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.BLOCK_CLIENT_ERROR);
+            throw new DAOException(Message.BLOCK_CLIENT_ERROR, e);
         }
     }
 
@@ -225,8 +225,8 @@ public class UserDAOImpl implements UserDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.UNBLOCK_CLIENT_ERROR);
+            throw new DAOException(Message.UNBLOCK_CLIENT_ERROR, e);
         }
     }
 
@@ -242,8 +242,8 @@ public class UserDAOImpl implements UserDAO {
             }
             user.setCash(updatedCash);
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.TAKE_MONEY_ERROR);
+            throw new DAOException(Message.TAKE_MONEY_ERROR, e);
         }
     }
 
@@ -259,8 +259,8 @@ public class UserDAOImpl implements UserDAO {
             }
             user.setCash(updatedCash);
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.RETURN_MONEY_ERROR);
+            throw new DAOException(Message.RETURN_MONEY_ERROR, e);
         }
     }
 
@@ -276,7 +276,6 @@ public class UserDAOImpl implements UserDAO {
         user.setPhone(resultSet.getString(SqlColumn.USER_PHONE.toString()));
         user.setRole(Role.valueOf(resultSet.getString(SqlColumn.USER_ROLE.toString()).toUpperCase()));
     }
-
 
     private void initializeCreateClientStatement(PreparedStatement statement, User user) throws SQLException {
         statement.setString(CREATE_CLIENT_LOGIN_INDEX, user.getLogin());
@@ -312,23 +311,27 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void update(User id) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+    public void update(User userId) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     @Override
-    public void create(User item) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+    public void create(User user) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     @Override
-    public void delete(User item) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+    public void delete(User user) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     @Override
-    public void delete(int id) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+    public void delete(int userId) throws DAOException {
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     private static final class UserDAOImplHolder {

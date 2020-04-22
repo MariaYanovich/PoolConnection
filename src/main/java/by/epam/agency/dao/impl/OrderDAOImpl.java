@@ -7,6 +7,7 @@ import by.epam.agency.entity.*;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
 import by.epam.agency.pool.ProxyConnection;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,8 +55,8 @@ public class OrderDAOImpl implements OrderDAO {
             initializeCreateOrderStatement(statement, order);
             statement.execute();
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.CREATE_ORDER_ERROR);
+            throw new DAOException(Message.CREATE_ORDER_ERROR, e);
         }
     }
 
@@ -70,30 +71,9 @@ public class OrderDAOImpl implements OrderDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.DELETE_ORDER_ERROR);
+            throw new DAOException(Message.DELETE_ORDER_ERROR, e);
         }
-    }
-
-    public double getAllUserExpendituresSum(int id) throws DAOException {
-        double sum = 0;
-        try {
-            try (ProxyConnection connection =
-                         new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-                 PreparedStatement statement =
-                         connection.prepareStatement(SqlStatement.SUM_ALL_USER_ORDERS_PRICE)) {
-                statement.setInt(USER_ID_INDEX, id);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        sum = resultSet.getDouble(SqlColumn.USER_SUM.toString());
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
-        }
-        return sum;
     }
 
     @Override
@@ -108,8 +88,8 @@ public class OrderDAOImpl implements OrderDAO {
             }
             user.setDiscount(findDiscountById(updatedDiscountId));
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.UPDATE_USER_DISCOUNT_ERROR);
+            throw new DAOException(Message.UPDATE_USER_DISCOUNT_ERROR, e);
         }
     }
 
@@ -127,8 +107,8 @@ public class OrderDAOImpl implements OrderDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_ORDER_BY_ID_ERROR);
+            throw new DAOException(Message.FIND_ORDER_BY_ID_ERROR, e);
         }
         return order;
     }
@@ -148,14 +128,14 @@ public class OrderDAOImpl implements OrderDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.GET_ALL_ORDERS_ERROR);
+            throw new DAOException(Message.GET_ALL_ORDERS_ERROR, e);
         }
         return listToReturn;
     }
 
     @Override
-    public List<Order> getOrdersByUserId(int userId) throws DAOException {
+    public List<Order> findOrdersByUserId(int userId) throws DAOException {
         List<Order> listToReturn = new ArrayList<>();
         try (ProxyConnection connection =
                      new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
@@ -170,8 +150,8 @@ public class OrderDAOImpl implements OrderDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_ORDERS_BY_USER_ID_ERROR);
+            throw new DAOException(Message.FIND_ORDERS_BY_USER_ID_ERROR, e);
         }
         return listToReturn;
     }
@@ -192,20 +172,42 @@ public class OrderDAOImpl implements OrderDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.UPDATE_ORDERS_STATUS_ERROR);
+            throw new DAOException(Message.UPDATE_ORDERS_STATUS_ERROR, e);
         }
     }
 
-
     @Override
     public void update(Order id) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     @Override
     public void delete(Order order) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
+    }
+
+    private double getAllUserExpendituresSum(int id) throws DAOException {
+        double sum = 0;
+        try {
+            try (ProxyConnection connection =
+                         new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
+                 PreparedStatement statement =
+                         connection.prepareStatement(SqlStatement.SUM_ALL_USER_ORDERS_PRICE)) {
+                statement.setInt(USER_ID_INDEX, id);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        sum = resultSet.getDouble(SqlColumn.USER_SUM.toString());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(Message.GET_ALL_USER_EXPENDITURES_SUM_ERROR);
+            throw new DAOException(Message.GET_ALL_USER_EXPENDITURES_SUM_ERROR, e);
+        }
+        return sum;
     }
 
     private Discount findDiscountById(int discountId) throws DAOException {
@@ -222,8 +224,8 @@ public class OrderDAOImpl implements OrderDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_DISCOUNT_BY_ID_ERROR);
+            throw new DAOException(Message.FIND_DISCOUNT_BY_ID_ERROR, e);
         }
         return discount;
     }

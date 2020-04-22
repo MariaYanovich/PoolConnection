@@ -6,6 +6,7 @@ import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class GetHotToursCommand implements Command {
         try {
             tours = ServiceFactory.getInstance().getTourService().getHotTours();
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.GET_HOT_TOURS_COMMAND_ERROR, e);
         }
         request.getSession().setAttribute(SessionAttribute.TOURS, tours);
         return PageType.TOURS_LIST_PAGE.getAddress();

@@ -41,7 +41,8 @@
 						<i class="zmdi zmdi-landscape"></i>
                     </span>
 
-                    <span class="login100-form-title p-b-34 p-t-27"><fmt:message key="signIn.title"/></span>
+                    <span class="login100-form-title p-b-34 p-t-27"><fmt:message
+                            key="signIn.title"/></span>
 
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="login"
@@ -55,7 +56,8 @@
                     <div class="wrap-input100">
                         <input class="input100" type="password" name="password"
                                pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{8,}$"
-                               required placeholder="<fmt:message key="user.password"/>">
+                               required
+                               placeholder="<fmt:message key="user.password"/>">
                         <span class="focus-input100"
                               data-placeholder="&#xf191;"></span>
                     </div>

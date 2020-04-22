@@ -7,6 +7,7 @@ import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.TourType;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,11 +22,11 @@ public class AddTourTypeCommand implements Command {
         TourType tourType = new TourType();
         tourType.setType(request.getParameter(JspParameterType.TOUR_TYPE));
         try {
-            ServiceFactory.getInstance().getTourTypeService().create(tourType);
+            ServiceFactory.getInstance().getTourTypeService().createTourType(tourType);
             request.getSession().setAttribute(SessionAttribute.TOUR_TYPES,
                     ServiceFactory.getInstance().getTourTypeService().getAllTourTypes());
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.ADD_TOUR_TYPE_COMMAND_ERROR, e);
         }
         return PageType.SERVICE_PAGE.getAddress();
     }

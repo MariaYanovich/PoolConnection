@@ -59,7 +59,7 @@
                                         <li>
                                             <div><fmt:message
                                                     key="contact.email"/></div>
-                                                <div>yourmail@gmail.com</div>
+                                            <div>yourmail@gmail.com</div>
                                         </li>
                                     </ul>
                                 </div>
@@ -95,7 +95,8 @@
                                         </li>
                                         <li><fmt:message
                                                 key="contact.mobile"/>:
-                                            +44 5567 89 3322 332</li>
+                                            +44 5567 89 3322 332
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

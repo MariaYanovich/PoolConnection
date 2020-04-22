@@ -20,6 +20,4 @@ public class ValidatorException extends Exception {
     protected ValidatorException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
-
-
 }

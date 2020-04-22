@@ -43,7 +43,8 @@
                     </tr>
                     <tr>
                         <td><fmt:message key="list.password"/></td>
-                        <td><c:out value="${sessionScope.user.password}"/></td>
+                        <td><c:out
+                                value="${sessionScope.user.passwordStr}"/></td>
                     </tr>
                     <tr>
                         <td><fmt:message key="list.name"/></td>
@@ -67,7 +68,8 @@
                             <form method="post">
                                 <button type="submit" class="bot1"
                                         name="command"
-                                        value="redirect"><fmt:message key="button.update"/>
+                                        value="redirect"><fmt:message
+                                        key="button.update"/>
                                 </button>
                                 <input type="hidden" name="address"
                                        value="UPDATE_USER_PAGE"/>
@@ -86,7 +88,8 @@
                     </tr>
                     <tr>
                         <td><fmt:message key="list.password"/></td>
-                        <td><c:out value="${sessionScope.user.password}"/></td>
+                        <td><c:out
+                                value="${sessionScope.user.passwordStr}"/></td>
                     </tr>
                     <tr>
                         <td><fmt:message key="list.name"/></td>
@@ -119,7 +122,8 @@
                             <form method="post">
                                 <button type="submit" class="bot1"
                                         name="command"
-                                        value="redirect"><fmt:message key="button.update"/>
+                                        value="redirect"><fmt:message
+                                        key="button.update"/>
                                 </button>
                                 <input type="hidden" name="address"
                                        value="UPDATE_USER_PAGE"/>

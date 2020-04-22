@@ -8,6 +8,7 @@ import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.CommandFactory;
 import by.epam.agency.factory.ServiceFactory;
 import by.epam.agency.pool.ConnectionPool;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,11 +26,11 @@ public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Controller.class.getName());
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         try {
             ConnectionPool.INSTANCE.initConnectionPool();
         } catch (ConnectionPoolException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.SERVLET_INIT_ERROR, e);
         }
     }
 
@@ -38,7 +39,7 @@ public class Controller extends HttpServlet {
         try {
             handleRequest(request, response);
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.SERVLET_DO_GET_ERROR, e);
         }
     }
 
@@ -47,7 +48,7 @@ public class Controller extends HttpServlet {
         try {
             handleRequest(request, response);
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.SERVLET_DO_POST_ERROR, e);
         }
     }
 
@@ -65,9 +66,9 @@ public class Controller extends HttpServlet {
         try {
             ConnectionPool.INSTANCE.destroyPool();
         } catch (InterruptedException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.SERVLET_DESTROY_ERROR, e);
         }
         super.destroy();
-        LOGGER.debug("Servlet is destroied");
+        LOGGER.debug(Message.SERVLET_DESTROY);
     }
 }

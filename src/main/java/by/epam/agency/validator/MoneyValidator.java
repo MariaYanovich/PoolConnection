@@ -1,7 +1,7 @@
 package by.epam.agency.validator;
 
 import by.epam.agency.exception.ValidatorException;
-import by.epam.agency.util.Messages;
+import by.epam.agency.util.Message;
 
 public class MoneyValidator extends Validator {
     private double money;
@@ -13,7 +13,7 @@ public class MoneyValidator extends Validator {
     @Override
     public void validate() throws ValidatorException {
         if (money < 0) {
-            throw new ValidatorException(Messages.NEGATIVE_MONEY_MESSAGE);
+            throw new ValidatorException(Message.NEGATIVE_MONEY);
         }
         if (hasNext()) {
             next.validate();

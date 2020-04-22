@@ -1,5 +1,6 @@
 package by.epam.agency.pool;
 
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -58,7 +59,7 @@ public class ProxyConnection implements Connection {
     }
 
     @Override
-    public void close() throws SQLException {
+    public void close() {
         ConnectionPool.INSTANCE.releaseConnection(this);
     }
 
@@ -66,7 +67,7 @@ public class ProxyConnection implements Connection {
         try {
             connection.close();
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.CLOSE_POOL_ERROR);
         }
     }
 

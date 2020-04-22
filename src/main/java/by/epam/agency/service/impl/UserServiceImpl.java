@@ -8,6 +8,7 @@ import by.epam.agency.exception.ServiceException;
 import by.epam.agency.exception.ValidatorException;
 import by.epam.agency.factory.DAOFactory;
 import by.epam.agency.service.UserService;
+import by.epam.agency.util.Message;
 import by.epam.agency.validator.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +21,6 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
 
     private UserServiceImpl() {
-
     }
 
     public static UserService getInstance() {
@@ -36,12 +36,12 @@ public class UserServiceImpl implements UserService {
             if (user != null) {
                 return user;
             } else {
-                LOGGER.error("No such user");
-                throw new ServiceException();
+                LOGGER.error(Message.NO_SUCH_USER_ERROR);
+                throw new ServiceException(Message.NO_SUCH_USER_ERROR);
             }
         } catch (ValidatorException | DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.SIGN_IN_ERROR);
+            throw new ServiceException(Message.SIGN_IN_ERROR, e);
         }
     }
 
@@ -54,11 +54,12 @@ public class UserServiceImpl implements UserService {
                 User user = new User(login, password.toCharArray(), name, surname, phone, Role.ADMIN);
                 userDAO.createAdmin(user);
             } else {
-                throw new ServiceException();
+                LOGGER.error(Message.LOGIN_ALREADY_EXIST_ERROR);
+                throw new ServiceException(Message.LOGIN_ALREADY_EXIST_ERROR);
             }
         } catch (ValidatorException | DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.CREATE_ADMIN_ERROR);
+            throw new ServiceException(Message.CREATE_ADMIN_ERROR, e);
         }
     }
 
@@ -67,8 +68,8 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.findById(userId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.FIND_USER_BY_ID_ERROR);
+            throw new ServiceException(Message.FIND_USER_BY_ID_ERROR, e);
         }
     }
 
@@ -82,11 +83,12 @@ public class UserServiceImpl implements UserService {
                 return userDAO.createClient(new User(login, password.toCharArray(),
                         name, surname, Float.parseFloat(cash), phone));
             } else {
-                throw new ServiceException();
+                LOGGER.error(Message.LOGIN_ALREADY_EXIST_ERROR);
+                throw new ServiceException(Message.LOGIN_ALREADY_EXIST_ERROR);
             }
         } catch (ValidatorException | DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.SIGN_UP_ERROR);
+            throw new ServiceException(Message.SIGN_UP_ERROR, e);
         }
     }
 
@@ -95,7 +97,8 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.deleteClient(clientId);
         } catch (DAOException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.DELETE_CLIENT_ERROR);
+            throw new ServiceException(Message.DELETE_CLIENT_ERROR, e);
         }
     }
 
@@ -104,8 +107,8 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.blockClient(clientId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.BLOCK_CLIENT_ERROR);
+            throw new ServiceException(Message.BLOCK_CLIENT_ERROR, e);
         }
     }
 
@@ -114,8 +117,8 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.unblockClient(clientId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.UNBLOCK_CLIENT_ERROR);
+            throw new ServiceException(Message.UNBLOCK_CLIENT_ERROR, e);
         }
     }
 
@@ -125,8 +128,8 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.getAll();
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.GET_ALL_USERS_ERROR);
+            throw new ServiceException(Message.GET_ALL_USERS_ERROR, e);
         }
     }
 
@@ -138,8 +141,8 @@ public class UserServiceImpl implements UserService {
             validator.validate();
             userDAO.updateAdmin(user);
         } catch (DAOException | ValidatorException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.UPDATE_ADMIN_ERROR);
+            throw new ServiceException(Message.UPDATE_ADMIN_ERROR, e);
         }
     }
 
@@ -151,8 +154,8 @@ public class UserServiceImpl implements UserService {
             validator.validate();
             userDAO.updateClient(user);
         } catch (DAOException | ValidatorException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.UPDATE_CLIENT_ERROR);
+            throw new ServiceException(Message.UPDATE_CLIENT_ERROR, e);
         }
     }
 
@@ -161,8 +164,8 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.takeMoney(user, amount);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.TAKE_MONEY_ERROR);
+            throw new ServiceException(Message.TAKE_MONEY_ERROR, e);
         }
     }
 
@@ -171,11 +174,10 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.returnMoney(user, amount);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.RETURN_MONEY_ERROR);
+            throw new ServiceException(Message.RETURN_MONEY_ERROR, e);
         }
     }
-
 
     private Validator createSignInParametersValidator(String login, String password) {
         Validator loginValidator = new LoginValidator(login);
@@ -231,7 +233,6 @@ public class UserServiceImpl implements UserService {
         surnameValidator.setNext(phoneValidator);
         return nameValidator;
     }
-
 
     private boolean checkLoginExistence(String userLogin) throws DAOException {
         return userDAO.findLogin(userLogin) == null;

@@ -7,6 +7,7 @@ import by.epam.agency.entity.*;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
 import by.epam.agency.pool.ProxyConnection;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -64,8 +65,8 @@ public class TourDAOImpl implements TourDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.DELETE_TOUR_ERROR);
+            throw new DAOException(Message.DELETE_TOUR_ERROR, e);
         }
     }
 
@@ -78,8 +79,8 @@ public class TourDAOImpl implements TourDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.UPDATE_TOUR_ERROR);
+            throw new DAOException(Message.UPDATE_TOUR_ERROR, e);
         }
     }
 
@@ -94,8 +95,8 @@ public class TourDAOImpl implements TourDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.UN_HOT_TOUR_ERROR);
+            throw new DAOException(Message.UN_HOT_TOUR_ERROR, e);
         }
     }
 
@@ -110,8 +111,8 @@ public class TourDAOImpl implements TourDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.SET_HOT_TOUR_ERROR);
+            throw new DAOException(Message.SET_HOT_TOUR_ERROR, e);
         }
     }
 
@@ -127,12 +128,11 @@ public class TourDAOImpl implements TourDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_TOUR_BY_ID_ERROR);
+            throw new DAOException(Message.FIND_TOUR_BY_ID_ERROR, e);
         }
         return tour;
     }
-
 
     @Override
     public List<Tour> getAll() throws DAOException {
@@ -147,12 +147,11 @@ public class TourDAOImpl implements TourDAO {
                 listToReturn.add(tour);
             }
         } catch (IOException | SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.GET_ALL_TOURS_ERROR);
+            throw new DAOException(Message.GET_ALL_TOURS_ERROR, e);
         }
         return listToReturn;
     }
-
 
     @Override
     public void create(Tour tour) throws DAOException {
@@ -161,8 +160,8 @@ public class TourDAOImpl implements TourDAO {
             initializeStatementToCreateTour(statement, tour);
             statement.execute();
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.CREATE_TOUR_ERROR);
+            throw new DAOException(Message.CREATE_TOUR_ERROR, e);
         }
     }
 
@@ -181,8 +180,8 @@ public class TourDAOImpl implements TourDAO {
                 }
             }
         } catch (SQLException | IOException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.GET_HOT_TOURS_ERROR);
+            throw new DAOException(Message.GET_HOT_TOURS_ERROR, e);
         }
         return listToReturn;
     }
@@ -203,8 +202,8 @@ public class TourDAOImpl implements TourDAO {
                 }
             }
         } catch (IOException | SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.SEARCH_TOUR_BY_PARAMETERS_ERROR);
+            throw new DAOException(Message.SEARCH_TOUR_BY_PARAMETERS_ERROR, e);
         }
         return listToReturn;
     }
@@ -224,12 +223,11 @@ public class TourDAOImpl implements TourDAO {
                 }
             }
         } catch (SQLException | IOException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.GET_TOURS_BY_CITY_ID_ERROR);
+            throw new DAOException(Message.GET_TOURS_BY_CITY_ID_ERROR, e);
         }
         return listToReturn;
     }
-
 
     @Override
     public List<Tour> getToursByTourTypeId(int tourTypeId) throws DAOException {
@@ -246,8 +244,8 @@ public class TourDAOImpl implements TourDAO {
                 }
             }
         } catch (SQLException | IOException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.GET_TOURS_BY_TOUR_TYPE_ID_ERROR);
+            throw new DAOException(Message.GET_TOURS_BY_TOUR_TYPE_ID_ERROR, e);
         }
         return listToReturn;
     }
@@ -264,8 +262,8 @@ public class TourDAOImpl implements TourDAO {
             }
             tour.setPlaces(updatedPlaces);
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.BUY_TOUR_ERROR);
+            throw new DAOException(Message.BUY_TOUR_ERROR, e);
         }
     }
 
@@ -281,13 +279,13 @@ public class TourDAOImpl implements TourDAO {
             }
             tour.setPlaces(updatedPlaces);
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.RETURN_TOUR_ERROR);
+            throw new DAOException(Message.RETURN_TOUR_ERROR, e);
         }
     }
 
     @Override
-    public void updateArchiveTours() throws DAOException {
+    public void updateArchivedTours() throws DAOException {
         List<Tour> tours = getAll();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
              PreparedStatement statement = connection.prepareStatement(SqlStatement.SET_ARCHIVE_TOUR)) {
@@ -299,14 +297,15 @@ public class TourDAOImpl implements TourDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.UPDATE_ARCHIVED_TOURS_ERROR);
+            throw new DAOException(Message.UPDATE_ARCHIVED_TOURS_ERROR, e);
         }
     }
 
     @Override
     public void delete(Tour item) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     private City getCityById(int cityId) throws DAOException {

@@ -6,10 +6,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class MoneyValidatorTest {
-    private double money;
-
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
+    private double money;
 
     @Test
     public void validatorForNegative() throws ValidatorException {

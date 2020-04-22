@@ -6,10 +6,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class PositiveIntValidatorTest {
-    private int number;
-
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
+    private int number;
 
     @Test
     public void validatorForZero() throws ValidatorException {

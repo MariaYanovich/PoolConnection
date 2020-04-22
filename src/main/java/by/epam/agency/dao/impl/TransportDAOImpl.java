@@ -7,6 +7,7 @@ import by.epam.agency.entity.Transport;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
 import by.epam.agency.pool.ProxyConnection;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,8 +41,8 @@ public class TransportDAOImpl implements TransportDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_TRANSPORT_BY_ID_ERROR);
+            throw new DAOException(Message.FIND_TRANSPORT_BY_ID_ERROR, e);
         }
         return transport;
     }
@@ -59,8 +60,8 @@ public class TransportDAOImpl implements TransportDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.GET_ALL_TRANSPORTS_ERROR);
+            throw new DAOException(Message.GET_ALL_TRANSPORTS_ERROR, e);
         }
         return listToReturn;
     }
@@ -72,22 +73,26 @@ public class TransportDAOImpl implements TransportDAO {
 
     @Override
     public void update(Transport transportId) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     @Override
     public void create(Transport transport) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     @Override
     public void delete(Transport transport) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     @Override
     public void delete(int transportId) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     private static final class TransportDAOImplHolder {

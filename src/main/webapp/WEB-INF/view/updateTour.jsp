@@ -57,16 +57,20 @@
                         <div class="input-group">
                             <h4><fmt:message
                                     key="updateTour.previousCost"/> ${sessionScope.tour.cost}</h4>
-                            <input class="input--style-1" type="text" name="cost"
+                            <input class="input--style-1" type="text"
+                                   name="cost"
                                    pattern="^(\d*\.)?\d+$" required
-                                   placeholder=<fmt:message key="updateTour.newCost"/>>
+                                   placeholder=<fmt:message
+                                    key="updateTour.newCost"/>>
                         </div>
                         <div class="input-group">
                             <h4><fmt:message
                                     key="updateTour.previousDays"/> ${sessionScope.tour.days}</h4>
-                            <input class="input--style-1" type="text" name="days"
+                            <input class="input--style-1" type="text"
+                                   name="days"
                                    pattern="^[0-9]+$" required
-                                   placeholder=<fmt:message key="updateTour.newDays"/>>
+                                   placeholder=<fmt:message
+                                    key="updateTour.newDays"/>>
                         </div>
                         <div class="input-group">
                             <h4><fmt:message

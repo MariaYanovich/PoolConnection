@@ -7,6 +7,7 @@ import by.epam.agency.command.constants.PageType;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.CommandFactory;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,7 +28,7 @@ public class UnblockClientCommand implements Command {
                     getCommand(CommandType.GET_USERS_LIST.toString());
             return getUsersList.execute(request, response);
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.UNBLOCK_CLIENT_COMMAND_ERROR, e);
         }
         return PageType.HOME_PAGE.getAddress();
     }

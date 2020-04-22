@@ -6,6 +6,7 @@ import by.epam.agency.command.constants.PageType;
 import by.epam.agency.entity.Order;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class GetAllOrdersCommand implements Command {
         try {
             listResults = ServiceFactory.getInstance().getOrderService().getAllOrders();
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.GET_ALL_ORDERS_COMMAND_ERROR, e);
         }
         request.setAttribute(JspParameterType.ORDERS, listResults);
         return PageType.ORDERS_LIST_PAGE.getAddress();

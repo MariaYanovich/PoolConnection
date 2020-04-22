@@ -1,7 +1,7 @@
 package by.epam.agency.validator;
 
 import by.epam.agency.exception.ValidatorException;
-import by.epam.agency.util.Messages;
+import by.epam.agency.util.Message;
 import by.epam.agency.validator.constants.ValidatorRegex;
 import com.mysql.cj.util.StringUtils;
 
@@ -20,10 +20,10 @@ public class ProperNameValidator extends Validator {
             pattern = Pattern.compile(ValidatorRegex.PROPER_NAME);
             matcher = pattern.matcher(properName);
         } catch (NullPointerException e) {
-            throw new ValidatorException(Messages.NULL_PROPER_NAME_MESSAGE, e);
+            throw new ValidatorException(Message.NULL_PROPER_NAME, e);
         }
         if (StringUtils.isNullOrEmpty(properName) || !matcher.find()) {
-            throw new ValidatorException(Messages.INCORRECT_PROPER_NAME_MESSAGE);
+            throw new ValidatorException(Message.INCORRECT_PROPER_NAME);
         }
         if (hasNext()) {
             next.validate();

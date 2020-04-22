@@ -45,7 +45,8 @@
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="login"
                                pattern="[A-Za-z0-9_]+"
-                               required placeholder=<fmt:message key="user.login"/>>
+                               required placeholder=<fmt:message
+                                key="user.login"/>>
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
                     </div>
@@ -53,7 +54,8 @@
                     <div class="wrap-input100">
                         <input class="input100" type="password" name="password"
                                pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{8,}$"
-                               required placeholder=<fmt:message key="user.password"/>>
+                               required placeholder=<fmt:message
+                                key="user.password"/>>
                         <span class="focus-input100"
                               data-placeholder="&#xf191;"></span>
                     </div>
@@ -61,7 +63,8 @@
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="name"
                                pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
-                               required placeholder=<fmt:message key="user.name"/>>
+                               required placeholder=<fmt:message
+                                key="user.name"/>>
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
                     </div>
@@ -69,7 +72,8 @@
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="surname"
                                pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
-                               required placeholder=<fmt:message key="user.surname"/>>
+                               required placeholder=<fmt:message
+                                key="user.surname"/>>
                         <span class="focus-input100"
                               data-placeholder="&#xf207;"></span>
                     </div>

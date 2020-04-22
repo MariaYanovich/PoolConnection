@@ -7,6 +7,7 @@ import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.exception.ValidatorException;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import by.epam.agency.validator.PositiveIntValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,7 +30,7 @@ public class RedirectToSubmitBuyPageCommand implements Command {
                 return PageType.SUBMIT_BUY_PAGE.getAddress();
             }
         } catch (ServiceException | ValidatorException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.REDIRECT_TO_SUBMIT_BUY_PAGE_COMMAND_ERROR, e);
         }
         return PageType.INPUT_TOUR_NUMBER_PAGE.getAddress();
     }

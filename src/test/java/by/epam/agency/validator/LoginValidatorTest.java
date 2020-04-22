@@ -6,10 +6,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class LoginValidatorTest {
-    private String login;
-
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
+    private String login;
 
     @Test
     public void validatorForEmptyString() throws ValidatorException {

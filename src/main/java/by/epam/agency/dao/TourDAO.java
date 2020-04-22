@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface TourDAO extends DAO<Tour> {
-
     void unHotTour(int tourId) throws DAOException;
 
     void setHotTour(int tourId) throws DAOException;
@@ -25,5 +24,5 @@ public interface TourDAO extends DAO<Tour> {
 
     void returnTour(Tour tour, int amount) throws DAOException;
 
-    void updateArchiveTours() throws DAOException;
+    void updateArchivedTours() throws DAOException;
 }

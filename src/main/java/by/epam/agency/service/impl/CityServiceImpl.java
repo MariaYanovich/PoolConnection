@@ -7,6 +7,7 @@ import by.epam.agency.exception.ServiceException;
 import by.epam.agency.exception.ValidatorException;
 import by.epam.agency.factory.DAOFactory;
 import by.epam.agency.service.CityService;
+import by.epam.agency.util.Message;
 import by.epam.agency.validator.ProperNameValidator;
 import by.epam.agency.validator.Validator;
 import org.apache.logging.log4j.LogManager;
@@ -20,7 +21,6 @@ public class CityServiceImpl implements CityService {
     private CityDAO cityDAO = DAOFactory.getInstance().getCityDAO();
 
     private CityServiceImpl() {
-
     }
 
     public static CityService getInstance() {
@@ -28,7 +28,7 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public void create(City city) throws ServiceException {
+    public void createCity(City city) throws ServiceException {
         Validator validator = new ProperNameValidator(city.getCity());
         try {
             validator.validate();
@@ -36,18 +36,18 @@ public class CityServiceImpl implements CityService {
                 cityDAO.create(city);
             }
         } catch (DAOException | ValidatorException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.CREATE_CITY_ERROR);
+            throw new ServiceException(Message.CREATE_CITY_ERROR, e);
         }
     }
 
     @Override
-    public void delete(int cityId) throws ServiceException {
+    public void deleteCityById(int cityId) throws ServiceException {
         try {
             cityDAO.delete(cityId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.DELETE_CITY_ERROR);
+            throw new ServiceException(Message.DELETE_CITY_ERROR, e);
         }
     }
 
@@ -56,8 +56,8 @@ public class CityServiceImpl implements CityService {
         try {
             return cityDAO.findById(cityId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.FIND_CITY_BY_ID_ERROR);
+            throw new ServiceException(Message.FIND_CITY_BY_ID_ERROR, e);
         }
     }
 
@@ -66,8 +66,8 @@ public class CityServiceImpl implements CityService {
         try {
             return cityDAO.getAll();
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.GET_ALL_CITIES_ERROR);
+            throw new ServiceException(Message.GET_ALL_CITIES_ERROR, e);
         }
     }
 

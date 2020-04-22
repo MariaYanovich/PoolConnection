@@ -2,7 +2,7 @@ package by.epam.agency.validator;
 
 
 import by.epam.agency.exception.ValidatorException;
-import by.epam.agency.util.Messages;
+import by.epam.agency.util.Message;
 import by.epam.agency.validator.constants.ValidatorRegex;
 import com.mysql.cj.util.StringUtils;
 
@@ -21,10 +21,10 @@ public class LoginValidator extends Validator {
             pattern = Pattern.compile(ValidatorRegex.LOGIN);
             matcher = pattern.matcher(login);
         } catch (NullPointerException e) {
-            throw new ValidatorException(Messages.NULL_LOGIN_MESSAGE, e);
+            throw new ValidatorException(Message.NULL_LOGIN, e);
         }
         if (StringUtils.isNullOrEmpty(login) || !matcher.find()) {
-            throw new ValidatorException(Messages.INCORRECT_LOGIN_MESSAGE);
+            throw new ValidatorException(Message.INCORRECT_LOGIN);
         }
         if (hasNext()) {
             next.validate();

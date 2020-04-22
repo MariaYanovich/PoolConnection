@@ -6,6 +6,7 @@ import by.epam.agency.command.constants.PageType;
 import by.epam.agency.entity.Order;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,10 +23,10 @@ public class GetOrdersByUserIdCommand implements Command {
         List<Order> listResults = new ArrayList<>();
         try {
             listResults = ServiceFactory.getInstance().getOrderService().
-                    getOrdersByUserId(Integer.parseInt(request.
+                    findOrdersByUserId(Integer.parseInt(request.
                             getParameter(JspParameterType.USER_ID)));
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.GET_ORDERS_BY_USER_ID_COMMAND_ERROR, e);
         }
         request.setAttribute(JspParameterType.ORDERS, listResults);
         return PageType.ORDERS_LIST_PAGE.getAddress();

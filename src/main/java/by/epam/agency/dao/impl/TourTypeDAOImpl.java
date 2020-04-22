@@ -7,6 +7,7 @@ import by.epam.agency.entity.TourType;
 import by.epam.agency.exception.DAOException;
 import by.epam.agency.pool.ConnectionPool;
 import by.epam.agency.pool.ProxyConnection;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,8 +37,8 @@ public class TourTypeDAOImpl implements TourTypeDAO {
             statement.setString(TOUR_TYPE_INDEX, tourType.getType());
             statement.execute();
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.CREATE_TOUR_TYPE_ERROR);
+            throw new DAOException(Message.CREATE_TOUR_TYPE_ERROR, e);
         }
     }
 
@@ -50,8 +51,8 @@ public class TourTypeDAOImpl implements TourTypeDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.DELETE_TOUR_TYPE_ERROR);
+            throw new DAOException(Message.DELETE_TOUR_TYPE_ERROR, e);
         }
     }
 
@@ -67,8 +68,8 @@ public class TourTypeDAOImpl implements TourTypeDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_TOUR_TYPE_BY_ID_ERROR);
+            throw new DAOException(Message.FIND_TOUR_TYPE_BY_ID_ERROR, e);
         }
         return tourType;
     }
@@ -86,8 +87,8 @@ public class TourTypeDAOImpl implements TourTypeDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.GET_ALL_TOUR_TYPES_ERROR);
+            throw new DAOException(Message.GET_ALL_TOUR_TYPES_ERROR, e);
         }
         return listToReturn;
     }
@@ -104,8 +105,8 @@ public class TourTypeDAOImpl implements TourTypeDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DAOException(e);
+            LOGGER.error(Message.FIND_TOUR_TYPE_ERROR);
+            throw new DAOException(Message.FIND_TOUR_TYPE_ERROR, e);
         }
         return type;
     }
@@ -117,12 +118,14 @@ public class TourTypeDAOImpl implements TourTypeDAO {
 
     @Override
     public void update(TourType tourTypeId) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     @Override
     public void delete(TourType item) throws DAOException {
-        throw new DAOException(new UnsupportedOperationException());
+        throw new DAOException(new UnsupportedOperationException(
+                Message.UNSUPPORTED_OPERATION));
     }
 
     private static final class TourTypeDAOImplHolder {

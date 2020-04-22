@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Discount implements Serializable {
-
     private int id;
     private double discountSize;
 
     public Discount() {
-
     }
 
     public Discount(int id, double discountSize) {

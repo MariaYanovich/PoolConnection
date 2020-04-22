@@ -127,7 +127,6 @@ public class Tour implements Serializable {
         this.departureCity = departureCity;
     }
 
-
     public TourStatus getTourStatus() {
         return tourStatus;
     }

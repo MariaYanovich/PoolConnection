@@ -6,10 +6,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class ProperNameValidatorTest {
-    private String properName;
-
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
+    private String properName;
 
     @Test
     public void validatorForEmptyString() throws ValidatorException {

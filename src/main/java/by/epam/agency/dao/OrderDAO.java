@@ -9,7 +9,7 @@ import java.util.List;
 public interface OrderDAO extends DAO<Order> {
     void updateUserDiscount(User user) throws DAOException;
 
-    List<Order> getOrdersByUserId(int userId) throws DAOException;
+    List<Order> findOrdersByUserId(int userId) throws DAOException;
 
     void updateOrdersStatus() throws DAOException;
 }

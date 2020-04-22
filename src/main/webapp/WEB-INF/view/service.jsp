@@ -52,7 +52,8 @@
                         <div class="wrap-input100"
                              data-validate="Enter city">
                             <input class="input100" type="text" name="city"
-                                   required placeholder="<fmt:message key="tour.city"/>">
+                                   required
+                                   placeholder="<fmt:message key="tour.city"/>">
                             <span class="focus-input100"></span>
                         </div>
                         <div class="container-login100-form-btn">
@@ -70,7 +71,8 @@
                         <div class="wrap-input100"
                              data-validate="Enter type">
                             <input class="input100" type="text" name="tour_type"
-                                   required placeholder="<fmt:message key="tour.tourType"/>">
+                                   required
+                                   placeholder="<fmt:message key="tour.tourType"/>">
                             <span class="focus-input100"></span>
                         </div>
                         <div class="container-login100-form-btn">
@@ -87,7 +89,8 @@
                                 key="service.deleteCity"/></span>
                         <div class="wrap-input100">
                             <select name="city">
-                                <option disabled="disabled"><fmt:message key="tour.city"/></option>
+                                <option disabled="disabled"><fmt:message
+                                        key="tour.city"/></option>
                                 <c:forEach items="${sessionScope.cities}"
                                            var="city">
                                     <option value="${city.cityId}">${city.city}</option>
@@ -108,7 +111,8 @@
                                 key="service.deleteTourType"/></span>
                         <div class="wrap-input100">
                             <select name="tour_type">
-                                <option disabled="disabled"><fmt:message key="tour.tourType"/></option>
+                                <option disabled="disabled"><fmt:message
+                                        key="tour.tourType"/></option>
                                 <c:forEach items="${sessionScope.tour_types}"
                                            var="tourType">
                                     <option value="${tourType.tourTypeId}">${tourType.type}</option>

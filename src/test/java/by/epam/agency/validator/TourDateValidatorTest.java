@@ -8,10 +8,9 @@ import org.junit.rules.ExpectedException;
 import java.sql.Date;
 
 public class TourDateValidatorTest {
-    private Date date;
-
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
+    private Date date;
 
     @Test
     public void validatorForDateBefore() throws ValidatorException {

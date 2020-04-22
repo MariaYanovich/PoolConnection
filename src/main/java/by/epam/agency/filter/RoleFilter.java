@@ -3,8 +3,6 @@ package by.epam.agency.filter;
 
 import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.Role;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +11,8 @@ import java.io.IOException;
 
 public class RoleFilter implements Filter {
 
-    private static final Logger LOGGER = LogManager.getLogger(RoleFilter.class.getName());
-
-
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override
@@ -28,14 +22,11 @@ public class RoleFilter implements Filter {
         Object userRoleObject = httpSession.getAttribute(SessionAttribute.ROLE);
         if (userRoleObject == null) {
             httpSession.setAttribute(SessionAttribute.ROLE, Role.GUEST);
-            LOGGER.debug("Set guest role to user");
         }
         filterChain.doFilter(request, response);
     }
 
     @Override
     public void destroy() {
-
     }
-
 }

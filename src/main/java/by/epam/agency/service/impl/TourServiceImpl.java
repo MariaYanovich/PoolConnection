@@ -8,6 +8,7 @@ import by.epam.agency.exception.ServiceException;
 import by.epam.agency.exception.ValidatorException;
 import by.epam.agency.factory.DAOFactory;
 import by.epam.agency.service.TourService;
+import by.epam.agency.util.Message;
 import by.epam.agency.validator.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +22,6 @@ public class TourServiceImpl implements TourService {
     private TourDAO tourDAO = DAOFactory.getInstance().getTourDAO();
 
     private TourServiceImpl() {
-
     }
 
     public static TourService getInstance() {
@@ -29,14 +29,14 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public void addTour(Tour tour) throws ServiceException {
-        Validator validator = createAddTourParametersValidator(tour);
+    public void createTour(Tour tour) throws ServiceException {
+        Validator validator = createTourParametersValidatorForNewTour(tour);
         try {
             validator.validate();
             tourDAO.create(tour);
         } catch (DAOException | ValidatorException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.CREATE_TOUR_ERROR);
+            throw new ServiceException(Message.CREATE_TOUR_ERROR, e);
         }
     }
 
@@ -47,8 +47,8 @@ public class TourServiceImpl implements TourService {
             validator.validate();
             tourDAO.update(tour);
         } catch (DAOException | ValidatorException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.UPDATE_TOUR_ERROR);
+            throw new ServiceException(Message.UPDATE_TOUR_ERROR, e);
         }
     }
 
@@ -57,8 +57,8 @@ public class TourServiceImpl implements TourService {
         try {
             return tourDAO.findById(tourId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.FIND_TOUR_BY_ID_ERROR);
+            throw new ServiceException(Message.FIND_TOUR_BY_ID_ERROR, e);
         }
     }
 
@@ -69,8 +69,8 @@ public class TourServiceImpl implements TourService {
             validator.validate();
             return tourDAO.searchTourByParameters(city, departureDate, days, cost);
         } catch (DAOException | ValidatorException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.SEARCH_TOUR_BY_PARAMETERS_ERROR);
+            throw new ServiceException(Message.SEARCH_TOUR_BY_PARAMETERS_ERROR, e);
         }
     }
 
@@ -79,8 +79,8 @@ public class TourServiceImpl implements TourService {
         try {
             return tourDAO.getAll();
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.GET_ALL_TOURS_ERROR);
+            throw new ServiceException(Message.GET_ALL_TOURS_ERROR, e);
         }
     }
 
@@ -89,8 +89,8 @@ public class TourServiceImpl implements TourService {
         try {
             return tourDAO.getHotTours();
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.GET_HOT_TOURS_ERROR);
+            throw new ServiceException(Message.GET_HOT_TOURS_ERROR, e);
         }
     }
 
@@ -99,8 +99,8 @@ public class TourServiceImpl implements TourService {
         try {
             return tourDAO.getToursByCityId(cityId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.GET_TOURS_BY_CITY_ID_ERROR);
+            throw new ServiceException(Message.GET_TOURS_BY_CITY_ID_ERROR, e);
         }
     }
 
@@ -109,8 +109,8 @@ public class TourServiceImpl implements TourService {
         try {
             return tourDAO.getToursByTourTypeId(tourTypeId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.GET_TOURS_BY_TOUR_TYPE_ID_ERROR);
+            throw new ServiceException(Message.GET_TOURS_BY_TOUR_TYPE_ID_ERROR, e);
         }
     }
 
@@ -119,8 +119,8 @@ public class TourServiceImpl implements TourService {
         try {
             tourDAO.unHotTour(tourId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.UN_HOT_TOUR_ERROR);
+            throw new ServiceException(Message.UN_HOT_TOUR_ERROR, e);
         }
     }
 
@@ -129,8 +129,8 @@ public class TourServiceImpl implements TourService {
         try {
             tourDAO.delete(tourId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.DELETE_TOUR_ERROR);
+            throw new ServiceException(Message.DELETE_TOUR_ERROR, e);
         }
     }
 
@@ -139,8 +139,8 @@ public class TourServiceImpl implements TourService {
         try {
             tourDAO.setHotTour(tourId);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.SET_HOT_TOUR_ERROR);
+            throw new ServiceException(Message.SET_HOT_TOUR_ERROR, e);
         }
     }
 
@@ -149,8 +149,8 @@ public class TourServiceImpl implements TourService {
         try {
             tourDAO.buyTour(tour, amount);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.BUY_TOUR_ERROR);
+            throw new ServiceException(Message.BUY_TOUR_ERROR, e);
         }
     }
 
@@ -159,22 +159,22 @@ public class TourServiceImpl implements TourService {
         try {
             tourDAO.returnTour(tour, amount);
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.RETURN_TOUR_ERROR);
+            throw new ServiceException(Message.RETURN_TOUR_ERROR, e);
         }
     }
 
     @Override
     public void updateArchivedTours() throws ServiceException {
         try {
-            tourDAO.updateArchiveTours();
+            tourDAO.updateArchivedTours();
         } catch (DAOException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
+            LOGGER.error(Message.UPDATE_ARCHIVED_TOURS_ERROR);
+            throw new ServiceException(Message.UPDATE_ARCHIVED_TOURS_ERROR, e);
         }
     }
 
-    private Validator createAddTourParametersValidator(Tour tour) {
+    private Validator createTourParametersValidatorForNewTour(Tour tour) {
         Validator nameValidator = new ProperNameValidator(tour.getName());
         Validator costValidator = new MoneyValidator(tour.getCost());
         Validator daysValidator = new PositiveIntValidator(tour.getDays());

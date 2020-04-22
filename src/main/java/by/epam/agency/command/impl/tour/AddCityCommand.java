@@ -7,6 +7,7 @@ import by.epam.agency.command.constants.SessionAttribute;
 import by.epam.agency.entity.City;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,11 +22,11 @@ public class AddCityCommand implements Command {
         City city = new City();
         city.setCity(request.getParameter(JspParameterType.CITY));
         try {
-            ServiceFactory.getInstance().getCityService().create(city);
+            ServiceFactory.getInstance().getCityService().createCity(city);
             request.getSession().setAttribute(SessionAttribute.CITIES,
                     ServiceFactory.getInstance().getCityService().getAllCities());
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.ADD_CITY_COMMAND_ERROR, e);
         }
         return PageType.SERVICE_PAGE.getAddress();
     }

@@ -11,17 +11,6 @@ public class Order implements Serializable {
     private double price;
     private OrderStatus orderStatus;
 
-    public Order() {
-    }
-
-    public Order(int orderId, User user, Tour tour, int number, double price) {
-        this.orderId = orderId;
-        this.user = user;
-        this.tour = tour;
-        this.number = number;
-        this.price = price;
-    }
-
     public int getOrderId() {
         return orderId;
     }

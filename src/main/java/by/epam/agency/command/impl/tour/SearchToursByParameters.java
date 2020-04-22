@@ -8,6 +8,7 @@ import by.epam.agency.entity.City;
 import by.epam.agency.entity.Tour;
 import by.epam.agency.exception.ServiceException;
 import by.epam.agency.factory.ServiceFactory;
+import by.epam.agency.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,7 +33,7 @@ public class SearchToursByParameters implements Command {
             request.getSession().setAttribute(SessionAttribute.TOURS, tours);
             return PageType.TOURS_LIST_PAGE.getAddress();
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(Message.SEARCH_TOURS_BY_PARAMETERS_COMMAND_ERROR, e);
         }
         return PageType.SEARCH_PAGE.getAddress();
     }
