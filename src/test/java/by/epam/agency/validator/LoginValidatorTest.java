@@ -1,0 +1,43 @@
+package by.epam.agency.validator;
+
+import by.epam.agency.exception.ValidatorException;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+public class LoginValidatorTest {
+    private String login;
+
+    @Rule
+    public ExpectedException exceptionRule = ExpectedException.none();
+
+    @Test
+    public void validatorForEmptyString() throws ValidatorException {
+        login = "";
+        action();
+    }
+
+    @Test
+    public void validatorForNull() throws ValidatorException {
+        login = null;
+        action();
+    }
+
+    @Test
+    public void validatorForSymbols() throws ValidatorException {
+        login = "...,!.";
+        action();
+    }
+
+    @Test
+    public void validatorForRussianSymbols() throws ValidatorException {
+        login = "привет";
+        action();
+    }
+
+    private void action() throws ValidatorException {
+        exceptionRule.expect(ValidatorException.class);
+        Validator validator = new LoginValidator(login);
+        validator.validate();
+    }
+}
