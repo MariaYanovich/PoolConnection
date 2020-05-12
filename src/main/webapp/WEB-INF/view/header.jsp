@@ -24,30 +24,34 @@
     <header>
         <div class="wrapper">
             <nav>
-                <form method="post">
-                    <c:if test="${sessionScope.role=='GUEST'}">
-                    <button class="login_btn" name="command"
-                            value="redirect"><fmt:message key="button.signIn"/>
-                        <input type="hidden" name="address"
-                               value="SIGN_IN_PAGE"/>
-                    </button>
-                </form>
-                <form method="post">
-                    <button class="login_btn" name="command"
-                            value="redirect"><fmt:message key="button.signUp"/>
-                        <input type="hidden" name="address"
-                               value="SIGN_UP_PAGE"/>
-                    </button>
-                </form>
-                </c:if>
-                <c:if test="${sessionScope.role!='GUEST'}">
-                    <form method="post">
-                        <button type="submit" class="login_btn"
-                                name="command" value="sign_out"><fmt:message
-                                key="button.signOut"/>
+                <c:if test="${sessionScope.role=='GUEST'}">
+                    <form method="get">
+                        <button class="login_btn" name="command"
+                                value="redirect"><fmt:message
+                                key="button.signIn"/>
+                            <input type="hidden" name="address"
+                                   value="SIGN_IN_PAGE"/>
                         </button>
                     </form>
-                    <form method="post">
+                    <form method="get">
+                        <button class="login_btn" name="command"
+                                value="redirect"><fmt:message
+                                key="button.signUp"/>
+                            <input type="hidden" name="address"
+                                   value="SIGN_UP_PAGE"/>
+                        </button>
+                    </form>
+                </c:if>
+                <c:if test="${sessionScope.role!='GUEST'}">
+                    <form method="post"
+                          action="${pageContext.request.contextPath}/">
+                        <button type="submit" class="login_btn"
+                                name="command" value="SIGN_OUT">
+                            <fmt:message
+                                    key="button.signOut"/>
+                        </button>
+                    </form>
+                    <form method="get">
                         <button class="just_btn" name="command"
                                 value="redirect"><fmt:message
                                 key="button.userInfo"/>
@@ -57,7 +61,7 @@
                     </form>
                 </c:if>
                 <c:if test="${sessionScope.role !='ADMIN'}">
-                    <form method="post">
+                    <form method="get">
                         <button class="just_btn" name="command"
                                 value="redirect"><fmt:message
                                 key="button.contact"/>
@@ -67,7 +71,7 @@
                     </form>
                 </c:if>
                 <c:if test="${sessionScope.role !='GUEST'}">
-                    <form method="post">
+                    <form method="get">
                         <button type="submit" class="just_btn" name="command"
                                 value="GET_ORDERS"><fmt:message
                                 key="button.orders"/>
@@ -75,7 +79,7 @@
                     </form>
                 </c:if>
                 <c:if test="${sessionScope.role =='ADMIN'}">
-                    <form method="post">
+                    <form method="get">
                         <button type="submit" class="just_btn" name="command"
                                 value="GET_USERS_LIST"><fmt:message
                                 key="button.listOfUsers"/>
@@ -83,7 +87,7 @@
                     </form>
                 </c:if>
                 <c:if test="${sessionScope.role !='ADMIN'}">
-                    <form method="post">
+                    <form method="get">
                         <button class="just_btn" name="command"
                                 value="redirect"><fmt:message
                                 key="button.about"/>
@@ -93,7 +97,7 @@
                     </form>
                 </c:if>
                 <c:if test="${sessionScope.role =='ADMIN'}">
-                    <form method="post">
+                    <form method="get">
                         <button class="just_btn" name="command"
                                 value="redirect"><fmt:message
                                 key="button.createAdmin"/>
@@ -103,7 +107,7 @@
                     </form>
                 </c:if>
                 <c:if test="${sessionScope.role !='ADMIN'}">
-                    <form method="post">
+                    <form method="get">
                         <button class="just_btn" name="command"
                                 value="redirect"><fmt:message
                                 key="button.search"/>
@@ -112,14 +116,14 @@
                                value="SEARCH_PAGE"/>
                     </form>
                 </c:if>
-                <form method="post">
+                <form method="get">
                     <button type="submit" class="just_btn" name="command"
                             value="GET_TOURS_LIST"><fmt:message
                             key="button.tours"/>
                     </button>
                 </form>
                 <c:if test="${sessionScope.role=='ADMIN'}">
-                <form method="post">
+                <form method="get">
                     <button class="just_btn" name="command"
                             value="redirect"><fmt:message key="button.service"/>
                         <input type="hidden" name="address"
@@ -127,21 +131,21 @@
                     </button>
                     </c:if>
                 </form>
-                <form method="post">
+                <form method="get">
                     <button type="submit" class="just_btn" name="command"
                             value="redirect"><fmt:message key="button.home"/>
                         <input type="hidden" name="address" value="HOME_PAGE"/>
                     </button>
                 </form>
-                <form method="post">
+                <form method="get">
                     <button name="language" type="submit" class="just_btn"
-                            value="en" style="padding: 12px 0 0 0;float: left;">
+                            value="EN" style="padding: 12px 0 0 0;float: left;">
                         EN |
                     </button>
                 </form>
-                <form method="post">
+                <form method="get">
                     <button name="language" type="submit" class="just_btn"
-                            value="de"
+                            value="DE"
                             style="padding: 12px 0 0 3px;float: left;">DE
                     </button>
                 </form>

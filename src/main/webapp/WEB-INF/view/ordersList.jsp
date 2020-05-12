@@ -54,7 +54,7 @@
                                         <form method="post">
                                             <button class="bot1" type="submit"
                                                     name="command"
-                                                    value="cancel_buying_tour">
+                                                    value="CANCEL_BUYING_TOUR">
                                                 <input type="hidden"
                                                        name="order_id"
                                                        value="${order.orderId}"/>
@@ -101,10 +101,5 @@
         </div>
     </section>
     </body>
-    <footer>
-        <div class="copyrights wrapper">
-            <ctg:copyrightTag/>
-        </div>
-    </footer>
     </html>
 </fmt:bundle>

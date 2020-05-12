@@ -102,7 +102,7 @@ public class Message {
     public static final String SET_HOT_TOUR_COMMAND_ERROR = "Error while doing set hot tour command";
     public static final String UN_HOT_TOUR_COMMAND_ERROR = "Error while doing un hot tour command";
     public static final String UPDATE_TOUR_COMMAND_ERROR = "Error while doing update tour command";
-
+    public static final String ROLE_FILTER_ERROR = "Error while update tours";
 
     private Message() {
     }

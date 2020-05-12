@@ -52,7 +52,7 @@
                                 <jsp:useBean id="cities" scope="session"
                                              type="java.util.List"/>
                                 <c:forEach items="${cities}" var="city">
-                                    <form method="post" name="cities">
+                                    <form method="get">
                                         <button class="btn btn-outline-info btn-lg btn-block"
                                                 aria-label="Cities"
                                                 type="submit"
@@ -74,7 +74,7 @@
                                 <jsp:useBean id="tour_types" scope="session"
                                              type="java.util.List"/>
                                 <c:forEach items="${tour_types}" var="tourType">
-                                    <form method="post" name="tourTypes">
+                                    <form method="get">
                                         <button class="btn btn-outline-info btn-lg btn-block"
                                                 aria-label="TourType"
                                                 type="submit"
@@ -91,7 +91,7 @@
                         </ul>
                     </li>
                 </ul>
-                <form method="post" name="hotTours">
+                <form method="get">
                     <button class="btn btn-info btn-lg"
                             aria-label="Hot"
                             type="submit"
@@ -269,7 +269,8 @@
                                             </div>
                                             <div style="padding-top: 5px">
                                                 <c:if test="${sessionScope.role =='CLIENT'}">
-                                                    <form method="post">
+                                                    <form method="post"
+                                                          action="${pageContext.request.contextPath}/">
                                                         <button class="btn btn-info"
                                                                 type="submit"
                                                                 name="command"

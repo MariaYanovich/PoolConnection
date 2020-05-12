@@ -4,6 +4,7 @@ import by.epam.agency.command.Command;
 import by.epam.agency.command.constants.JspParameterType;
 import by.epam.agency.command.constants.PageType;
 import by.epam.agency.command.constants.SessionAttribute;
+import by.epam.agency.command.impl.HomeCommand;
 import by.epam.agency.entity.Role;
 import by.epam.agency.entity.User;
 import by.epam.agency.exception.ServiceException;
@@ -26,7 +27,7 @@ public class SignUpCommand implements Command {
         try {
             session.setAttribute(SessionAttribute.USER, createClient(request));
             session.setAttribute(SessionAttribute.ROLE, Role.CLIENT);
-            page = PageType.HOME_PAGE.getAddress();
+            page = new HomeCommand().execute(request, response);
         } catch (ServiceException e) {
             page = PageType.SIGN_UP_PAGE.getAddress();
             LOGGER.error(Message.SIGN_UP_COMMAND_ERROR, e);

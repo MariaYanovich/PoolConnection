@@ -35,8 +35,8 @@
         <div class="container-login100"
              style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg');">
             <div class="wrap-login100">
-
-                <form class="login100-form validate-form" method="post">
+                <form method="post"
+                      action="${pageContext.request.contextPath}/">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
                     </span>
@@ -64,7 +64,7 @@
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn" type="submit"
-                                name="command" value="sign_in">OK
+                                name="command" value="SIGN_IN">OK
                         </button>
                     </div>
                 </form>

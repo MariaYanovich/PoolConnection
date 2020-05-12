@@ -65,7 +65,7 @@
                     <tr>
                         <td><fmt:message key="userInfo.update"/></td>
                         <td>
-                            <form method="post">
+                            <form method="get">
                                 <button type="submit" class="bot1"
                                         name="command"
                                         value="redirect"><fmt:message
@@ -119,7 +119,7 @@
                     <tr>
                         <td><fmt:message key="userInfo.update"/></td>
                         <td>
-                            <form method="post">
+                            <form method="get">
                                 <button type="submit" class="bot1"
                                         name="command"
                                         value="redirect"><fmt:message

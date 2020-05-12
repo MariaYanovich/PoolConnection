@@ -33,7 +33,7 @@
     <div class="limiter">
         <div class="container-login100"
              style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg');">
-            <form class="login100-form validate-form" method="post">
+            <form method="get">
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn"
                             name="command" value="redirect">
@@ -46,7 +46,8 @@
             <div class="container-login100"
                  style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg');">
                 <div class="wrap-login100">
-                    <form class="login100-form validate-form" method="post">
+                    <form method="post"
+                          action="${pageContext.request.contextPath}/">
                         <span class="login100-form-title p-b-34 p-t-27"><fmt:message
                                 key="service.newCity"/>y</span>
                         <div class="wrap-input100"
@@ -65,7 +66,8 @@
                     </form>
                 </div>
                 <div class="wrap-login100">
-                    <form class="login100-form validate-form" method="post">
+                    <form method="post"
+                          action="${pageContext.request.contextPath}/">
                         <span class="login100-form-title p-b-34 p-t-27"><fmt:message
                                 key="service.newTourType"/></span>
                         <div class="wrap-input100"
@@ -84,7 +86,8 @@
                     </form>
                 </div>
                 <div class="wrap-login100">
-                    <form class="login100-form validate-form" method="post">
+                    <form method="post"
+                          action="${pageContext.request.contextPath}/">
                         <span class="login100-form-title p-b-34 p-t-27"><fmt:message
                                 key="service.deleteCity"/></span>
                         <div class="wrap-input100">
@@ -106,7 +109,8 @@
                     </form>
                 </div>
                 <div class="wrap-login100">
-                    <form class="login100-form validate-form" method="post">
+                    <form method="post"
+                          action="${pageContext.request.contextPath}/">
                         <span class="login100-form-title p-b-34 p-t-27"><fmt:message
                                 key="service.deleteTourType"/></span>
                         <div class="wrap-input100">

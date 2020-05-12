@@ -53,7 +53,8 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title"><fmt:message key="addTour.title"/></h2>
-                    <form method="post" name="add_tour"
+                    <form method="post"
+                          action="${pageContext.request.contextPath}/"
                           enctype="multipart/form-data">
                         <div class="input-group">
                             <input class="input--style-1" type="text"
@@ -170,7 +171,7 @@
                         </div>
                         <button type="submit" class="btn btn-info"
                                 aria-label="UnHot"
-                                name="command" value="add_tour"><fmt:message
+                                name="command" value="ADD_TOUR"><fmt:message
                                 key="button.submit"/>
                         </button>
                     </form>

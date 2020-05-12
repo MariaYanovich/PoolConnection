@@ -35,15 +35,16 @@
         <div class="container-login100"
              style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg')">
             <div class="wrap-login100">
-                <form class="login100-form validate-form" method="post">
+                <form method="post"
+                      action="${pageContext.request.contextPath}/">
                 <span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
                 </span>
 
                     <span class="login100-form-title p-b-34 p-t-27">
-                    <c:if test="${sessionScope.role =='CLIENT'}"><fmt:message
-                            key="updateUser.admin"/></c:if>
                     <c:if test="${sessionScope.role =='ADMIN'}"><fmt:message
+                            key="updateUser.admin"/></c:if>
+                    <c:if test="${sessionScope.role =='CLIENT'}"><fmt:message
                             key="updateUser.client"/></c:if>
                  </span>
 

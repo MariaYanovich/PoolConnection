@@ -19,7 +19,7 @@ public class CreateAdminCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             createAdmin(request);
-            return PageType.HOME_PAGE.getAddress();
+            return PageType.USERS_LIST_PAGE.getAddress();
         } catch (ServiceException e) {
             LOGGER.error(Message.CREATE_ADMIN_COMMAND_ERROR, e);
         }

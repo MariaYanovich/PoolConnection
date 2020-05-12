@@ -52,7 +52,8 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title"><fmt:message key="updateTour.title"/></h2>
-                    <form method="post" name="update_tour"
+                    <form method="post"
+                          action="${pageContext.request.contextPath}/"
                           enctype="multipart/form-data">
                         <div class="input-group">
                             <h4><fmt:message

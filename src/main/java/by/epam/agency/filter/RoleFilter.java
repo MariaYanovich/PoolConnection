@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class RoleFilter implements Filter {
-
     @Override
     public void init(FilterConfig filterConfig) {
     }

@@ -38,7 +38,7 @@
             <div class="wrap-login100">
                 <p align="center">There is no such user, try to sign in again
                     :)</p>
-                <form class="login100-form validate-form" method="post">
+                <form method="post">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
                     </span>
@@ -66,7 +66,7 @@
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn" type="submit"
-                                name="command" value="sign_in">OK
+                                name="command" value="SIGN_IN">OK
                         </button>
                     </div>
                 </form>

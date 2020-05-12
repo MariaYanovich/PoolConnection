@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,8 +160,8 @@ public class UserDAOImpl implements UserDAO {
     public List<User> getAll() throws DAOException {
         List<User> listToReturn = new ArrayList<>();
         try (ProxyConnection connection = new ProxyConnection(ConnectionPool.INSTANCE.getConnection());
-             PreparedStatement statement = connection.prepareStatement(SqlStatement.GET_ALL_USERS)) {
-            try (ResultSet resultSet = statement.executeQuery()) {
+             Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(SqlStatement.GET_ALL_USERS)) {
                 while (resultSet.next()) {
                     User user = new User();
                     initializeUser(user, resultSet);

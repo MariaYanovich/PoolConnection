@@ -50,7 +50,7 @@
                                     key="search.text"/>
                             </div>
                             <div class="home_search_content">
-                                <form method="post" name="searchTours">
+                                <form method="get">
                                     <div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
                                         <div class="input-group">
                                             <div class="rs-select2 js-select-simple select--no-search">

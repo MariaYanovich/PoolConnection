@@ -36,7 +36,7 @@
         <div class="container-login100"
              style="background-image: url('${pageContext.request.contextPath}/resources/img/bg-01.jpg');">
             <div class="wrap-login100">
-                <form class="login100-form validate-form" method="post">
+                <form method="post">
                     <span class="login100-form-logo"><i
                             class="zmdi zmdi-landscape"></i>
                     </span>
@@ -56,7 +56,7 @@
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn" type="submit"
                                 name="command"
-                                value="redirect_to_submit_buy_page">
+                                value="REDIRECT_TO_SUBMIT_BUY_PAGE">
                             OK
                         </button>
                     </div>
