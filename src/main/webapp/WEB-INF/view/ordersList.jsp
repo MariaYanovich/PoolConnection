@@ -51,7 +51,7 @@
                                 <td><c:out value="${order.price}"/></td>
                                 <td>
                                     <c:if test="${order.orderStatus=='ACTIVE'}">
-                                        <form method="post">
+                                        <form method="get">
                                             <button class="bot1" type="submit"
                                                     name="command"
                                                     value="CANCEL_BUYING_TOUR">

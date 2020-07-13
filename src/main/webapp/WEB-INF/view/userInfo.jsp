@@ -133,7 +133,7 @@
                     <tr>
                         <td><fmt:message key="userInfo.delete"/></td>
                         <td>
-                            <form method="post">
+                            <form method="get">
                                 <button class="bot1" type="submit"
                                         name="command"
                                         value="DELETE_CLIENT">

@@ -155,7 +155,7 @@
                                             </div>
                                         </div>
                                         <div style="padding-top: 5px">
-                                            <form method="post">
+                                            <form method="get">
                                                 <c:if test="${tour.tourStatus=='HOT'}">
                                                     <button class="btn btn-info"
                                                             aria-label="Hot"
@@ -269,7 +269,7 @@
                                             </div>
                                             <div style="padding-top: 5px">
                                                 <c:if test="${sessionScope.role =='CLIENT'}">
-                                                    <form method="post"
+                                                    <form method="get"
                                                           action="${pageContext.request.contextPath}/">
                                                         <button class="btn btn-info"
                                                                 type="submit"
